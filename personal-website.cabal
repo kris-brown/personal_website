@@ -1,0 +1,77 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: aa82f227b9691b3a007952ef812348bb5335f4a56fecd80d5ccd352efed28854
+
+name:           personal-website
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/kris-brown/personal_website#readme>
+homepage:       https://github.com/kris-brown/personal_website#readme
+bug-reports:    https://github.com/kris-brown/personal_website/issues
+author:         Kristopher Brown
+maintainer:     ksb `at` stanford.edu
+copyright:      2019 Kristopher Brown
+license:        BSD3
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/kris-brown/personal_website
+
+library
+  exposed-modules:
+      Anki
+      Parse
+      Site
+  other-modules:
+      Paths_personal_website
+  hs-source-dirs:
+      src
+  build-depends:
+      aeson
+    , attoparsec
+    , base >=4.7 && <4.10
+    , bytestring
+    , hakyll
+    , http-conduit
+    , latex-formulae-hakyll
+    , latex-formulae-image
+    , latex-formulae-pandoc
+    , orgmode-parse
+    , pandoc-types
+    , raw-strings-qq
+    , regex-compat
+    , text
+    , yaml
+  default-language: Haskell2010
+
+executable site
+  main-is: Main.hs
+  other-modules:
+      Paths_personal_website
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , attoparsec
+    , base >=4.7 && <4.10
+    , bytestring
+    , hakyll
+    , http-conduit
+    , latex-formulae-hakyll
+    , latex-formulae-image
+    , latex-formulae-pandoc
+    , orgmode-parse
+    , pandoc-types
+    , personal-website
+    , raw-strings-qq
+    , regex-compat
+    , text
+    , yaml
+  default-language: Haskell2010

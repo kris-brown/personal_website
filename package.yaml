@@ -1,0 +1,44 @@
+name:                personal-website
+version:             0.1.0.0
+github:              "kris-brown/personal_website"
+license:             BSD3
+author:              "Kristopher Brown"
+maintainer:          "ksb `at` stanford.edu"
+copyright:           "2019 Kristopher Brown"
+
+extra-source-files:
+- README.md
+
+
+description:         Please see the README on GitHub at <https://github.com/kris-brown/personal_website#readme>
+
+dependencies:
+- base >= 4.7 && < 4.10
+- hakyll
+- orgmode-parse
+- latex-formulae-hakyll
+- latex-formulae-pandoc
+- latex-formulae-image
+- text
+- attoparsec
+- pandoc-types
+- regex-compat
+- raw-strings-qq
+- aeson
+- http-conduit
+- bytestring
+- yaml
+
+library:
+  source-dirs: src
+
+executables:
+  site:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - personal-website

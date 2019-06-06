@@ -1,0 +1,2235 @@
+#+TITLE: Algebra: Chapter 0 (Aluffi) 
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{mathtools}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{mathrsfs}
+#+LATEX_HEADER: \usepackage{tikz-cd}
+#+LATEX_HEADER: \usepackage{tikz}
+#+OPTIONS: tex:imagemagick
+* Info
+- Special tags: 
+ - integers (page numbers)
+ - nocard (don't make a Anki Flashcard)
+ - todo (needs work)
+
+- Things enclosed in ## any text ## will be clozed on flashcards 
+- LaTeX triggered by closing within '$'
+
+* Chapter 1: Preliminaries (Set Theory and Categories)
+** Section 1: Preliminaries (Set Theory and Categories)
+*** Part 1: Naive Set Theory 
+**** Notes
+ - "What is an element" is a forbidden question in naive set theory. The buck most stop somewhere 
+ - We pretend that a 'universe' of elements is available to us, and we draw from this universe to construct elements/sets we need.
+ - (Definitions provided for sets/set builder notation/quantifiers)
+*** Part 2: Inclusion of sets 
+**** Notes 
+ - Definitions given for subset, power set, and cardinality 
+ - Alternative way of thinking of subset relation: $S \subseteq T := s \in S \implies s \in T$
+*** Part 3: Operations on sets 
+**** Notes
+ - Definitions for union, intersection, disjoint sets, the complement
+   of /T/ in /S/ (i.e. the difference set) are given 
+*** Part 4: Disjoint unions, products 
+**** Notes
+ - These operations don't produce a unique set, but produce a set unique up to isomorphism.
+   - We produce "copies" of /S/ and /T/ (called S' and T') with the property that these copies are disjoint, and then take their union
+   - On the subject of this being unique only up to isomorphism: "Whatever it means to produce 'copy' of a set, surely there are many ways to do so"
+ - Disjoint union of /S/ and /T/, denoted $S \amalg T$
+   - Has the same kind of ambiguity as disjoint union, but by convention we have a canonical set within the isomorphism class: ordered pairs of elements of /S/ and /T/  
+*** Part 5: Equivalence relations, partitions, quotients 
+**** Notes
+ - Defines a relation as a subset of a product of a set with itself
+ - Defines equivalence relations as relations which satisfy reflexivity, symmetry, transitivity
+ - Defines quotient of /S/ with respect to the equivalence relation ~ to be the set of equivalence classes, denoted $S/\sim$ 
+*** Exercises
+**** <<E1.1.1>>
+***** Question
+ - Locate a discussion of Russell's paradox and understand it
+***** Solution  
+ - https://plato.stanford.edu/entries/russell-paradox/
+ - Problem with naive set theory when considering all sets which are not contained in themselves
+ - Naive comprehension: $\exists A: \forall x: (x \in A \equiv \phi)$
+ - There is a set /A/ such that, for any object /x/, /x/ is an element of /A/ iff the condition expressed by $\phi$ holds.
+ - Russell's paradox arises by taking $\phi$ to be the formula $x \notin x$ 
+**** <<E1.1.2>> :nocard:
+***** Question
+ - Prove that if $\sim$ is an equivalence relation on a set /S/, then the corresponding family $\mathscr{P}_\sim$ is indeed a partition of /S/: that is, its elements are nonempty, disjoint, and their union is /S/.
+ - Definition of the equivalence class of an element $a \in S$, denoted $[a]_\sim$
+ - $[a]_\sim := \{ b \in S | \ b \sim a\}$
+***** Solution
+ - Nonempty:
+   - ## $a \sim a$ ##, so every equivalence class has at least one member
+ - Disjoint:
+   - if $b \in [a]_\sim$ and $[c]_\sim$, we need to prove that $[a]_\sim = [c]_\sim$
+   - The premise allows us to conclude $a \sim b \land b \sim c$, and ##the transitivity of $\sim$ ## allows us to conclude $a \sim c$. Therefore $c \in [a]_\sim$ so $[a]_\sim = [c]_\sim$
+   - Union is /S/ because ##each member of /S/ belongs in /some/ equivalence class (due to reflexivity)##. No member of /S/ will be 'missing' when we union the equivalence classes.
+**** <<E1.1.3>>
+***** Question
+ - Given a partition $\mathscr{P}$ on a set /S/, show how to define a relation $\sim$ on /S/ such that $\mathscr{P}$ is the corresponding partition
+***** Solution
+ - A relation is a subset of $S \times S$. Define $\sim$ such that $a \sim b$ iff /a/ and /b/ are in the same partition
+**** <<E1.1.4>>
+***** Question
+ - How many different equivalence relations may be defined on the set {1,2,3}?
+***** Solution
+ - The number of different partitionings is 5.
+ - $[1,2,3],[1,2]+[3],[2]+[1,3],[1]+[2,3],[1,2,3]$
+**** <<E1.1.5>>
+***** Question
+ - Give an example of a relation that is reflexive+symmetric but not transitive.
+ - What happens if you attempt to use this relation to define a partition on the set?
+***** Solution
+ - $x \sim y \iff abs(x-y) < 3$ as a relation over $\mathbb{Z}$
+ - You get a contradiction (All integers end up in the same equivalence class, even though it is not true that $\forall x,y \in \mathbb{Z}: x \sim y$ )
+**** <<E1.1.6>>
+***** Question
+ - Define a relation on $\mathbb{R}$ as $a \sim b \iff b - a \in \mathbb{Z}$
+ - Prove that this is an equivalence relation, and find a "compelling" description of $\mathbb{R}/_\sim$
+ - Do the same for the relation $\approx$ on the plane $\mathbb{R} \times \mathbb{R}$ defined by $(a_1,a_2) \approx (b_1,b_2) \iff b_1 - a_1 \in \mathbb{Z} \land b_2 - a_2 \in \mathbb{Z}$ 
+***** Solution
+ - $a - a = 0 \in \mathbb{Z}$
+ - $a - b \in \mathbb{Z} \implies b - a = -1\cdot (b-a) \in \mathbb{Z}$
+ - Assume: $x=a-b\in \mathbb{Z}\ \land\ y=b-c \in \mathbb{Z}$
+ - $\implies a-c = x + y \in \mathbb{Z}$
+ - This is the reals mod 1
+ - Same argument for plane. Could think of this as a 2-D lattice, with the equivalence class being the 'canonical point' in $0 \leq x < 1$ and $0 \leq y < 1$ along with all of its periodic images. 
+** Section 2: Functions between sets
+*** Part 1: Definition
+**** Notes
+ - The means through which sets interact
+ - Can think of $A \xrightarrow{f} B$ as a subset of $A \times B$ called the /graph/ of $f$, but we need the constraint $(\forall a \in A)(\exists !b \in B) f(a)=b$ 
+ - The /action/ of a function on an element $a \in A$ is indicated as $a \mapsto f(a)$
+ - The collection of all functions from /A/ to /B/ is itself a set, denoted $B^A$
+   - We can think of $B^A$ as asubset of the power set of $A \times B$
+ - Every set is equipped with a special function, the identity
+ - A function can be 'restricted' to a subset of its domain 
+*** Part 2: Examples: Multisets, indexed sets
+**** Notes  
+ - A multiset  (set with multiplicities) can be thought of as a function from $S \rightarrow \mathbb{N}$
+ - Indexed lists can be thought of as a function $\mathbb{N} \rightarrow S$ 
+*** Part 3: Composition of functions
+**** Notes
+  - $(g \circ f)(a) := g(f(a))$ 
+  - Denoted in a commutative diagram like this: $\begin{tikzcd} A \arrow[r, "f"] \arrow[rd, "g \circ f"'] & B \arrow[d, "g"] \\ & C \end{tikzcd}$
+  - Function composition is commutative
+    - Expressed as an equation: $h \circ (g \circ f) = (h \circ g) \circ f)$
+    - Expressed as a commutative diagram: $\begin{tikzcd}A \arrow[r, "f"] \arrow[rr, "g \circ f"', bend right] & B \arrow[r, "g"] \arrow[rr, "h \circ g", bend left] & C \arrow[r, "h"] & D\end{tikzcd}$
+  - The identity function is special with respect to composition:
+    - For all functions (say /A/ to /B/), $id_B \circ f = f$ and $f \circ id_A = f$
+    - $\begin{tikzcd} A \arrow[r, "f"] \arrow[rr, "f"', bend right] & B \arrow[r, "id_B"] & B\end{tikzcd}$ 
+    - $\begin{tikzcd} A \arrow[r, "id_A"] \arrow[rr, "f"', bend right] & A \arrow[r, "f"] & B \end{tikzcd}$
+*** Part 4: Injections, surjections, bijections
+**** Notes
+ - Graphically, we represent a bijection with a commutative diagram:
+   - $\begin{tikzcd}A \arrow[r, "f"] \arrow[rr, "id_A"', bend right] & B \arrow[r, "f^{-1}"] & A\end{tikzcd}$
+   - $\begin{tikzcd}B \arrow[r, "f^{-1}"] \arrow[rr, "id_B"', bend right] & A \arrow[r, "f"] & B\end{tikzcd}$
+**** Definitions
+***** <<D1.2.1>> :11:
+****** Term
+- $A \hookrightarrow B$
+****** Def 
+ - An /injective/ map from set /A/ to /B/. No two elements in /A/ are mapped to the same element in /B/.
+***** <<D1.2.2>>  :11:
+****** Term 
+ - $A \twoheadrightarrow B$
+****** Def 
+ - A /surjective/ map from /A/ to /B/. The image is equal to /B/.
+**** Notes
+ - Defines injectivity, surjectivity, bijectivity 
+*** Part 5: Injections, surjections, bijections (second viewpoint)
+**** Propositions
+***** <<P1.2.1>> :12:
+****** Proposition
+ - Assume $A \ne \varnothing$ and let $A \xrightarrow B$ be a function
+   1. /f/ has a left inverse iff /f/ is injective
+   2. Likewise, /f/ has a right inverse iff /f/ is surjective
+****** Proof
+ - Prove $\Rightarrow$:
+   - If /f/ has a left inverse, then there exists a /g/ such that $g\circ f = id_A$
+   - Let $a \ne b$. Then ##$g(f(a))\ne g(f(b))$ ## But this means that /g/ sent ## /f(a)/ and /f(b)/ to different elements##. This would not be possible if /f(a)=f(b)/, thus our assumption that /f/ had a left inverse implied that /f/ was injective.
+   - Prove $\Leftarrow$:
+     - ##Can just map each element in the image of /f/ to its preimage. For any elements not in the image, they can be mapped to any element we want (some element exists for them because we assumed $A \ne \varnothing$.##   
+*** Part 6: Monomorphisms and epimorphisms
+**** Notes
+ - A more general concept which, in the domain of sets in functions, is tantamount to injectivity/surjectivity 
+**** Definitions 
+***** <<D1.2.3>> :14:
+****** Term 
+ - A /monomorphism/ $A \xrightarrow{f} B$ in $Set$
+****** Def   
+ - For all sets /Z/ and all functions $Z \xrightarrow{g,h} A$
+ - $f \circ g = f \circ h \implies g = h$
+**** Propositions
+***** <<P1.2.3>> :14:
+****** Proposition
+ - A function is injective iff it is a monomorphism
+****** Proof
+ - Prove $\Rightarrow$:
+   - From [[P1.2.1]] we know that /f/ has ##a left inverse##.
+   - ##Left-compose with the inverse: $f^{-1} \circ f \circ g = f^{-1} \circ f \circ h$ ##
+   - Composing with identity does not change the function, so /g=h/ 
+ - Prove $\Leftarrow$:
+   - Suppose $\{e\}\xrightarrow{g,h}A$. Because each function is solely defined by to which element /e/ is sent to, so we can think of /g/, /h/ as ##elements of /A/ ##.
+   - The monomorphism equation therefore becomes ## /f(g)=f(h)/ implies /g=h/,## which is precisely the injectivity criterion.
+*** Part 7: Basic examples 
+**** Examples 
+***** <<X1.2.4>> :15:
+ - The natural surjections from a ##product set## 
+ - $\begin{tikzcd} & A \times B \arrow[ld, "\pi_A", two heads] \arrow[rd, "\pi_B", two heads] &  \\ A &                                                                          & B \end{tikzcd}$
+***** <<X1.2.5>>  :15:
+ - There are natural injections to a ##disjoint union##
+ - $\begin{tikzcd}A \arrow[rd, hook] &            & B \arrow[ld, hook'] \\                   & A \amalg B &                    \end{tikzcd}$
+***** <<X1.2.6>>  :15:
+- There is a canonical surjection sending an element to its ##equivalence class##
+- $A \twoheadrightarrow A/\sim$ 
+*** Part 8: Canonical decomposition
+**** Notes
+ - Injective/surjective maps are the basic "bricks" out of which /any/ function may be constructed.
+ - Given any $A \xrightarrow{f} B$
+   - First we note that $f$ determines an equivalence relation on $A$ where $a \sim a' := f(a)=f(a')$
+   - $\begin{tikzcd} A \arrow[rrr, "f", bend left] \arrow[r, two heads] & A/\sim \arrow[r, "\tilde{f}"] & im\ f \arrow[r, hook] & B \end{tikzcd}$
+   - Every function is the composition of a surjection, an isomorphism, then an injection.
+*** Part 9: Clarification
+**** Notes
+ - The operation $A \amalg B$ is /not/ "well-defined" for sets
+ - The main features of "sets" obtained by $\amalg,\times,/\sim$ are not "what elements they contain" but rather "their relationship with other sets"
+*** Exercises
+**** <<E1.2.1>>
+***** Question
+ - How many different bijections are there between a set and itself?
+***** Solution
+ - /|S|!/ (/n/ places to send first element, /n-1/ places to send second given a first choice, etc.)
+**** <<E1.2.2>>
+***** Question
+ - Prove that /f/ has a right inverse iff it is surjective
+***** Solution
+ - Prove if:
+   - If /f/ is surjective, let $f^{-1}(b)$ maps to ## an arbitrary element in the preimage of /b/ ## (the fact /f/ is surjective tells us this set is not empty)
+   - $f(f^{-1}(b))\mapsto b$, so $f \circ f^{-1} = id_B$
+ - Prove only-if:
+   - Suppose there exists a $b' \in B$ s.t. no $a \in A$ maps to it.
+   - ## $b'=f^{-1}(f(b'))$ but we also assumed no such $f(b')$ (which is in /A/ and maps to $b'$) could exist,## thus /f/ must be surjective.
+**** <<E1.2.3>> :nocard:
+***** Question
+ 1. Prove that the inverse of a bijection is a bijection.
+ 2. Prove the composition of two bijections is a bijection. 
+***** Solution
+ 1. 
+    - To show that $B \xrightarrow{f^{-1}}A$ is a bijection, we need to find a function $(f^{-1})^{-1}$ such that $(f^{-1})^{-1} \circ f^{-1} = id_B$
+    - /f/ is this function: $\forall a \in A:f^{-1}(f(a))=a$
+    - $\forall a \in A: f(f^{-1}(f(a)))=f(a)$
+    - $\forall b \in B: f(f^{-1}(b))=b$ (switch to be from surjectivity of /f/)
+ 2. 
+    - If $A\xrightarrow{f}B$ and $B\xrightarrow{g}C$ are injective, then $A\xrightarrow{f \circ g}C$ is injective
+    - $a' \ne a'' \implies f(a')\ne f(a'')$ (from injectivity of /f/)
+    - $f(a')\ne f(a'') \implies g(f(a'))\ne g(f(a''))$ (from injectivity of /g/)
+    - The last implied statement was what we wanted to prove if $A\xrightarrow{f}B$ and $B\xrightarrow{g}C$ are surjective, then $A\xrightarrow{f \circ g}C$ is surjective
+    - $\forall c \in C: \exists b \in B$ s.t. $g(b)=c$ (from surjectivity of /g/)
+    - $\forall b \in B: \exists a \in A$ s.t. $f(a)=b$ (from surjectivity of /f/)
+    - Thus in the first statment we can replace $b \in B$ with some $f(a)$ for some $a \in A$
+    - $\forall c \in C: \exists a \in A$ s.t. $g(f(a))=c$ 
+**** <<E1.2.4>>
+***** Question  
+ - Prove that "isomorphism" is an equivalence relation on any set of sets
+***** Solution
+ - Identity: $\forall S \in Set: S \cong S$ ($id_S = id_S^{-1}$)
+ - Symmetry:  $\forall S ,T \in Set: S \cong T \implies T \cong S$ (swap /f/ and $f^{-1}$ to change order - we showed in [[E1.2.3]] that the inverse of a bijection is a bijection)
+ - Transitivity (we showed in [[E1.2.3]] that the composition of two bijections is a bijection)
+**** <<E1.2.5>>
+***** Question
+ - Define an epimorphism and prove it is the same as surjectivity for sets and functions.
+***** Solution
+ - Epimorphism for sets and functions is a function $A\xrightarrow{f}B$ such that $\forall Z \in Set$ and $\alpha',\alpha'' \in B \rightarrow Z$ such that $\alpha'  \circ f =  \alpha''  \circ f\implies \alpha' = \alpha''$
+ - Suppose there exists an element /b/ that no /a/ maps to.
+ - If that is the case, then $\alpha \circ f$ could equal $\alpha' \circ f$ even if $\alpha$ and $\alpha'$ differ on the input of /b/.
+ - This is a contradiction, so /f/ must be surjective.
+**** <<E1.2.6>>
+***** Question
+ - Explain how any function $A \xrightarrow{f} B$ determines a section of $A \times B \xrightarrow{\pi_A} A$
+***** Solution
+ - Consider all pairs (/a/, f(a))
+**** <<E1.2.7>>
+***** Question
+ - Prove that the graph $\Gamma_f$ of $A \xrightarrow{f} B$ is isomorphic to /A/
+***** Solution
+ - The graph has all pairs $\in A \times B$ s.t. $(a,f(a))$
+ - We need to show that  $\Gamma_f \xrightarrow{\pi_A} A$ is a bijection
+ - It is injective because functions cannot assign multiple values of /B/ to a single /A/, thus there is no more than one pair for each value of /A/
+ - It is surjective because functions assign a value for each element of /A/
+**** <<E1.2.8>>
+***** Question
+ - Describe as explictly as you can all terms in the canonical decomposition of the function $\mathbb{R}\rightarrow \mathbb{C}$ given by $r \mapsto e^{2\pi i r}$
+***** Solution
+ - This function maps the real number line onto the unit circle in complex space. The first term in the decomposition quotients the real line into equivalence classes $a \sim b \iff a-b = n \cdot 2\pi$
+ - The isomorphism associates with each equivalence class a point on the unit circle (the image of the original function, a subset of the complex plane)
+ - The injection injects this unit circle into the complex plane  
+**** <<E1.2.9>>
+***** Question
+ - Show that if $A' \cong A''$ and $B' \cong B''$ and further $A' \bigcap B'= \varnothing$ and $A'' \bigcap B'' = \varnothing$
+ - Then $A' \bigcup B' \cong A'' \bigcup B''$
+***** Solution
+ - These are isomorphic because they have the same number of elements (/n_A/ + /n_B/) but we cannot say anything more
+**** <<E1.2.10>>
+***** Question
+ - Show that if /A/ and /B/ are finite sets, then $|B^A|=|B|^{|A|}$
+***** Solution
+ - A function has /|B|/ independent choices for where to put each element of /A/, making $|B|^{|A|}$ possible functions
+**** <<E1.2.11>>
+***** Question
+ - Given that $|B^A|=|B|^{|A|}$, it's not unreasonable to use $2^A$ to denote the set of functions from /A/ to a set with 2 elements. 
+ - Prove that there is a bijection between $2^A$ and the /power-set/ of /A/.
+***** Solution
+ - A subset is isomorphic some assignment of /True/ or /False/ to each element of a set (null set is assigning /False/ to everything, the original set is returned by assigning /True/ to everything)
+ - Any possible subset is therefore a function $A \rightarrow 2$
+ - So the set of all subsets is the set of functions $A \rightarrow 2$, or $2^A$
+** Section 3: Categories 
+*** Part 1: Definition
+**** Definitions
+***** <<D1.3.1>> :19:
+****** Term 
+ - A /category/ 
+****** Def 
+ - A class of objects of the category 
+ - For every two objects /A/ and /B/, a set of morphisms /Hom(A,B)/
+ - For every object /A/, there exists at least one morphism in /Hom(A,A)/ called the identity
+ - One can compose morphisms with an /associative/ function $\circ$ 
+ - The identity morphisms behave as expected.
+**** Notes
+ - If the collection of objects for a category is a set, then the category is /small/, but this is just a small detail
+ - Special note that $Hom_\mathcal{C}(A,B)$ is disjoint with $Hom_\mathcal{C}(C,D)$ unless $A=C \land B=D$ (this is obviously true with sets and functions)
+*** Part 2: Examples 
+**** Notes 
+ - /Morphisms/ are the most important constituents of a category, but it is "psychologically irresistable" to think of a category in terms of its objects. 
+ - There are possibly many valid choices for morphisms for a category even with objects fixed.
+**** Examples 
+***** <<X1.3.3>> :20:
+ - Suppose /S/ is a set and $\sim$ a reflexive and transitive (not necessarily symmetric) relation. We can define a category with elements of /S/ as objects.
+   - $\forall a,b \in S: Hom(a,b) = \{(a,b)\}\ if\ a \sim b\ else\ \varnothing$
+   - Because this is a 'thin' category (at most one morphism between objects), the composition law ##is unambiguous (there is no /choice/ to be made)##. So all we must do is verify all laws hold.
+     - Identity morphisms: exist b/c $\sim$ is ##reflexive ($a \sim a$) ##
+     - Composition is possible because of ##transitivity ($\forall f \in Hom(a,b), g \in Hom(b,c): \exists gf \in Hom(a,c)$, given by $(a,b) \circ (b,c) = (a,c)$)##
+     - Associativity holds, too
+ - ##The discrete category## is a special case of this, where the relation is just the equivalence relation '='.
+***** <<X1.3.4>> :22:
+ - Any set can be made into a ##category## with subsets as objects and a single morphism between $S_1,S_2$ iff $S_1 \subseteq S_2$
+***** <<X1.3.5>> :22:
+ - Let $\mathcal{C}$ be a category and /A/ be an object. One can define a category $\mathcal{C}_A$ where objects are /morphisms/ in $\mathcal{C}$ with target of /A/ and whose morphisms are /commutative-triangle-diagrams/ of $\mathcal{C}$.
+   - Suppose we have two objects in this category: $\begin{tikzcd} Z_1 \arrow[d, "f_1"'] & Z_2\arrow[d, "f_2"] \\ A                     & A                   \end{tikzcd}$ 
+   - Morphisms look like these, subject to the constraint that they commute: ## $\begin{tikzcd}Z_1 \arrow[rr, "\sigma"] \arrow[rd, "f_2"'] &   & Z_2 \arrow[ld, "f_2"] \\                                            & A &                      \end{tikzcd}$ ##
+   - From this perspective we can verify the axioms:
+     - Identity is satisfied because we know this diagram exists and commutes: ## $\begin{tikzcd} Z \arrow[rr, "1_Z"] \arrow[rd, "f"'] &   & Z \arrow[ld, "f"] \\                                     & A &                  \end{tikzcd}$ ##
+     - Two morphisms are composed by putting their triangles side by side (the outer triangle is the result of composition): ## $\begin{tikzcd} Z_1 \arrow[rd, "f_1"'] \arrow[r, "\sigma"] \arrow[rr, "\tau \circ \sigma", bend left=49] & Z_2 \arrow[d,"f_2"] \arrow[r, "\tau"] & Z_3 \arrow[ld, "f_3"] \\                                                                                         & A                              &                      \end{tikzcd}$ ##
+ - This is called a ## /slice/ ## category. A ## /coslice/ ## category could be obtained by considering morphisms /from/ /A/.
+***** <<X1.3.6>> :24:
+ - Let's apply the /slice/ category [[E1.3.5]] to the category of integers under the relation $\leq$.
+ - Suppose we slice with $A=3$, so that $Obj(\mathcal{C}_3)$ are ## morphisms to $3$ ## (the original category was thin, so the objects are isomorphic to ## $\mathbb{Z}_{\leq 3}$ ##).
+ - We can think of this as a "subcategory" of the original category.
+***** <<X1.3.8>> :24:
+ - Concrete instance of a /coslice/ category. Take the co-slice of $Set$ with respect to a singleton set {*}. An object in $Set^{ * }$ is ##a morphism $\{ * \} \rightarrow S$ ##. This is tantamount to a picking a set and ##a particular element in it##.
+ - A morphism $(S,s)\rightarrow (T,t)$ corresponds to a set-function $S\xrightarrow{\sigma}T$ such that ## $\sigma(s) \mapsto t$ ##
+ - This construction is called a ##"pointed set"##. We will see how groups are like ##pointed sets (with an identity element distinguished that must be preserved by homomorphisms)##.
+***** <<X1.3.9>> :24:
+ - Like the slice categories, we now consider a category derived from an existing category and /two/ of its objects. Let $\mathcal{C}_{A,B}$ be defined by essentially the same procedure.
+   - Objects are pairs of morphisms in $\mathcal{C}$ to /A/ and /B/, and morphisms (between, say, $(f_1,g_1)$ and $(f_2,g_2)$ are diagrams like the following that commute: ## $\begin{tikzcd} & & A \\ Z_1 \arrow[r, "\sigma"] \arrow[rru, "f_1", bend left] \arrow[rrd, "g_1"', bend right] & Z_2 \arrow[ru, "f_2"] \arrow[rd, "g_2"] &   \\ & & B\end{tikzcd}$ ##
+   - Flipping the arrows gives an analogous category related to the coslice category.
+***** <<X1.3.10>> :25:
+ - Consider the /fibered/ version of [[E1.3.9]]. Instead of fixing two objects, we fix two /morphisms/ (say $A \xrightarrow{\alpha} C, B \xrightarrow{\beta} C$) in a category to generate a new category $\mathcal{C}_{\alpha,\beta}$. 
+ - Objects are pairs of morphisms from a common source that commute: ## $\begin{tikzcd}   & A \arrow[rd, "\alpha"] &   \\Z \arrow[ru, "f"] \arrow[rd, "g"'] &   & C \\     & B \arrow[ru, "\beta"'] &  \end{tikzcd}$ ##
+ - Morphisms look like this: ## $\begin{tikzcd}                     &          & A \arrow[rd, "\alpha"] &   \\ Z_1 \arrow[r, "\sigma"] \arrow[rru, "f_1", bend left] \arrow[rrd, "g_2"', bend right] & Z_2 \arrow[ru, "f_2"] \arrow[rd, "g_2"'] &    & C \\       &    & B \arrow[ru, "\beta"'] &  \end{tikzcd}$ ##
+ - Likewise there is a dual category $\mathcal{C}^{\alpha,\beta}$ where $\alpha$ and $\beta$ have a common 'source'.
+*** Exercises 
+**** <<E1.3.1>>
+***** Question
+ - Let $\mathcal{C}$ be a category. Consider $\mathcal{C}^{op}$ which is the same category with the arrows reversed. Show that this is a valid category.
+***** Solution
+ - Each object has the same identity arrow
+ - For each $f \in Hom_{\mathcal{C}^{op}}(a,b), g \in Hom_{\mathcal{C}^{op}}(b,c)$, we take $fg$ to be $g'f'$ where $f' \in Hom_\mathcal{C}(b,a), g' \in Hom_\mathcal{C}(c,b)$
+ - Because $f \circ g \circ h$ is associative in $\mathcal{C}$ and the associativity formula holds even when $h$ and $f$ are reversed, composition is associative in $\mathcal{C}^{op}$
+**** <<E1.3.2>>
+***** Question
+ - If $A$ is a finite set, how large is $End_{Set}(A)$?
+***** Solution
+ - Morphisms in $Set$ are set-functions, so $|A^A| = |A|^{|A|}$
+**** <<E1.3.3>>
+***** Question
+ - Formulate precisely what it means to say $1_a = (a,a)$ is an identity with respect to composition in the category generated by a set and a reflexive+transitive relation 
+ - $\forall a,b \in S: Hom(a,b) = \{(a,b)\}\ if\ a \sim b\ else\ \varnothing$ 
+***** Solution
+ - For all $b \in S$ and $f \in Hom(a,b)$ and $g \in Hom(c,a): 1_a \circ f = f$ and $g \circ 1_a = g$
+**** <<E1.3.4>>
+***** Question
+ - Can we define a category using the relation '<' on the set $\mathbb{Z}$?
+***** Solution
+ - No, because it is not reflexive (there are no self arrows so no identities are possible).
+**** <<E1.3.6>>
+***** Question :nocard:
+ - Define a category $\mathcal{V}$ by taking $Obj(\mathcal{V})=\mathbb{N}$ and letting $Hom_\mathcal{V}(n,m)=$ the set of $m \times n$ matrices with real entries
+ - Use the product of matrices to define composition. Does this category 'feel familiar?
+***** Solution
+ - $n \times n$ Identity matrices are identity morphisms (any morphisms/matrix composed on the left or right with an identity matrix will be unchanged)
+ - Matrix multiplication is defined for pairs of matrices where the inner dimension is the same, just as composition of morphisms is defined with the inner object is the same. Matrix multiplication is associative.
+**** <<E1.3.8>>
+***** Question
+ - A /subcategory/ $\mathcal{C'}$ consists of a collection of objects of $\mathcal{C}$ with morphisms $Hom_\mathcal{C'}(A,B) \subseteq Hom_\mathcal{C}(A,B)$ such that category laws are satisfied. 
+ - A subcategory is /full/ if $\forall A,B \in Obj(\mathcal{C'}): Hom_\mathcal{C'}(A,B) = Hom_\mathcal{C}(A,B)$ (no morphisms were 'removed' in order to maintain composition laws
+ - Construct a category of /infinite-sets/ and explain how it may be viewed as a /full/ subcategory of $Set$.
+***** Solution
+ - $Set_\infty$ clearly has a subset of the objects in $Set$
+ - There are no morphisms that would be removed by removing finite sets. Suppose some function /f/ between infinite sets was the result of composition with a finite function /g/: $f = g \circ g'$ would require /f/ to have a finite codomain, while $f = g' \circ g$ would require /f/ to have a finite domain.
+**** <<E1.3.10>>
+***** Question
+ - Since the objects of $\mathcal{C}$ are not (necessarily) sets, it is not clear how to make sense of the notion of 'subobject' in general. In some situations it /does/ make sense to talk about subobjects, and the subobjects of /A/ are in one-to-one correspondance with the morphisms $A \rightarrow \Omega$ for a fixed, special object $\Omega$ of $\mathcal{C}$. Show that $Set$ has a subobject classifier.
+***** Solution
+ - $\Omega \cong Bool$ 
+ - There are $2^{|A|}$ subsets of any given set /A/, and there are $|Bool|^{|A|}$ morphisms from /A/ to /Bool/ in this category, so the subobjects can be brought in one-to-one correspondance.
+** Section 4: Morphisms 
+*** Part 1: Isomorphisms
+**** Definitions
+***** <<D1.4.1>> :27:
+****** Term
+ - A morphism $f \in Hom_\mathcal{C}(A,B)$ is an /isomorphism/
+****** Def
+ - $\exists g \in Hom_\mathcal{C}(B,A)$ s.t.:
+ - $gf = 1_A, fg = 1_B$
+ - An /automorphism/ is a special case when /A=B/
+**** Notes 
+ - "Element-wise" definitions of injectivity/surjectivity/bijectivity would not transfer well into the categorical setting (objects in a category do not in general have "elements"), so thinking of them in terms of epi/mono/iso-morphisms was also a good thing to do.
+ - Two objects within a category are called /isomorphic/ if there exists an isomorphism between them. The isomorphisms of $Set$ are precisely the bijections.
+ - The set of automorphisms of $A \in Obj(\mathcal{C})$ is denoted $Aut_\mathcal{C}(A)$
+   - It is a subset of morphisms from $A\rightarrow A$, $End_\mathcal{C}(A)$
+   - Composition is closed within $Aut_\mathcal{C}(A)$
+   - $1_A \in Aut_\mathcal{C}(A)$
+   - Every element in $Aut_\mathcal{C}(A)$ has an inverse also in $Aut_\mathcal{C}(A)$
+   - So $Aut_\mathcal{C}(A)$ is a /group/!
+*** Part 2: Monomorphisms and Epimorphisms
+**** Definitions
+***** <<D1.4.7>> :29:
+****** Term
+ - A morphism $f \in Hom_\mathcal{C}(A,B)$ is a /monomorphism/
+****** Def
+ - $\forall Z \in Obj(\mathcal{C})$ and $\alpha',\alpha'' \in Hom_\mathcal{C}(Z,A)$:
+ - $f \circ \alpha' = f \circ \alpha'' \implies \alpha'=\alpha''$
+***** <<D1.4.4>> :29:
+****** Term
+ - A morphism $f \in Hom_\mathcal{C}(A,B)$ is a /epimorphism/
+****** Def
+ - $\forall Z \in Obj(\mathcal{C})$ and $\beta',\beta'' \in Hom_\mathcal{C}(B,Z)$
+ - $\beta' \circ f = \beta'' \circ  f \implies \beta'=\beta''$
+**** Notes 
+ - In /thin/ categories, every morphism is uniquely defined for a given pair of objects, thus every morphism is trivially both an epimorphism and monomorphism. This should make us realize that (although in $Set$ it is true that injectivity + surjectivity = bijectivity) it is not the case for a general category that monomorphism + epimorphism = isomorphism
+ - Likewise, the connection between surjectivity and having a right inverse does not hold in general for the categorical analogues.
+*** Exercises
+**** <<E1.4.1>> :nocard:
+***** Question
+ - Composition is defined for /two/ morphisms. If more than two are given, e.g. $A\xrightarrow{f}B\xrightarrow{g}C\xrightarrow{h}D\xrightarrow{i}E$
+ - then one may compose them in several ways, e.g. $(ih)(gf),(i(hg))f,i((hg)f)$
+ - Prove that the result of any such nested composition is independent of the placement of parenthesis
+ - Hint: use induction to show any $f_nf_{n-1}...f_1 = ((...((f_nf_{n-1})f_{n-2})...)f_1)$
+***** Solution
+ - For $n\leq 2$, associative trivially shows our inductive hypothesis is true (base case)
+ - Assume it holds for $n$: $f_nf_{n-1}..f_2\cdot. f_1 = ((...(f_nf_{n-1})f_{n-2})...f_2) \cdot f_1$
+ - $= ((...((f_nf_{n-1})f_{n-2})...)f_1)$
+**** <<E1.4.2>>
+***** Question
+ - Suppose $S$ is a set and $\sim$ a reflexive and transitive (not necessarily symmetric) relation. We can define a category with elements of $S$ as objects
+ - $\forall a,b \in S: Hom(a,b) = \{(a,b)\}\ if\ a \sim b\ else\ \varnothing$  
+ - For what kinds of relations is this category a /groupoid/?
+***** Solution
+ - We also need the relation to be symmetric, i.e. an equivalence relation.
+ - Every morphism is an isomorphism
+**** <<E1.4.3>>
+***** Question
+ - Prove that if $f \in Hom_\mathcal{C}(A,B)$ has a right inverse, then /f/ is an epimorphism
+ - Show that the converse does not hold by giving an explicit example of a category + epimorphism without a right inverse
+***** Solution
+ - For some $\beta',\beta'' \in Hom_\mathcal{C}(B,Z)$ where $\beta'  \circ f = \beta'' \circ f$
+ - ##Post-compose with right-inverse $f^{-1}$ ## to get $\beta'= \beta''$
+ - Let $Ob(\mathcal{C})=\{a,b\}$ with only one non-identity morphism from $a\xrightarrow{f}b$. 
+ - This is a thin category so every morphism is ##an epimorphism##
+ - However /f/ has no right inverse. We need ##a morphism $b\xrightarrow{f^{-1}}a$ such that $f \circ f^{-1} = id_b$, but no such morphism can exist.##
+**** <<E1.4.4>>
+***** Question
+ - Prove that the composition of two monomorphisms is a monomorphism 
+ - Deduce that one can define a subcategory $\mathcal{C}_{mono}$ by taking the same objects in $\mathcal{C}$ and defining $Hom_{\mathcal{C}_{mono}}(A,B)$ to be the subset of $Hom_\mathcal{C}(A,B)$ containing only monomorphisms
+ - Can you define a subcategory $\mathcal{C}_{nonmono}$ by restricting morphisms to only those which are /not/ monomorphisms?
+***** Solution
+ - Let $A\xrightarrow{f}B,B\xrightarrow{g}C$ be monomorphisms and $\alpha,\alpha'$ be morphisms from some object $Z\rightarrow A$
+ $fg\alpha = fg\alpha' \implies f\alpha=f\alpha'$ because ## /g/ is mono## 
+ - $f\alpha = f\alpha' \implies \alpha = \alpha'$ because ## /f/ is mono##
+ - Chaining these two implications together, we get ## $fg\alpha = fg\alpha' \implies \alpha = \alpha'$ ##, i.e. $f \circ g$ is a monomorphism
+ - We have identities and composition, so we can make a category of monomorphisms.
+ - We cannot make a category of non-monomorphisms because ##identity morphisms are monomorphisms##
+** Section 5: Universal Properties 
+*** Part 1: Initial and final objects 
+**** Definitions 
+***** <<D1.5.1>> :31:
+****** Term
+ - An object is /initial/ (or /final/)in a category
+****** Def
+ - Initial: $\forall A \in Obj(\mathcal{C}): |Hom_\mathcal{C}(I,A)|=1$, i.e. there is exactly one morphism /from/ $I$ to any other object
+ - Final: $\forall A \in Obj(\mathcal{C}): |Hom_\mathcal{C}(A,I)|=1$, i.e. there is exactly one morphism /to/ $I$ from any other object
+**** Examples 
+***** <<X1.5.2>> :32:
+ - The category obtained by endowing $\mathbb{Z}$ with the relation $\leq$ has no ##initial## (an integer less than all other integers) nor ##final## (an integer greater than all other integers) object.
+***** <<X1.5.3>> :32:
+ - In $Set$, ##the empty set $\varnothing$ ## is initial (there is a unique function to any other set)
+ - ##Any singleton set## is final ##(there is a unique function from any set /to/ any such set)##
+**** Propositions
+***** <<P1.5.4>> :32:
+****** Proposition
+ - If $I_1,I_2$ are both /initial/ objects in $\mathcal{C}$, then $I_1 \cong I_2$
+ - If $F_1,F_2$ are both /final/ objects in $\mathcal{C}$, then $F_1 \cong F_2$
+ - Furthermore, these isomorphisms are /uniquely/ determined.
+****** Proof
+ - Because $I_1$ is initial, there exists a single morphism $I_1\xrightarrow{f}I_2$ and a single morphism $I_2\xrightarrow{g}I_1$ and a single morphism $I_1\xrightarrow{1_{I_1}}I_1$
+ - The composition law tells us the third morphism is our only possible choice for the result of $f \circ g$
+ - thus $f \circ g = 1_{I_1}$, and $g = f^{-1}$ and $I_1 \cong I_2$
+ - Proof for final objects is identical.
+*** Part 2: Universal Properties 
+**** Notes
+ - Working definition of /universal/ /properties/ (which hopefully suffices until more formal definition involving functors comes later)
+   - A construction /satisfies/ a universal property (or, 'is the solution to a universal problem') when it may be viewed as a /terminal/  (initial or final) object of a category.
+   - The category depends on the context and is usually explained 'in words' (often without mentioning the word category)
+   - E.g. "$\varnothing$ is universal w/r/t the property of mapping to sets" = "$\varnothing$ is initial in the category of $Set$"
+*** Part 3: Quotients
+**** Notes 
+ - Goal is to understand this assertion: "The quotient $A/_\sim$ is universal with respect to the property of mapping $A$ to a set in such a way that equivalent elements have the same image"
+**** Examples 
+***** <<X1.5.4>> 							 :33:
+ - Consider functions $A \xrightarrow{\phi}Z$ with $Z \in Set$ satisfying the property $a' \sim a'' \implies \phi(a')=\phi(a'')$
+ - These functions (morphisms in $Set$) are objects of a category, let's say $\mathcal{C}^{A_\sim}$.
+   - $Obj(\mathcal{C}^{A_\sim}) = \{\phi \ |\ \phi \in Hom_{Set}(A,Z),Z \in Obj(Set), a' \sim a'' \implies \phi(a')=\phi(a'') \}$
+   - These are what morphisms look like: ## $\begin{tikzcd}Z_1 \arrow[rr, "\sigma"] & & Z_2 \\ & A \arrow[lu, "\phi_1"] \arrow[ru, "\phi_2"'] &    \end{tikzcd}$ ## . They are composed just like in the coslice category [[X1.3.5]]
+ - The assertion is tantamount to the claim that the /canonical/ /projection/ $\pi$ (sending each element to its equivalence class, [[X1.2.6]]) is /initial/ in this category.
+ - For an arbitrary $\phi$, there is a unique commutative diagram: ## $\begin{tikzcd}A/\sim \arrow[rr, "\bar{\phi}",dashed] & & Z \\ & A \arrow[lu, "\pi"] \arrow[ru, "\phi"'] &  \end{tikzcd}$ ($\bar{\phi}$ is completely determined by $\phi$) ##
+ - Value of this analysis: anything that satisfies the universal property (e.g. the image of an arbitrary function, /f/) is isomorphic to $A/\sim$. Of course, two things being isomorphic means they share properties - what category theory tells us is that ## two things sharing certain properties means they are isomorphic.##
+*** Part 4: Products 
+**** Propositions 
+***** <<P1.5.1>> :35:
+****** Proposition
+ - The universal property of $A\times B$ is the following, for any set /Z/ and functions $f_A,f_B$: ## $\begin{tikzcd}                                                                                                    &                                                    & A \\Z \arrow[r, "f_A \times f_B", dashed] \arrow[rru, "f_A", bend left] \arrow[rrd, "f_B"', bend right] & A\times B \arrow[ru, "\pi_A"] \arrow[rd, "\pi_B"'] &   \\                                                                                                    &                                                    & B\end{tikzcd}$ ##
+ - $\pi_A,\pi_B$ are the natural projection functions, and $f_A \times f_B$ is the unique morphism induced by $f_A$ and $f_B$ 
+****** Proof
+ - The (unique) definition of $f_A \times f_B$ is forced by making the diagram commute: $f_A \times f_B(z) \mapsto$ ## $(f_A(z),f_B(z))$ ##
+**** Notes 
+ - What is the advantage of viewing products this way? This definition works in any category, whereas the definition involving ordered pairs only works when objects have some notion of 'elements'
+ - We say a category has (finite) products if for all objects /A/, /B/, the category $\mathcal{C}_{A,B}$ has final objects (such a final object consists of some object in $\mathcal{C}$, denoted $A \times B$, and two morphisms $A \times B \rightarrow A$ and $A \times B \rightarrow B$
+ - The product does not have to 'look' like a product. For the category obtained from $\mathbb{Z}$ and $\leq$, the universal property becomes "$\forall z \in \mathbb{Z}$ s.t. $z \leq a \land z \leq b$, we have $z \leq a \times b$" (In this case, $a \times b = min(a,b)$)
+*** Part 5: Coproducts 
+**** Notes 
+ - Reverse the arrows for the discussion of products.
+**** Propositions
+***** <<P1.5.6>> :no:37:
+****** Proposition
+ - The disjoint union is a coproduct in $Set$
+****** Proof
+ - Our arbtirary implementation of the coproduct was to create copies of $A'=\{0\}\times A$ and $B' = \{1\} \times B$ and view the elements of the coproduct as the union.
+ - $\sigma(x) \mapsto \begin{cases} f_A(a)\ \text{if}\ x=(0,a) ,\\ f_B(b)\ \text{if}\ x=(1,b)\end{cases}$
+ - This is forced upon us by commutativity, so it is unique.
+*** Exercises
+**** <<E1.5.1>>
+***** Question
+ - Prove that a final object in a category $\mathcal{C}$ is initial in the opposite category $\mathcal{C}^{op}$
+***** Solution
+ - $Hom_\mathcal{C}^{op}(I,B)=Hom_\mathcal{C}(B,I)$
+ - A final object $I$ in $\mathcal{C}$ has $|Hom_\mathcal{C}(B,I)| = 1$ for all /B/, so in the opposite category $|Hom_\mathcal{C}(I,B)| = 1$, making it an initial object.
+**** <<E1.5.2>>
+***** Question
+ - Prove that $\varnothing$ is the /unique/ initial object in $Set$
+***** Solution
+ - $X = Bool$ exists in $Set$. For any set $S$, $|Hom_{Set}(S,X)|=2^{|S|}$
+ - The only possible cardinality of $S$ for which this value equals 1 is 0. 
+ - Thus no other object in $Set$ can have just one morphism to $Bool$ except for the empty set, thus the empty set is unique in being an initial object.
+**** <<E1.5.3>>
+***** Question
+ - Prove that final objects are unique up to isomorphism
+***** Solution
+ - Let $F_1,F_2$ both be final objects. There are unique morphisms $F_1 \xrightarrow{f} F_2, F_2 \xrightarrow{g} F_1, F_1 \xrightarrow{1_{F_1}} F_1$
+ - by composition law, $fg=1_{F_1}$ - likewise, $gf=1_{F_2}$, making $F_1$ and $F_2$ isomorphic
+**** <<E1.5.4>>
+***** Question
+ - What are the initial and final objects in the category of 'pointed sets'?
+***** Solution
+ - This category has $|S|$ objects for every set $S \in Set$, all possible $(S,s)$ pairs where $s \in S$
+ - A morphism $(S,s)\rightarrow (T,t)$ is a function $S\xrightarrow{f} T$ s.t. $f(s)=t$
+ - Let $I$ be ##any singleton set (e.g. $(\{\heartsuit\},\heartsuit)$ ## and $(S,s)$ be any object
+ - There can exist only one morphism from $I$ to $(S,s)$, namely ## $\{ \heartsuit \mapsto s\}$, making all singletons initial objects.##
+ - Any ##singleton set## is a final object for the same reason it is the final object in $Set$ (the additional constraint of pointed sets is satisfied)
+**** <<E1.5.5>> :nocard:
+***** Question
+ - What are the final objects in the category considered in [[X1.5.3]]?
+***** Solution
+ - Let $F$ be any map from $A$ to a singleton set (say, $A\xrightarrow{f_A}\{\heartsuit\}$)
+ - For any object $A\xrightarrow{\phi}Z$, we have the function $f_z$ which sends $Z$ to the singleton (this is uniquely a valid morphism in this category between $Z$ and the singleton)
+ - Thus any singleton serves as a final object in  $\mathcal{C}^{A_\sim}$. 
+**** <<E1.5.6>>
+***** Question
+ - Consider the category corresponding to endowing the set $Z^+$ with the divisibility relation. (there is exactly one morphism $d\rightarrow m$ iff /d/ divides /m/ without remainder)
+ - Show that this category has products and coproducts. What are their 'conventional' names?
+***** Solution
+ - Product universal property: ## $\forall a,b,c \in \mathbb{Z^+}: c|a \land c|b \implies c | (a \times b)$ ##
+   - E.g. $8 \times 12$ is the number which is, considering all divisors (1,2,4), divisible by all of these divisors. This is also called the ##GCD##
+ - Coproduct universal property: ## $\forall a,b,c \in \mathbb{Z^+}: a|c \land b|c \implies (a \amalg b)|c$ ##
+   - E.g. $8 \amalg 12$ is the number which is, considering all numbers divisible by both 8 and 12 (48, 96, ...), divides all of those numbers. Also called the ##LCM##.
+**** <<E1.5.8>>
+***** Question
+ - Show that in every category the products $A\times B$ and $B \times A$ are isomorphic, if they exist
+***** Solution
+ - They both satisfy the universal property for /A/, /B/, thus they are the terminal object in some category and must be isomorphic.
+**** <<E1.5.9>> :nocard:
+***** Question 
+ - Let $\mathcal{C}$ be a category with products. Find a reasonable candidate for the universal property that the product of $A \times B \times C$ ought to satisfy, and prove that both $(A \times B) \times C$ and $A \times (B \times C)$ satisfy this universal property.
+ - Deduce that $(A \times B) \times C$ and $A \times (B \times C)$ are necessarily isomorphic
+***** Solution
+ - For any three functions /f/ /g/ /h/ to /A/ /B/ /C/ respectively, we should be able to uniquely go through the product (followed by natural projection functions) to get the same result.
+**** <<E1.5.10>> :todo:
+***** Question
+ - Define products and coproducts for /families/ (i.e. indexed sets) of objects of a category
+ - Do these exist in $Set$?
+ - (It is common to denote the product $A \times ... \times A$ by $A^n$)
+***** Solution
+ [ ] To do 
+**** <<E1.5.11>> :todo:
+***** Question
+ - Given two sets and equivalence relations, $\sim_A,\ \sim_B$, define a relation $\sim_{A \times B}$ by setting 
+   - $(a_1,b_1) \sim (a_2,b_2) \iff a_1 \sim_A a_2 \land b_1 \sim_B b_2$
+   - (this is immediately seen to be an equivalence relation)
+ - Use the universal property for quotients to establish that there are functions $(A \times B)/_\sim \rightarrow A/_\sim ,\ (A \times B)/_{\sim_A} \rightarrow B/_{\sim_B}$
+ - Prove that $(A \times B)/_\sim$ with these two functions, satisfies the universal property for the product of $A/_{\sim_A}$ and $B/_{\sim_B}$
+ - Conclude (without further work) that $(A \times B)/_\sim \cong A/_{\sim_A} \times B/_{\sim_B}$
+***** Solution
+ [ ] To do 
+* Chapter 2: Groups, the first encounter
+** Section 1: Definition 
+*** Part 1: Groups and groupoids
+****  Notes
+ - A groupoid is a category in which every morphism is an isomorphism, so a group is a groupoid with one object.
+ - The object isn't interesting, but we have a hom-set with certain properties:
+   - There is an identity
+   - Each element has an inverse
+   - There is an associative composition law which operates on it
+*** Part 2: Definition
+**** Examples 
+***** <<X2.1.3>> :42:
+ - The ##trivial group## is any group based on a singleton set. All axioms trivially hold.
+***** <<X2.1.5>> :42:
+ - The group of invertible, $n \times n$ matrices with real entries ($n \geq 2$) under matrix multiplication is an example of a ##nonabelian## group. This is called ## $GL_n(\mathbb{R})$ ##
+*** Part 3: Basic properties
+****  Propositions
+***** <<P2.1.6>> :43:
+****** Proposition
+ - If $h \in G$ is an identity of $G$, then $h=e_G$, i.e. the identity is unique
+****** Proof
+ - $h = e_Gh=e_G$ (using the identity property of $e_G$)
+***** <<P2.1.7>> :43:
+****** Proposition
+ - The inverse of an element is unique
+****** Proof
+ - Suppose $h_1,h_2$ are both inverses of $g$
+ - $e_G = h_2g$ --- right multiply by $h_1$
+ - $h_1 = h_2$
+ - Furthermore, if we consider elements of a group to be morphisms of a single-object groupoid, then we know generally that there is a unique inverse for every morphism.
+*** Part 4: Cancellation
+****  Propositions
+***** <<P2.1.8>> :45:
+****** Proposition
+ - $\forall a,g,h \in G:$
+   - $ga=ha \implies g=h$
+   -$ag=ah \implies g=h$
+****** Proof
+ - Both statements proven by multiplication with $a^{-1}$
+*** Part 5: Commutative groups
+**** Notes
+ - Notationally, we tend to use $+$ instead of $\cdot$ to represent the group operation when the group is abelian
+*** Part 6: Order
+**** Definitions
+***** <<D1.6.6>> :46:
+****** Term
+ - The /order/ of an element $g \in G$ and the order of a group /G/
+****** Def
+ - The smallest positive integer such that $g^n=e_G$
+ - If none exists, then $|g|=\infty$
+ - The  order of a group /G/ is the cardinality of its underlying set
+
+**** Propositions
+***** <<P2.1.10>> :46:
+****** Proposition
+ - If $g^n=e$ for some $n\geq 0$, then /|g|/ divides /n/.
+****** Proof
+ - $0 = n - |g| \cdot m$
+***** <<P2.1.13>> :47:
+****** Proposition
+ - Let $g \in G$ be an element of finite order. Then $g^m$ has finite order:
+ - $|g^m|=\frac{lcm(m,|g|)}{m}=\frac{|g|}{gcd(m,|g|)}$
+****** Proof
+ - The order of $g^m$ is least positive /d/ for which $g^{md}=e$
+ - /md/ must be a multiple of /|g|/
+ - $m|g^m|$ must be the smallest possible multiple of /m/ which is also a multiple of /|g|/
+***** <<P2.1.14>> :47:
+****** Proposition
+ - In an abelian group, /|gh|/ divides $lcm(|g|,|h|)$
+****** Proof
+ - Let $|g|=m,\ |h|=n,\ N=$ some multiple of /m/, /n/
+ - $(gh)^N=g^Nh^N=e$
+ - This is true iff /N/ is a common multiple of /m/ and /n/, so our order is the lowest such multiple
+*** Exercises
+**** <<E2.1.1>> 
+***** Question
+ -  Write a careful proof that every group is the group of isomorphisms of a groupoid.
+***** Solution
+ - There must be a set $Hom(*,*)$
+ - There must be an $id_*$ which behaves like a group $e_G$
+ - There must be a binary associative action
+ - There must be a unique inverse for every element (because each is an isomorphism)
+ - These are precisely the constraints on a group
+**** <<E2.1.4>>
+***** Question
+ -  Suppose that all $\forall g \in G: g^2=e$. Prove that /G/ is abelian.
+***** Solution
+ - $g=g^{-1}$
+ - Thus $ab = (ab)^{-1} = b^{-1}a^{-1}=ba$
+**** <<E2.1.5>>
+***** Question
+ - The 'multiplication table' of a group is an array compiling the results of all multiplications. Prove that every row and every column of the multiplication table of a group contains all elements of the group exactly once (like a sudoku). 
+***** Solution
+ - Each element multiplied with the identity is the element itself, meaning each row/col has /at/ /least/ one mention of the element. So we just need to show that an element cannot appear /more/ than once.
+ - Consider the possibility of an element /g/ appearing twice in the same row/col. That means there exists a $a,b,b'$ (with $b \ne b'$) s.t. $ab=g \land ab'=g$. However, if we left multiply by $a^{-1}$, we get that $b=b'$, a contradiction.
+**** <<E2.1.8>>
+***** Question
+ -  Let /G/ be a finite abelian group, with exactly one element /f/ of order 2. Prove that $\Pi_{g \in G}g=f$
+***** Solution
+ - let  $h = \Pi_{g \in G}g$
+ - Every element in $G$ has a unique inverse, $h = \Pi_{g \in G}g^{-1}$
+ - $h^2=...g_2^{-1}g_1^{-1}eg_1g_2...=e$
+ - Because /G/ is abelian we rearrange them into the above form. Because $h^2$ is /e/ (and $h\ne e$), we conclude /h=f/
+**** <<E2.1.9>>
+***** Question
+ -  Let /G/ be a finite group of order /n/, and let /m/ be the number of elements of order exactly 2. 
+ - Prove that /n-m/ is odd. 
+ - Deduce that if /n/ is even, then /G/ necessarily contains elements of order 2.
+***** Solution
+ -  Every group has at least /e/, so $n >= 1$. 
+ - We can add any number of elements of order 2 while respecting group laws. Thus ## $n \geq 1 + m$ ##
+ - For any elements of order greater than 2, ##there is a distinct element that is its inverse. Suppose there are /k/ of these. $n = 1 + m + 2\cdot k$ ##
+ - From this we see that /n-m/ must be odd, and /n/ being even implies that there are an odd number of elements of order two.
+**** <<E2.1.10>>
+***** Question
+ -  Suppose the order of /g/ is odd. What can you say about the order of $g^2$?
+***** Solution
+ - $|g^2|=\frac{lcm(2,|g|)}{2}$
+ - if /|g|/ is odd, then $lcm(2,|g|)=2g$ so $|g^2|=|g|$
+**** <<E2.1.11>>
+***** Question
+ - Prove that $\forall g,h \in G: |gh|=|hg|$?
+ - Hint: Prove that $|aga^{-1}|=|g|$ 
+***** Solution
+ - First prove $|aga^{-1}|=|g|$ :
+ - assume: $g^n=e$ (and /n/ is the lowest positive integer this is true for)
+ - $(aga^{-1})^n=ag^na^{-1}=e$
+ - Need to show that there exists no $n'<n$ such that this holds for too by contradiction ##
+ - $(aga^{-1})^{n'}=ag^{n'}a^{-1}$
+ - this can only equal /e/ if $g^{n'}=e$ (since the inverse of /a/ and $a^{-1}$ is clear), which we assumed is strictly greater than $n'$, thus contradiction ##
+ - So we can conjugate with any element and not change the order.
+ - ## $|gh| = |h \cdot gh \cdot h^{-1}| = |hg|$ ##
+**** <<E2.1.13>>
+***** Question
+ -  Give an example of $|gh| \ne lcm(|g|,|h|)$, even when /g/, /h/ commute.
+***** Solution
+ - $\bar{1}$ and $\bar{2}$ have order 3 in $\mathbb{Z}/3\mathbb{Z}$, but their product has order 1. $1 \ne lcm(3,3)$
+**** <<E2.1.14>>
+***** Question
+ - Prove that if /g/, /h/ commute and $gcd(|g|,|h|)=1$, then $|gh|=|g||h|$
+ - Hint: Let $N=|gh|$, then $g^N=(h^{-1})^N$ (what can you say about this element?)
+***** Solution
+ -  From proposition 1.14, we have $\exists k \in \mathbb{N}^+:  N = |gh|=k\cdot  lcm(m,n)$ 
+ - $gcd(m,n)=1 \implies lcm(m,n)=m\cdot n$
+ - $N = k \cdot m n,\ k > 0$
+ - Try $k=1$ as the smallest possible value for which this could be true
+ - $e = (gh)^{mn}=g^{mn}h^{mn}=e$
+**** <<E2.1.15>> :todo:
+***** Question
+ - Let /G/ be an abelian group and /g/ be an element of maximal order (if /h/ has finite order, then $|h| \leq |g|$).
+ - Prove that, if /h/ has finite order than /|h|/ /divides/ /|g|/
+ - Hint: argue by contradiction: there would have to exist a prime /p/ such that $|g|=p^mr,|h|=p^ns$ with $gcd(r,s)=1$ and /m/ < /n/.
+ - Use [[E2.1.14]] to compute the order of $g^{p^m}h^s$
+***** Solution
+ - 
+** Section 2: Examples 
+*** Part 1: Symmetric groups 
+**** Notes
+ - The symmetric group on some set /A/ is the automorphisms of /A/ in $Set$. 
+ - The symmetric group of {1,2,...,n} is denoted $S_n$. 
+ - A transformation of /A/ that does not change it (as a set) can be thought of as a 'symmetry'.
+ - $S_3$ is not abelian
+*** Part 2: Dihedral groups 
+**** Notes 
+ - Relevant category to think about:
+   - Objects are subsets of an ordinary cartesian plane
+   - Morphisms between /A/ and /B/ consist in the 'rigid motions' of the plane (translations/rotations/reflections about a line) which map /A/ to a subset of /B/.
+   - Treating it rigorously in this way will be too distracting now
+ - Also definable as groups of symmetries for regular polygons.
+*** Part 3: Cyclic groups and modular arithmetic 
+**** Notes
+ - Congruence modulo n is an equivalence relation on $\mathbb{Z}$ such that $a \equiv b \iff n\ |\ (b-a)$
+ - Set of equivalence classes is denoted $\mathbb{Z}/n\mathbb{Z}$
+ - Define an operation $+$ by setting $[a]+[b] := [a+b]$
+ - Can take a subset of $\mathbb{Z}/n\mathbb{Z}$ such that every element has a unique multiplicative inverse
+$(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=1\}$
+ - E.g. $[8]_{15} \in (\mathbb{Z}/15\mathbb{Z})^*$ has a multiplicative inverse $[2]_{15}$
+**** Propositions 
+***** <<P2.2.3>>  :55:
+****** Proposition
+ - The order of $[m]_n \in \mathbb{Z}/n\mathbb{Z}$ is $\frac{n}{gcd(m,n)}$
+****** Proof
+ - If $n\ |\ m$ then $[m]_n = [0]_n = e$
+ - else, $[m]_n=m [1]_n$ and apply [[P2.1.13]]
+*** Exercises
+**** <<E2.2.2>>
+***** Question
+ - Prove for $d \leq n$, then $S_n$ contains elements of order /d/
+***** Solution
+ -  Cyclicly permute the first /d/ elements
+**** <<E2.2.6>>
+***** Question
+ - For every $n \geq 1$ construct a group containing two elements $g,h$ such that $|g|=2, |h|=2,|gh|=n$
+***** Solution
+ - Consider $D_{2n}$, let $g = s,h =rs , gh=rs^2=r$
+ - note that $rsrs=r(r^{-1}s)s=e$
+**** <<E2.2.13>> :todo:
+***** Question
+ - Prove /m/, /n/ are relatively prime iff there exist integers /a/, /b/ such that $am+bn=1$
+***** Solution
+ - 
+**** <<E2.2.17>> :todo:
+***** Question
+ - Show that if $m \equiv m'$ mod /n/, then /gcd(m,n)=1/ iff /gcd(m',n)=1/ 
+***** Solution
+ - 
+** Section 3: The category Grp 
+*** Part 1: Group Homomorphisms
+**** Definitions 
+***** <<D2.2.3>> :59:
+****** Term
+ - A /group/ /homomorphism/ $(G,\star) \xrightarrow{\phi}(H,\cdot)$
+****** Def
+ - A function $\psi: G\rightarrow H$ satisfying the following path equality: $\begin{tikzcd}G \times G \arrow[d, "\star"] \arrow[r, "\phi\times \phi"] & H\times H \arrow[d, "\diamond"] \\G \arrow[r, "\phi"]                                        & H                              \end{tikzcd}$ 
+
+ - Equivalently, it has the property $\phi(a \star b) = \phi(a) \cdot \phi(b) \in H$
+**** Notes 
+ - Homomorphisms "preserve the structure"
+*** Part 2: Definition 
+**** Notes 
+ - If we let the set of group homomorphisms be our hom-set, then we can define $Grp$ as a category
+ - We can compose homomorphisms to yield new ones because we can set their commutative diagrams side by side to make a larger one
+ - The identity function of $Set$ is a group homomorphism which can also act as an identity in $Grp$
+ - Group homomorphisms inherit associativity from set-functions
+*** Part 3: Pause for reflection 
+**** Notes 
+ - Let $G \xrightarrow{\psi} H$ be a group homomorphism:
+   - $\psi(e_G)=e_H$
+   - $\forall g \in G: \psi(g^{-1})=\psi(g)^{-1}$
+*** Part 4: Products et al.
+**** Notes 
+ - $G \times H$ is a product in $Grp$ for all the reasons it is in $Set$, although it needs to be checked that $\psi_G \times \psi_H$ satisfies the group homomorphism property.
+ - The fact that trivial groups are both initial and final in $Grp$ makes trivial groups 'zero-objects' of the category $Grp$
+ - The notion of "disjoint union" does not work for $Grp$ as it does for $Set$ (there is no reasonable group structure on a disjoint union).
+**** Propositions 
+***** <<P2.3.3>>  :61:
+****** Proposition
+ - Trivial groups are both initial and final in $Grp$
+****** Proof
+ - The morphism from the trivial group sends /e/ to /e/. The morphism to the trivial group sends everything to /e/.
+*** Part 5: Abelian groups 
+**** Notes 
+ - $Ab$ is a subcategory of abelian groups
+ - Anything that satisfies the universal property for products also satisfies the universal property of coproducts.
+*** Exercises
+**** <<E2.3.2>> :todo:
+***** Question
+ - Let $G \xrightarrow{\phi} H \xrightarrow{\psi} K$ be morphisms in a category with products, and consider morphisms between the products $G \times G, H \times H, K \times K$
+ - Prove that $(\psi\phi) \times (\psi\phi) = (\psi \times \psi) (\phi \times \phi)$
+ - (This is part of the commutativity of the diagram displayed in Section 3.2)
+ - REPRODUCE DIAGRAM HERE
+***** Solution
+ - [ ] TO DO
+**** <<E2.3.3>> :todo:
+***** Question
+ - Show that if /G/, /H/ are abelian groups, then $G \times H$ satisfies the universal property for coproducts in $Ab$
+***** Solution
+ - Let the coproduct of two groups (specified as a generating set and relations) $G_1 = \langle S_1 | R_1 \rangle, G_2 = \langle S_2 | R_2 \rangle$ be $G_1 \amalg G_2 = \langle S_1 \amalg S_2 | R_1 \cup R_2 \rangle$. Because it is abelian, terms in this group can be expressed as $s_1s_2$ for some $s_1 \in S_1, s_2 \in S_2$. Multiplication is defined as $s_1s_2 \cdot s_1's_2' \mapsto s_1s_1's_2s_2'$. 
+ - Suppose we have two arbitrary homomorphisms $G_1 \xrightarrow{\phi_1} Z$ (and $\phi_2$). The universal property is that there exists a unique homomorphism $G_1 \amalg G_2 \xrightarrow{\phi_1 \amalg \phi_2}Z$ such that $\phi_i = \phi_1 (\amalg \phi_2) \circ i_i$.
+ - The only possible definition of this homomorphism is $s_1s_2 \mapsto \phi_1(s_1)\cdot \phi_2(s_2)$. Note that $|G_1 \almalg G_2| \geq |G_1|+|G_2|$, but so although there are many set functions to /Z/ there is only one which satisfies the homomorphism property: $\phi(s_1s_2)\phi(s_1's_2')=\phi(s_1s_1's_2s_2')$
+ - [ ] Not done yet?
+**** <<E2.3.4>>
+***** Question
+ - Let /G/, /H/ be groups and assume $G \cong H \times G$.
+ - Find an example where this is true while /H/ is not trivial.
+***** Solution
+ - $\mathbb{Z} \times \mathbb{Z}$
+**** <<E2.3.5>> :todo:
+***** Question
+ - Prove that $\mathbb{Q}$ is /not/ the direct product of two nontrivial groups
+***** Solution
+ - [ ] To do 
+**** <<E2.3.6>> :todo:
+***** Question
+ - Consider the product of cyclic groups $C_2,C_3$
+ - This group is a coproduct of $C_2,C_3$ in $Ab$.
+ - Show it is /not/ a coproduct in $Grp$ as follows:
+ - Find injective homomorphisms $C_2 \hookrightarrow S_3, C_3 \hookrightarrow S_3$
+ - Arguing by contradiction, assume that $C_2 \times C_3$ is a coproduct and deduce there would be a group homomorphism $C_2 \times C_3 \rightarrow S_3$ with certain properties
+ - Show there is no such homomorphism
+***** Solution
+ - [ ] To do
+**** <<E2.3.7>> :todo:
+***** Question
+ - Show that there is a /surjective/ homomorphism $\mathbb{Z} * \mathbb{Z} \twoheadrightarrow C_2 * C_3$
+ - $*$ means coproduct in $Grp$
+ - Think of $\mathbb{Z} * \mathbb{Z}$ as a group with two generators, $x,y$ subject to no relations whatsoever.
+***** Solution
+ - [X] To do 
+** Section 4: Group homomorphisms
+*** Part 1: Examples 
+**** Notes
+ - There is a distinguished element of $Hom_{Grp}(G,H)$ for any two groups, the /trivial/ homomorphism
+ - The trivial homomorphism is the composition of the unique morphisms $G \rightarrow 1$ and $1 \rightarrow H$ (as the trivial group is both initial and final) - Group actions are homomorphisms $G \rightarrow Aut_\mathcal{C}(A)$ for some object /A/. When the category is $Set$, each element of /G/ is associated with a permutation (in a way compatible with the group structure of /G/).
+ - If /m/ and /n/ are coprime, then $\mathbb{Z}_m \times \mathbb{Z}_n \cong \mathbb{Z}_{mn}$ 
+ - If /n/ divides /m/, there is a homomorphism $\mathbb{Z}_n \rightarrow \mathbb{Z}_m$ 
+*** Part 2: Homomorphisms and order 
+**** Propositions 
+***** <<P2.4.1>>
+****** Proposition
+ - Let $|g|=n$ be finite and $G \xrightarrow{\phi}H$ be a group homomorphism.
+ - Then the order of $\phi(g) \in H$ divides /n/
+****** Proof
+ - $\phi(g^n)=\phi(g)^n=e_H$, although we do not know if /n/ is the lowest such power for which this is true in /H/, so all we can say is that the order of $\phi(g)$ divides /n/ (see [[P2.1.10]]).
+**** Examples 
+***** <<X2.4.2>>
+ - There are no nontrivial homomorphisms $C_4 \xrightarrow{\phi} C_7$. 
+ - The orders of elements in $C_4$ ## must divide /4/ by Lagrange's Theorem ## and the orders of elements in $C_7$ ## must divide 7##
+ - The order of each $\phi(g)$ must divide ## /both/ 4 and 7 ## (i.e. every element maps to /e/)
+**** Notes 
+ - There are no homomorphisms from a finite cyclic group to $\mathbb{Z}$ as the image of each element must have finite order (by [[P2.4.1]]) but the only element with finite order in $\mathbb{Z}$ is /0/.
+*** Part 3: Isomorphisms
+**** Propositions
+***** <<P2.4.8>> :68:
+****** Proposition
+ - Let $G \xrightarrow{\phi} H$ be an isomorphism 
+ - /G/ is commutative iff /H/ is commutative (proven in [[E2.4.18]])
+****** Proof
+ -  This follows from [[P2.4.1]]: $|\phi(g)|$ divides $|g|$ and vice versa, so they must be equal.
+**** Notes 
+ - Bijective homomorphisms are group isomorphisms 
+ - These preserve all group theoretic properties (e.g. order of elements, commutativity)
+ - Finite cyclic groups are those that are isomorphic to $Z_n$
+*** Part 4: Homomorphisms of abelian groups 
+**** Notes
+ - We can impose a group structure on $Hom_{Ab}(G,H)$ and the group operation in /H/
+ - The homomorphism sum of $\phi + \psi$ maps /g/ to $\phi(g) +_H \psi(g)$
+ - This only relies on /H/ being abelian, so everything above is true also for $Hom_{Grp}(G,H)$ too.
+*** Exercises
+**** <<E2.4.3>>
+***** Question
+ - Prove a group of order /n/ is isomorphic to $Z_n$ iff it contains an element of order /n/
+***** Solution
+ - If it doesn't contain an element of order /n/, then no isomorphism can map /x/ to a corresponding element in the group.
+ - If it does contain an element of order /n/, then all elements need to be distinct, so it is in fact the cyclic group.
+**** <<E2.4.4>> :todo:
+***** Question
+ - Prove that no pair $(\mathbb{Z},+),(\mathbb{Q},+),(\mathbb{R},+)$ are isomorphic to another 
+ - Is $(\mathbb{R},+),(\mathbb{C},+)$?
+***** Solution
+ - 
+**** <<E2.4.5>> :todo:
+***** Question
+ - Prove that the groups $(\mathbb{R}-\{0\},\cdot),(\mathbb{C}-\{0\},\cdot)$ are not isomorphic
+***** Solution
+ - 
+**** <<E2.4.6>> :todo:
+***** Question
+ - We have an isomorphism $(\mathbb{R},+)\cong(\mathbb{R}^{>0},\cdot)$
+ - Is it true for $(\mathbb{Q},+)$ and $(\mathbb{Q}^{>0},\cdot)$?
+***** Solution
+ - 
+**** <<E2.4.7>> :todo:
+***** Question
+ - Prove $g \mapsto g^{-1}$ is a homomorphism iff /G/ is abelian
+ - Prove $g \mapsto g^2$ is a homomorphism iff /G/ is abelian 
+***** Solution
+ - 
+**** <<E2.4.8>> :todo:
+***** Question
+ - Given $g \in G$ prove that $y_g(a) \mapsto gag^{-1}$ is an automorphism of /G/. 
+ - These are called 'inner automorphisms'
+ - Prove that the homomorphism $G \xrightarrow{\gamma} Aut(G)$ is a homomorphism
+ - Show this homomorphism is trivial iff /G/ is abelian.
+***** Solution
+ - 
+**** <<E2.4.9>> :todo:
+***** Question
+ - Prove that if /m/, /n/ are relatively prime, then $C_{mn}\cong C_m \times C_n$
+***** Solution
+ - 
+**** <<E2.4.10>> :todo:
+***** Question
+ - Let $p \neq q$ be prime integers.
+ - Show that $(\mathbb{Z}/pq\mathbb{Z})^*$ is not cyclic
+ - Hint: use [[E2.4.9]] to compute the order of /N/ of $(\mathbb{Z}/pq\mathbb{Z})^*$ and show that no element can have order /N/
+***** Solution
+ - 
+**** <<E2.4.11>> :todo:
+***** Question
+ - Assuming that the equation $x^d=1$ can have at most /d/ solution in $Z/p\mathbb{Z}$, prove that the multiplicative group $G=(\mathbb{Z}/p\mathbb{Z})^*$ is cyclic 
+ - Hint: let $g \in G$ be an element of maximal order. Use [[E2.1.15]] to show that $\forall h \in G: h^{|g|}=1$
+***** Solution
+ - 
+**** <<E2.4.13>> :todo:
+***** Question
+ - Prove that $Aut_{Grp}(V_4)\cong S_3$
+***** Solution
+ - 
+**** <<E2.4.14>> :todo:
+***** Question
+ - Prove that the order of $Aut_{Grp}(C_n)$ is $\phi(n)$
+***** Solution
+ - 
+**** <<E2.4.15>> :todo:
+***** Question
+ - Compute the group of automorphisms of $(\mathbb{Z},+)$
+ - Prove that if /p/ is prime, then $Aut_{Grp}(C_p)\cong C_{p-1}$
+***** Solution
+ - 
+**** <<E2.4.16>> :todo:
+***** Question
+ - Wilson's theorem
+ - An integer /p/ > 1 is prime iff $(p-1)!=-1$ mod /p/
+ - Hint: for one direction, use [[E2.1.8]] and [[E2.4.11]]. For the other, assume /d/ is a proper divisor of /p/ and note that /d/ divides $(p-1)!$
+***** Solution
+ - 
+**** <<E2.4.18>> :todo:
+***** Question
+ - Prove the second part of [[P2.4.8]]
+ - If /G/ and /H/ are isomorphic, then /G/ is abelian iff /H/ is abelian
+***** Solution
+ - 
+** Section 5: Free groups
+*** Part 1: Motivation
+**** Notes
+ - We want to take a set and make a group 'in the most efficient way'
+ - The empty set can be given the trivial group 
+ - A singleton can yield the infinite cyclic group (all powers being distinct signals that there is no special structure). 
+*** Part 2: Universal property 
+**** Notes
+ - Consider a category $\mathcal{F}^A$ where objects are functions $A \xrightarrow{f} G$ to a group and morphisms are commutative triangles joined by a group homomorphism.
+ - The universal property of free groups is to be an initial object in this category: $\begin{tikzcd}F(A) \arrow[r, "\phi", dashed]    & G \\ A \arrow[u, "j"] \arrow[ru, "f"'] &  \end{tikzcd}$
+ - By considering all possible functions $A \rightarrow G$ we are implementing the fact that we have no /a priori/ group theoretic information about /A/
+ - To verify a concrete example: the diagram holds when /A/ is a singleton {a} and /F(A)/ is the infinite cyclic group.
+ - For any /G/, giving a set function $A \xrightarrow{f} G$ amounts to choosing a /g=f(a)/
+ - Let /j/ map /a/ to /1/, so $\phi(1)=\phi \circ j(a) = f(a) = g$ , and specifying the generator of $\mathbb{Z}$ determines the entire homomorphism ($\phi(n) = g^n$) so the homomorphism was unique.
+*** Part 3: Concrete construction
+**** Notes
+ - Free groups can be thought of groups of 'words' constructed from an alphabet
+ - Reduction rules can simplify words to show they are equal (e.g. $xyy^{-1}x$ and $xx$ are different words, but with the natural reduction rule of groups we know they will reduce to the same normal form)
+ - Free group on two generators can be vizualized as a /Cayley graph/ whose vercies correspond to elements of the group.
+*** Part 4: Free abelian groups 
+**** Notes
+ - Free groups are defined by the same universal property, but we can construct the free group by considering all possible counts of each element in the alphabet (as order doesn't matter)
+*** Exercises
+**** <<E2.5.1>> :todo:
+***** Question
+ - Does the category $\mathscr{F}^A$ defined in $\S$ 5.2 have final objects. If so, what are they?
+***** Solution
+ - 
+**** <<E2.5.2>> :todo:
+***** Question
+ - Let /T/ be a trivial group and $A \xrightarrow{e} T$ be the only possible set function from a set /A/ to /T/.
+ - Explain why $(e,T)$ is /not/ initial in $\mathscr{F}^A$ unless $A=\varnothing$
+***** Solution
+ - 
+**** <<E2.5.3>> :todo:
+***** Question
+ - Use the universal property of free groups to prove that the map $A \xrightarrow{j}F(A)$ is injective for all sets /A/
+ - Hint: show that for every two elements /a/, /b/ of /A/ that there is a group /G/ and a set function $A \xrightarrow{f}G$ such that $f(a)\ne f(b)$
+***** Solution
+ - 
+**** <<E2.5.4>> :todo:
+***** Question
+ - In the 'concrete' construction of free groups, one can try to reduce words by performing cancellations in any order. 
+ - Prove that the result of iterating cancellations on a word is independent of the order in which the cancellations aree performed.
+ - Derive the associativity of the product in $F(A)$ from this
+***** Solution
+ - 
+**** <<E2.5.5>> :todo:
+***** Question
+ - Verify explictly that $H^{\otimes A}$ is a group
+***** Solution
+ - 
+**** <<E2.5.6>> :todo:
+***** Question
+ - Prove that the group $F(\{x,y\})$ is a coproduct $\mathbb{Z}*\mathbb{Z}$ in the category $Grp$
+ - Hint: the universal property of one turns into the universal property of the other
+***** Solution
+ - 
+**** <<E2.5.9>> :todo:
+***** Question
+ - Let $G=\mathbb{Z}^{\otimes \mathbb{N}$. Prove that $G \times G \cong G$
+***** Solution
+ - 
+** Section 6: Subgroups
+*** Part 1: Definition
+**** Definitions
+***** <<D2.6.1>>
+****** Term
+ - Given a group $(G,\cdot)$ and $H \subseteq G$, /H/ is a /subgroup/ of /G/
+****** Def
+ - /H/ is a subgroup iff the inclusion function is a group homomorphism
+ - The binary operation is taken from the parent group
+**** Propositions 
+***** <<P2.6.2>> :79:
+****** Proposition
+ - A nonempty subset /H/ of /G/ is a subgroup iff $\forall a,b \in H: ab^{-1} \in H$
+ - This is called the /subgroup/ /criterion/
+****** Proof
+ - It's clear if it is a subgroup the condition holds, but more work to show the converse 
+ - Take /a/ = /b/ - we have an identity
+ - Take /a/ = /e/, then $\forall b \in H: b^{-1} \in H$ (we have inverses)
+ - Take /b/ = $b^{-1}$, then $\forall a,b \in H: ab \in H$ (we have closure under products)
+ - So we do satisfy all the group laws.
+*** Part 2: Examples (kernel and image)
+**** Definitions
+***** <<D2.6.5>>
+****** Term
+ - The /kernel/ of a group homomorphism $G \xrightarrow{\phi} H$
+****** Def
+ - $ker(\phi) = \{g \in G\ |\ \phi(g)=e_H\} = \phi^{-1}(e_H)$
+**** Propositions
+***** <<P2.6.6>>
+****** Proposition
+ - Let $G \xrightarrow{\phi}H$ be a group homomorphism.
+ - The inclusion $ker(\phi)\hookrightarrow G$ is final in the category of group homomorphisms $K \xrightarrow{\alpha} G$ such that $\phi \circ \alpha$ is the trivial map.
+ - In other words, every group homomorphism that, when composed with $\phi$ is trivial will factor uniquely through $ker(\phi)$
+ - (the kernel is the 'most general' homomorphism to /G/ that yields zero when composed with $\phi$)
+****** Proof
+ - If $\phi \circ \alpha$ is the trivial map, then $\alpha(k) \in ker(\phi)$
+ - $\begin{tikzcd}K \arrow[rd, "\bar\alpha",dashed] \arrow[r, "\alpha"] \arrow[rr, "0", bend left] & G \arrow[r, "\phi"] & H\\ & ker(\phi) \arrow[u, "i", hook] & \end{tikzcd}$
+ - That there can exist at /most/ one homomorphism to $ker(\phi)$ is evident just from the fact that /i/ is an injection (the diagram requires that $i \circ \bar\alpha = \alpha$)
+ - That there always exists a homomorphism to $ker(\phi)$ such that this is true is from the definition of a kernel (it includes all elements of /G/ that are mapped to the identity of /H/).
+*** Part 3: Example (subgroup generated by subset)
+**** Notes 
+ - The subgroup generated by a subset is all products of elements of the subset.
+ - Likewise the intersection of all subgroups that contain the the subset is an alternative way of specifying this 
+ - Generating a subgroup from a singleton is a cyclic subgroup
+**** Definitions
+***** <<D2.6.8>> :82:
+****** Term
+ - A group /G/ is /finitely/ /generated/
+****** Def
+ - There exists a /finite/ subset of /G/, say /A/, for which $G=\langle A \rangle$
+*** Part 4: Subgroups of cyclic groups
+**** Notes
+ - [[P2.6.9]] shows that every nontrivial subgroup of the integers is isomorphic to the integers (can replace 'integers' with 'free group on one generator')
+ - Every subgroup of a free group is free, but there are subgroups of the free group on even /two/ generators that are isomorphic to free groups on /arbitrarily/ many generators.
+ - THere is a bijection between the set of subgroups of $\mathbb{Z}/n\mathbb{Z}$ and the set of positive divisors of /n/.
+ - The subgroups of cylic groups leads to number-theoretic consequences.
+**** Propositions
+***** <<P2.6.9>> :83:
+****** Proposition
+ - Let $G \subset \mathbb{Z}$ be a group. Then $G=d\mathbb{Z}$ for some $d \geq 0$
+****** Proof
+ - If $G=\{0\}$ then $G = 0\mathbb{Z}$
+ - Else there are positive integers in /G/, and let /d/ be the /smallest/ positive integer. It is clear that $d\mathbb{Z} \subseteq G$.
+ - Let an arbitrary element of /G/ be $m = dq + r$. 
+ - $dq$ is also in /G/ but /r/ must be zero (the remainder must be smaller than /d/, but /d/ was the smallest positive integer). 
+ - Therefore $G \subseteq d\mathbb{Z}$ and combined with $d\mathbb{Z} \subseteq G$ we conclude $G = d\mathbb{Z}$
+ - The quotient homomorphism $\mathbb{Z} \rightarrow \mathbb{Z}/n\mathbb{Z}$ allows for an analogous result for /finite/ cyclic groups
+*** Part 5: Monomorphisms
+**** Propositions
+***** <<P2.6.12>> :84:
+****** Proposition
+ - The following are equivalent:
+   1. $\phi$ is a monomorphism
+   2. $ker(\phi)=\{e_G\}$
+   3. $\phi$ is injective as a set function
+****** Proof
+ - $1 \implies 2$
+   - $\begin{tikzcd}ker(\phi) \arrow[r, "i", hook', bend left] \arrow[r, "e_G"', bend right] \arrow[rr, "\phi \circ e = e_H"', bend right=49] \arrow[rr, "\phi \circ i = e_H", bend left=49] & G \arrow[r, "\phi"] &H\end{tikzcd}$
+   - ##The monomorphism property of $\phi$ forces $e_g = i$. But if the inclusion map to /G/ is just the map to /e/, then $ker(\phi)$ must be just $\{e_G\}$ as well.##
+ - $2 \implies 3$
+   - $\phi(g_1)=\phi(g_2) \implies g_1=g_2$
+     - This is shown by considering the product $\phi(g_1)\phi(g_2)^{-1}$:
+     - ## $\phi(g_1)=\phi(g_2) \implies \phi(g_1)\phi(g_2)^{-1}=e_H=\phi(g_1g_2^{-1}) \implies g_1g_2^{-1} \in ker(\phi)$ 
+     - but there is only one element in the kernel so $g_1g_2^{-1}=e_G$, which implies  $g_1=g_2$ ##
+ - $3 \implies 1$
+   - The equivalence of injectivity and being a monomorphism is true in $Set$, ##and group homomorphisms are completely determined by their set-valued functions.##
+   - Thus $\phi$ is a monomorphism in $Grp$ iff it is injective.
+*** Exercises
+**** <<E2.6.2>> :todo:
+***** Question
+ - Prove that the upper triangular matrices with complex entries is a subgroup of $GL_n(\mathbb{C})$
+***** Solution
+ - Copy solution from Math120 hw?
+**** <<E2.6.4>>
+***** Question
+ - Let /g/ be an element of a group /G/
+ - Verify that the image of the exponential map $\mathbb{Z}\xrightarrow{\epsilon_g}G$ is a cyclic group
+***** Solution
+ - $Im(\epsilon_g) = \langle \epsilon_g(1) \rangle$ because the result of an arbitrary input /n/ is expresible in the form $\epsilon_g(1)^n$ due to the homomorphism property
+**** <<E2.6.5>>
+***** Question
+ - Let /G/ be a commutative group and /n>0/ be an integer
+ - Prove that $\{g^n\ |\ g \in G\} \leq G$
+ - Prove this is not necessarily the case when /G/ is not commutative. 
+***** Solution
+ - $g_1^n(g_2^{-1})^n = g_1g_2^{-1}g_1g_2^{-1}...g_1g_2^{-1} =  (g_1g_2^{-1})^n$ which means the product is in the subgroup, thus the subgroup criterion is satisfied.
+ - The above proof requires us to freely change the order of elements. For /n=2/ we explicitly need $ab=ba$ in order to get the desired result.
+**** <<E2.6.6>> :todo:
+***** Question
+ - Prove that the union of a family of subgroups of /G/ is not necessarily a subgroup of /G/, in fact:
+ - Let $H,K \leq G$. Prove that if $H \cup K \leq G$ iff $H \subseteq K$ or $K \subseteq H$
+ - On the other hand, let $H_0 \subseteq H_1 \subseteq H_2 ... \subseteq H_n \leq G$ all be subgroups and prove $\cup H_i \leq G$
+***** Solution
+ - 
+**** <<E2.6.7>> :todo:
+***** Question
+ - Show that the /inner/ automorphisms form a subgroup of $Aut(G)$ denoted $Inn(G)$.
+ - Prove $Inn(G)$ is cyclic iff $Inn(G)$ is trivial iff /G/ is abelian.
+ - Hint: assume $Inn(G)$ is cyclic which means $\exists a \in G: \forall g \in G: \exists n \in \mathbb{Z}: \gamma_g=\gamma_a^n$ ... in particular $gag^{-1}=a^naa^{-n}=a$
+ - Deduce if $Aut(G)$ is cyclic, then /G/ is abelian.
+***** Solution
+ - 
+**** <<E2.6.8>> :todo:
+***** Question
+ - Prove that an /abelian/ group /G/ is finitely generated iff there is a surjective homomorphism $\underbrace{\mathbb{Z} \oplus ... \oplus \mathbb{Z}}_{n \text{ times}} \twoheadrightarrow G$ for some /n/
+***** Solution
+ - 
+**** <<E2.6.9>> :todo:
+***** Question
+ - Prove every finitely generated subgroup of $\mathbb{Q}$ is cyclic 
+ - Prove that $\mathbb{Q}$ is not finitely generated
+***** Solution
+ - 
+**** <<E2.6.12>>
+***** Question
+ - Let /m/, /n/ be positive integers and consider the subgroup $\langle m,n\rangle$ of $\mathbb{Z}$
+ - By [[P2.6.9]], the subgroup is $d\mathbb{Z}$ for some positive integer /d/
+ - What is /d/ in this case?
+***** Solution
+ - /d/ = /gcd(m,n)/
+ - Elements can be expressed as combinations $am+bn$ for some /a/, /b/. Clearly something that divides both /m/ and /n/ will be able to generate these values, so $\langle m,n \rangle \subseteq gcd(m,n)\mathbb{Z}$
+ - The other inclusion is shown by taking an arbitrary element $kd \in d\mathbb{Z}$ and showing there exists an /a/, /b/ such that $am+bn=d$
+ - This is done by factoring out /gcd(a,b)/ from the left hand side: $d(am'+bn')=d$ with $m',n'$ being relatively prime. There is a unique solution to /a/, /b/ in this case from the euclidean algorithm.
+**** <<E2.6.15>> :todo:
+***** Question
+ - Prove that if a group homomorphism has a left inverse, then it is a monomorphism
+***** Solution
+ - 
+**** <<E2.6.16>> :todo:
+***** Question
+ - Counterpoint to [[E2.6.15]]: consider $\mathbb{Z}/3\mathbb{Z}\xrightarrow{\phi}D_6$ given by $\phi(0)\mapsto 3,\phi(1)\mapsto r^2,\phi(2)\mapsto r$
+ - This is a monomorphism, but show it has /no/ left inverse in $Grp$
+ - Hint: consider normal subgroups
+***** Solution
+ - Our inverse cannot map /s/ to /1/ or /2/ (homomorphism property would require $2 \times 1 \equiv 0$ or $2 \times 2 \equiv 0$ mod /3/), so it must go to /0/.
+ - This is enough info to know we cannot satisfy homomorphism property: 
+ - $rs=sr^{-1}$, yet $\phi(rs)=\phi(r)\phi(s)=\phi(r)\ne\phi(r^2)=\phi(s)\phi(r^2)= \phi(sr^{-1})$ 
+** Section 7: Quotient groups
+*** Part 1: Normal subgroups 
+**** Definitions
+***** <<D2.7.1>> :88:
+****** Term
+ - A subgroup /N/ of a group /G/ is /normal/
+****** Def
+ - $\forall g \in G, n \in N: gng^{-1} \in N$
+ - Alternatively:
+   - $gNg^{-1} \subseteq N$
+   - $gNg^{-1}=N$
+   - $gN=Ng$ (note: this does /not/ mean that /g/ commutes with every element of /N/)
+*** Part 2: Quotient group 
+**** Notes
+ - We'd like to impose a group structure on the equivalence classes of some arbitrary equivalence relation on a group, where it doesn't matter which representative we pick.
+ - $[a] \cdot [b] = [ab]$ is well defined for any equivalence relation where $a \sim a' \implies ga \sim ga' \land ag \sim a'g$
+ - We could say this is true when the relation is compatible with the group structure.
+*** Part 3: Cosets
+**** Propositions
+***** <<P2.7.4>>
+****** Proposition
+ - If $\sim$ is an equivalence relation that respects the group structure, then:
+   - The equivalence class of /e/ is a subgroup /H/ of /G/
+   - $a \sim b \iff a^{-1}b \in H \iff aH = bH$
+ - Note "respecting group structure" means: $a \sim a' \implies ga \sim ga' \land ag \sim a'g$
+****** Proof
+ - For $a,b \in H$, we have $e \sim b$ and (left multiplying by $b^{-1}$) $b^{-1}\sim e$ and (left multiplying by /a/) $ab^{-1} \sim a \sim e$. 
+ - By the subgroup criterion [[P2.6.2]] /H/ is a subgroup
+ - Because /H/ is cloesd under multiplication, $a^{-1}bH \subseteq H$ which implies $bH \subseteq aH$ 
+ - Our analysis was symmetric w/r/t /a/ and /b/, so $aH \subseteq bH$ and therefore $aH=bH$
+*** Part 4: Quotient by normal subgroups
+**** Propositions 
+***** <<P2.7.12>> :93:
+****** Proposition
+ - Let /H/ be a normal subgroup of /G/. For every group homomorphism $G \xrightarrow{\phi}G'$ such that $H \subseteq ker(\phi)$ there exists a unique group homomorphism $G/H \xrightarrow{\tilde{\phi}}G'$ such that the following diagram commutes.
+ - $\begin{tikzcd}G \arrow[rr, "\phi"] \arrow[rd, "\pi"'] & & G' \\ & G/H \arrow[ru, "\tilde{\phi}"', dashed] & \end{tikzcd}$
+****** Proof
+ - The definition of $\tilde\phi$ is uniquely forced for each coset /gH/ to make the diagram commute (namely: $\tilde\phi(gH)\mapsto \phi(g)$)
+ - This is well-defined, i.e. independent of representative. Suppose some other $g' = gh \in gH$ :
+ -  $\tilde\phi(gH)=\tilde\phi(g)=\tilde\phi(g'h)=\tilde\phi(g')\tilde\phi(h)=\tilde\phi(g')e_H=\tilde\phi(g')=\tilde\phi(g'H)$
+ - This is also a homomorphism: $\tilde\phi(gH)\tilde\phi(g'H)=\phi(g)\phi(g')=\phi(gg')=\tilde\phi(gg'H)=\tilde\phi(gH\cdot g'H)$
+*** Part 5: Example
+**** Notes
+ - Cyclic subgroups of the integers are normal subgroups (the group is abelian) and the equivalence classes are just cosests of $n\mathbb{Z}$ 
+*** Part 6: Kernel iff normal 
+**** Notes
+ - Every normal subgroup /H/ is the kernel of some group homomorphism ($G\xrightarrow{\pi} G/H$)
+*** Exercises
+**** <<E2.7.2>>
+***** Question
+ - Is the image of a group homomorphism necessarily normal?
+***** Solution
+ - No, take the injection homomorphism of any non-normal subgroup into the parent group.
+**** <<E2.7.6>> :todo:
+***** Question
+ - Let /G/ be a group and /n/ be a positive integer. Consider the relation:
+   - $a \sim b := \exists g \in G: ab^{-1}=g^n$
+ - Show that in general $\sim$ is /not/ an equivalence relation 
+ - Prove that it is an equivalence relation if /G/ is commmutative and determine the corresponding subgroup of /G/
+***** Solution
+ - We automatically have reflexivity: $\forall n \in \mathbb{N}^+: aa^{-1}=e^n$
+ - We automatically have symmetry: $\forall a,b: a \sim b \implies ab^{-1}=g^n \implies (ab^{-1})^{-1} = (g^n)^{-1} = (g^{-1})^n = ba^{-1} \implies b \sim a$
+ - Let $g,h$ be elements associated with $a\sim b,b\sim c$ respectively. Transitivity is satsified when the following holds:
+   - $(ab^{-1})(bc^{-1})=ac^{-1}=(g^n)(h^n)$
+   - For /n/ = /2/, this amounts to /gh/ = /hg/. 
+   - ???
+**** <<E2.7.7>>
+***** Question
+ - Let /G/ be a group and /n/ be a positive integer.
+ - Show that the subgroup /H/ generated by all elements of order /n/ in /G/ is normal
+***** Solution
+ - Consider conjugation by an element /g/ - normality means the result is always in /H/
+ - We have proved that conjugation by any element cannot change order ([[E2.1.11]]), so the result must be in /H/
+**** <<E2.7.10>> :todo:
+***** Question
+ - Let $H \leq G$ and show $H \trianglelefteq G \iff \forall \gamma \in Inn(G): \gamma(H) \subseteq H$
+ - Conclude if /H/ is normal in /G/ then there is an interesting homomorphism $Inn(G)\rightarrow Aut(H)$
+***** Solution
+ - 
+**** <<E2.7.11>> :todo:
+***** Question
+ - Let $[G,G]$ be the /commutator/ subgroup of /G/ generated by all elements of the form $aba^{-1}b^{-1}$
+ - Prove that $[G,G] \trianglelefteq G$ and that $G/[G,G]$ is commutative
+***** Solution
+ - 
+
+**** <<E2.7.12>> :todo:
+***** Question
+ - Let /F/ be a free group on a set /A/. Let $A \xrightarrow{f} G$ be a /set/ function to a commutative group /G/
+ - Prove that /f/ induces a unique homomorphism $F/[F,F] \rightarrow G$ (use [[P2.7.12]])
+ - Conclude that $F/[F,F] \cong F^{ab}(A)$ (use [[P1.5.4]])
+***** Solution
+ - 
+**** <<E2.7.13>> :todo:
+***** Question
+ - Let /A/, /B/ be sets with corresponding free groups /F(A)/ $\cong$ /F(B)/.
+ - If /A/ is finite, prove /B/ is also and that $A \cong B$
+***** Solution
+ - 
+**** <<E2.7.14>> :todo:
+***** Question
+ - Let /G/ be a group. Prove that $Inn(G)$ is a /normal/ subgroup of $Aut(G)$
+***** Solution
+ - 
+** Section 8: Canonical decomposition and Lagrange's Theorem
+*** Part 1: Canonical decomposition 
+**** Notes
+ - Every group homomorphism can be decomposed into a surjective projection onto an equivalence class (cosets of a kernel), an isomorphism, and an injection of the image
+ - We have already proven these are all group homomorphisms.
+ - In particular, we learn that $\phi$ is surjective, the injection is trivial and there is an isomorphism: $G/ker(\phi) \cong G'$
+**** Examples
+***** <<X2.8.3>> :98:
+ - Let $H_1,H_2$ be normal subgroups of $G_1,G_2$ respectively. The first isomorphism theorem shows that $H_1\times H_2 \trianglelefteq G_1\times G_2$ and $\frac{G_1\times G_2}{H_1 \times H_2}\cong \frac{G_1}{H_1}\times \frac{G_2}{H_2}$
+ - The relevant homomorphism is ## $G_1\times G_2 \xrightarrow{\pi} \frac{G_1}{H_1}\times \frac{G_2}{H_2}$ ## given by ## $\pi((g_1,g_2))\mapsto (g_1H_1,g_2H_2)$ ##
+ - This is surjective and has a kernel ## $H_1 \times H_2$ ##.
+ - When $H_1$ is trivial and $H_2=G_2$, we obtain the relation $\frac{G_1 \times G_2}{G_2} \cong G_1$ 
+***** <<X2.8.6>> :98:
+ - The cyclic group $C_3$ can be viewed as a subgroup of $D_6$ (it is ## index 2 ## so it is normal)
+ - We can easily show $D_6/C_3 \cong C_2$ using the first isomorphism theorem and the surjective homomorphism ## which maps to $Bool$ answering whether or not the triangle order was flipped ##)
+***** <<X2.8.7>> :98:
+ - One can give a circle /S/ a group structure by associating its points with rotations about the plane (like $C_\infty$).
+ - There is a surjective homomorphism $\mathbb{R}\xrightarrow{\rho}S$ which wraps the number line around the circle (mapping $r \mapsto$ a rotation by $2 \pi r$ radians) 
+ - The kernel of this homomorphism is ## $\mathbb{Z} \subseteq \mathbb{R}$ ##
+ - Therefore $S \cong$ ## $\mathbb{R}/\mathbb{Z}$ ##
+*** Part 2: Presentations
+**** Notes
+ - Finitely generated groups are quotients of free groups, where there are finitely many generators and finitely many equivalence relations.
+ - The /word problem/: there is no general algorithm that, given a presentation and two words on the generators, will establish in a finite time whether those two words represent the same element in /G/
+ - Mirror statement to the fact that all groups are quotients of free groups: all groups are subgroups of a symmetric group.
+*** Part 3: Subgroups of quotients
+**** Notes
+ - The lattice of subgroups of /G/ / /H/ match the lattice of subgroups of /G/ that contain /H/
+**** Propositions
+***** <<P2.8.9>> :100:
+****** Proposition
+ - Let $H \trianglelefteq G$. Then for every subgroup /K/ of /G/ containing /H/, $K/H$ may be identified bijectively with subgroups of $G/H$
+ - /u/: { subgroups of /K/ containing /H/ } $\rightarrow$ { subgroups of $G/H$ } defined by $u(K)\mapsto K/H$ is a bijective set-function
+ - /u/ preserves inclusions
+****** Proof
+ - $K/H$ is just a bunch of cosets of /H/, just like $G/H$ ... it is in fact a subgroup of $G/H$
+ - The map preserves inclusion as $K \subseteq L$ means that we have all the cosets of /H/ from elements of /K/ in addition to elements of /L/. So /u/ does preserve inclusion.
+ - The inverse function is to take the preimage of the canonical projection $G\xrightarrow{\pi}G/H$, which is an inverse because our /u/ was no more than a restriction of $pi$ itself.
+***** <<P2.8.10>> :101:todo:
+****** Proposition
+ - The "third isomorphism theorem"
+ - Let $H \trianglelefteq G$ and $H \leq N \leq G$
+ - Then $N \trianglelefteq G \iff N/H \trianglelefteq G/H$
+ - And in this case $\frac{G/H}{N/H}\cong G/N$
+****** Proof
+ - ???
+*** Part 4: $HK/H$ vs $K/H\cap K$
+**** Propositions
+***** <<P2.8.11>> :102:todo:
+****** Proposition
+ - The second isomorphism theorem
+ - Let $H,K \leq G$ and $H \trianglelefteq G$
+ - $HK \leq G$ and $H \trianglelefteq HK$
+ - $H \cap K \trianglelefteq K$
+ - $\frac{HK}/H \cong \frac{K}{H \cap K}$
+****** Proof
+ - ???
+*** Part 5: The index and Lagrange's Theorem
+**** Definitions
+***** <<D2.8.12>> :102:
+****** Term
+ - The index of a subgroup /H/ in a group /G/
+****** Def
+ - The number of left cosets of /H/ in /G/ (if finite) else $\infty$
+**** Propositions
+***** <<P2.8.13>> :102:
+****** Proposition
+ - Let $H \leq G$. Then $\forall g \in G$ the following functions are bijections
+ - $H \rightarrow gH$ given by $h \mapsto gh$
+ - $H \rightarrow Hg$ given by $h \mapsto hg$
+****** Proof
+ - Both functions are surjective by definition of coset 
+ - Cancellation implies they are injective
+***** <<P2.8.14>> :103:
+****** Proposition
+ - Lagrange's Theorem
+ - If /G/ is a finite group and $H \leq G$, then $|G| = [G : H]\cdot |H|$
+ - In particular, $|H|$ is a divisor of $|G|$
+****** Proof
+ - /G/ is the disjoint union of $[G : H]$ distinct cosets /gH/, and $|gH|=|H|$ by [[P2.8.13]] ($h \mapsto gh$ is a bijection)
+**** Examples
+***** <<X2.8.15>> :103:
+ - The order of $|g|$ of a finite group /G/ is a divisor of ##  $|G|$ ## because $\langle g \rangle$ is a subgroup of order $|g|$, applying ## Lagrange's ## theorem.
+ - Thefore $g^{|G|}=$ ## /e/ ## for all elements of all finite groups. 
+***** <<X2.8.16>> :103:
+ - If /G/ is of prime order, then necessarily $G \cong$ ## $\mathbb{Z}/p\mathbb{Z}$ ##
+ - Taking any nonidentity element, we can generate a cyclic subgroup that is of order greater than 1.
+ - By ## Lagrange's theorem## we know that this order must be equal to /p/, and therefore it is equivalent to /G/
+***** <<X2.8.17>> :103:
+ - Fermat's Little Theorem
+ - Let /p/ be a prime integer and /a/ be any integer. 
+ - Then $a^p \equiv a$ mod /p/
+ - If /a/ is a multiple of /p/, then $a^p$ is a multiple of /p/ and is /0/ mod /p/
+ - Else, /a/ is an element in the group $(\mathbb{Z}/p\mathbb{Z})^\times$
+ - From ## Lagrange's Theorem ## we know $a^{p-1} = e_{(\mathbb{Z}/p\mathbb{Z})^\times}$
+ - The identity of $(\mathbb{Z}/p\mathbb{Z})^\times$ is the generator for $\mathbb{Z}/p\mathbb{Z}$
+ - $a^{p-1}=1$ mod /p/, and multiplying both sides by /p/ gives the final result.
+**** Notes
+ - Lagrange's theorem does not state that any particular subgroups must exist 
+ - The index is an 'invariant' in the sense $H \leq K \leq G \implies [G : H]= [G : K]\cdot [K : H]$
+ provided these are finite 
+ - Also $|HK| = \frac{|H|\cdot |K|}{H \cap K}$ if all orders involved are finite.
+ - The number of left cosets of a subgroup equals the number of right cosets
+*** Part 6: Epimorphisms and cokernels
+**** Notes
+ - A mirror statement for [[P2.6.12]] is true: epimorphism $\iff$ surjective in $Grp$
+ - Things are simpler in $Ab$ where there is the notion of a /cokernel/
+ - The universal property is obtained by reversing the arrows of [[P2.6.6]]
+ - Because images are normal in $Ab$ we can reverse arrows without issue.
+**** Propositions 
+***** <<P2.8.18>> :105:
+****** Proposition
+ - Let $G \xrightarrow{\phi} H$ be a homomorphism of abelian groups. The folowing are equivalent: 
+   1. $\phi$ is an epimorphism
+   2. coker(\phi) is trivial
+   3. $\phi$ is surjective (as a set-function)
+****** Proof
+ - $1 \implies 2$
+   - $G\xrightarrow{\phi}H\overset{\pi}{\underset{e}{\rightrightarrows}}coker(\phi)$ where $\pi$ is the canonical projection and /e/ is the trivial map.
+   - ## Both $\pi \circ \phi$ and $e \circ \phi$ are the trivial map, meaning $pi=e$ ##
+   - The canonical projection being trivial implies $coker(\phi)$ is trivial
+ - $2 \implies 3$
+   - ## $coker(\phi)=H/im(\phi)$ being trivial ## implies $im(\phi)=H$ so $\phi$ is surjective
+ - $3 \implies 1$
+   - If $\phi$ is surjective it satisfies the universal property for epimorphisms in $Set$.
+   - ## Nothing is changed when the functions are group homomorphisms and sets are endowed with group structure. ##
+*** Exercises
+**** <<E2.8.1>>
+***** Question
+ - If $H \leq G_1$ and $H \leq G_2$ with $G_1/H \cong G_2/H$ does it follow that $G_1 \cong G_2$
+***** Solution
+ - What follows is that $|G_1|=|G_2|$, however the group structure within the cosets (which gets collapsed by the quotienting) may be different between $G_1$ and $G_2$
+ - Consider $V_4/C_2\cong C_2 \cong C_4/C_2$
+**** <<E2.8.2>>
+***** Question
+ - Extend [[X2.8.6]] as follows: suppose $H \leq G$ is a subgroup of index 2.
+ - Prove $H \trianglelefteq G$
+***** Solution
+ - /H/ normalizes itself, so all that needs to be checked is if it is normalized by elements of the other coset, say $gH$ for some representative /g/ in the other coset.
+ - $\forall g \in gH: gH = Hg$ because there is only one non-identity coset of /H/ possible (there are not multiple ways to partition the non - /H/ elements such that left and right cosets could be possibly different
+**** <<E2.8.3>>
+***** Question
+ - Prove every finite group is finitely presented
+***** Solution
+ - Take the presentation $\langle G \rangle$ with no relations.
+**** <<E2.8.4>>
+***** Question
+ - Prove that $\langle a,b\ |\ a^2=b^2=(ab)^n=e\rangle$ is a presentation of $D_{2n}$
+***** Solution
+ - Let $a=s,b=sr$ (so $ab=r$) and we obtain the typical presentation
+**** <<E2.8.5>>
+***** Question
+ - Let $a,b$ be distinct elements of order 2 in /G/, and assume $|ab|=n\geq 3$.
+ - Prove that the subgroup $\langle a,b \rangle \cong D_{2n}$ 
+***** Solution
+ - Let $\phi(a)\mapsto s$ and $\phi(b)\mapsto sr$
+ - The orders of /a/, /b/ and /ab/ correspond to the three relations of $D_{2n}$ 
+ - This map is injective because $s\ne sr$ and surjective because $\langle s,sr\rangle = D_{2n}$
+**** <<E2.8.7>> :todo:
+***** Question
+ - Let $(A\ |\ \mathscr{R}),(A'\ |\ \mathscr{R}')$ be presentations for $G,G'$ respectively, with $A,A'$ disjoint.
+ - Prove that $G * G' = (A \cup A'\ |\ \mathscr{R} \cup \mathscr{R}')$ satisfies the universal property for coproducts in $Grp$
+ - Hint: use the universal properties of free groups and quotients to construct natural homomorphisms $G\rightarrow G*G'$ and $G' \rightarrow G*G'$
+***** Solution
+ - 
+**** <<E2.8.10>>
+***** Question
+ - Describe the quotient $\frac{\mathbb{R}\times \mathbb{R}}{\mathbb{Z}\times \mathbb{Z}}$ 
+ - Imagine $\mathbb{R}\times \mathbb{R}$ as a cartesian plane and $\mathbb{Z}\times \mathbb{Z}$ as discrete grid points.
+***** Solution
+ - The quotient folds the entire plane into a particular $1 \times 1$ grid, say the grid bounded by (0,0),(1,0),(0,1),(1,1).
+ - This is the cartesian product of the reals mod 1, i.e. $\mathbb{R}/\mathbb{Z} \times \mathbb{R}/\mathbb{Z}$
+**** <<E2.8.11>> :todo:
+***** Question
+ - Prove 'by hand' (i.e. no universal properties) that $N \trianglelefteq G \iff N/H \trianglelefteq G/H$
+***** Solution
+ - 
+**** <<E2.8.12>> :todo:
+***** Question
+ - Prove 'by hand' (i.e. no universal properties) that $H \trianglelefteq G \implies HK \leq G$
+***** Solution
+ - 
+**** <<E2.8.13>> :todo:
+***** Question
+ - Let /G/ be a finite group of odd order. Prove every element is a square.
+***** Solution
+ - 
+**** <<E2.8.14>> :todo:
+***** Question
+ - Generalize [[E2.8.13]]: if /G/ is order /n/ and /k/ is relatively prime to /n/, then the function $G\xrightarrow{\phi}G$ given by $\phi(g)\mapsto g^k$ is surjective
+***** Solution
+ - Without loss of generality, consider $k < n$ (if $k > n$, then take $k' = k$ mod /n/ which gives the same map).
+ - Let $g_1 \ne g_2$ and suppose without loss of generality that $g_1 \ne e$.
+ - $\phi(g_1)=g_1^k \ne g_2^k = \phi(g_2)$. Thus $\phi$ is injective and for a finite set this means it is surjective, too.
+ - The values are not equal because TO DO
+**** <<E2.8.15>> :todo: 
+***** Question
+ - Let /a > 1/ and /n/ be positive integers. Prove that /n/ divides $\phi(a^n-1)$ (using Euler's totient function)
+***** Solution
+ - 
+**** <<E2.8.16>> :todo:
+***** Question
+ - Generalize Fermat's Little Theorem to congruences modulo arbitrary (i.e. possibly nonprime) integers. 
+ - Note it is not true that $a^n\equiv a$ mod /n/ for all /a/ and /n/ ($2^4 \not{\equiv} 2$ mod /4/ ... what /is/ true?
+ - This is known as Euler's Theorem.
+***** Solution
+ - 
+**** <<E2.8.17>> :todo:
+***** Question
+ - Assume /G/ is a finite abelian group and let /p/ be a prime divisor of the order. Prove there exists an element /g/ of order /p/
+ - Hint: take any element $h \ne e$ and show it generates a cyclic group with an element of prime order. If it is /p/ we're done, otherwise use induction on $G/\langle h \rangle$ 
+***** Solution
+ - 
+**** <<E2.8.18>>
+***** Question
+ - Let /G/ be an abelian group of order /2n/ where /n/ is odd.
+ - Prove /G/ has exactly one element of order /2/
+ - Note [[E2.8.17]] shows there exists such an element. Use Lagrange's Theorem to show there cannot exist more than one.
+ - Does the same hold for nonabelian groups?
+***** Solution
+ - Suppose /k/, /h/ have order 2. $H=\langle h \rangle$ is a subgroup such that $|G/H|$ is odd. This is well-defined because /H/ is normal because /G/ is abelian. 
+ - Yet the order of $kH \in G/H$ must be 2 as well ($kH \cdot kH = k\cdot k H = H$), so Lagrange's theorem says $|G/H|$ must be even - therefore no such pair /k/, /h/ can exist.
+ - The same does not hold for nonabelian groups, looking at the simplest example $S_3$ which has distinct 'swap' elements and is order $2 \cdot 3$. 
+**** <<E2.8.19>>
+***** Question
+ - Let /G/ be a finite group and let /d/ be a proper divisor of /|G|/. 
+ - Is it necessarily true that there exists an element of /G/ of order /d/?
+***** Solution
+ - No, $A_4$ has order /12/ and no subgroup of order /6/
+**** <<E2.8.20>>
+***** Question
+ - Assume /G/ is a finite abelian group and let /d/ be a divisor of /|G|/. 
+ - Prove there exists a /subgroup/ of order /d/
+ - Hint: use induction
+***** Solution
+ - There does exist an element /g/ of prime order /p/ for some /p/ that divides /|G|/, so we can peel off a factor of /p/ by taking the quotient w/r/t $\langle g \rangle$ iteratively until we are left with $G/\langle p_1 \rangle / \langle p_2 \rangle$ etc. where $|G|/p_1p_2...=d$
+ - These elements will be in disjoint cycles so the product $\langle p_1 \rangle \langle p_2 \rangle ... \langle p_n \rangle$ will have trivial intersection and therefore be a subgroup of order $p_1p_2...p_n$. The quotient with respect to this subgroup will have order /d/.
+**** <<E2.8.21>> :todo:
+***** Question
+ - Let $H,K \leq G$. Construct a bijection between the set of cosets $hK$ with $h\in H$ and the set of left cosets of $H \cap K$ in $H$. 
+ - If $H,K$ are finite, prove that $|HK|=\frac{|H|\cdot |K|}{|H\cap K|}$ 
+***** Solution
+ - 
+**** <<E2.8.22>> :todo:
+***** Question
+ - Let $G \xrightarrow{\phi}H$ be a group homomorphism and /N/ be the smallest normal subgroup containing $im(\phi)$. 
+ - Prove $H/N$ satisfies the universal property of $coker(\phi)$ in $Grp$
+***** Solution
+ - 
+**** <<E2.8.24>> :todo:
+***** Question
+ - Show that epimorphisms in $Grp$ do not necessarily have right inverses
+***** Solution
+ - 
+** Section 9: Group actions
+*** Part 1: Actions 
+**** Notes
+ - Knowing /G/ acts on /A/ tells us something about /A/, but we can also learn about /G/ when our homomorphism is an isomorphism or an injective monomorphism
+**** Definitions
+***** <<D2.9.1>> :109:
+****** Term
+ - A group action is /faithful/
+****** Def
+ - The corresponding $G \xrightarrow{\sigma} Aut(A)$ is injective
+*** Part 2: Actions on sets  
+**** Notes
+ - An action is faithful iff the identity is the only element which fixes /A/
+ - A group can act on its own elements (or cosets) by left multiplication
+**** Propositions
+***** <<P2.9.5>> :110:
+****** Proposition
+ - Cayley's Theorem
+ - Every group acts faithfully on /some/ set
+ - I.e. every group may be realized as a subgroup of a permutation group
+****** Proof
+ - /G/ acts faithfully on itself by left multiplication 
+*** Part 3: Transitive actions and the category $G-Set$
+**** Definitions
+***** <<D2.9.6>> :110:
+****** Term
+ - A group action is /transitive/
+****** Def
+ - $\forall a,b \in A: \exists g \in G: g\cdot a = b$
+***** <<D2.9.7>> :110:
+****** Term
+ - The /orbit/ of $a \in A$ under the action of a group /G/
+****** Def
+ - $O_G(a) := \{ga\ |\ g \in G\}$
+***** <<D2.9.8>> :111:
+****** Term
+ - The stablizer subgroup of $a \in A$ under action of a group /G/
+****** Def
+ - $Stab_G(a) := \{g \in G\ |\ ga=a\}$
+***** <<D2.9.9>> :111:
+****** Term
+ - For a fixed group /G/, the category $G-Set$
+****** Def
+ - Objects are actions $G \times A \xrightarrow{\rho} A$
+ - Morphisms are specified by a set function $A \xrightarrow{\phi} A'$ such that following diagram commutes 
+ - $\begin{tikzcd}G \times A \arrow[r, "id_G \times \phi"] \arrow[d, "\rho"'] & G \times A' \arrow[d, "\rho'"] \\A \arrow[r, "\phi"'] & A' \end{tikzcd}$
+ - In other words: $g \cdot \phi(a)=\phi(g \cdot a)$
+ - Such functions are called /G/-equivariant 
+**** Notes 
+ - The action of left multiplication is transitive
+ - Orbits on a set /A/ form a partition of /A/
+ - We have a transitive action of /G/ on each orbit.
+ - By [[P2.9.12]], if $Stab_G(a)$ happens to be normal, then it is independent of /a/ (in any given orbit). There is an isomorphism of /G/-sets between $G/H$ and $G/(gHg^{-1})$.
+**** Propositions
+***** <<P2.9.9>> :111:todo:
+****** Proposition
+ - Every transitive left action of /G/ on a nonempty set /A/ is isomorphic to the left multiplication of /G/ on $G/Stab_G(a)$ for any $a \in A$
+****** Proof
+ - todo 
+***** <<P2.9.10>> :112:todo:
+****** Proposition
+ - If /O/ is an orbit of the action of a finite group /G/ on a set /A/, then /O/ is a finite set and $|O|$ divides $|G|$
+****** Proof
+ - [[P2.9.9]]
+***** <<P2.9.12>> :112:
+****** Proposition
+ - Suppose /G/ acts on /A/ with $a,b \in A, g \in G$, and  $\sigma_g(a)=b$
+ - $Stab_G(b)=gStab_G(a)g^{-1}$
+****** Proof
+ - $(ghg^{-1})(b)=gh(g^{-1}g)a=gha=ga=b$
+ - Thus $ghg^{-1} \in Stab_G(b)$ which proves inclusion one way.
+ - Inclusion the other way shown by same argument noting that $\sigma_{g^{-1}}(b)=a$
+**** Examples 
+***** <<X2.9.11>> :112:
+ - There are /no/ transitive action of $S_3$ on a set with /5/ elements 
+ - By [[P2.9.10]], the size of any orbit must ## divide the size of the group ##, and ## /5/ does not divide /6/ ##.
+*** Exercises
+**** <<E2.9.3>> :todo:
+***** Question
+ - Given a group $(G,\cdot)$ let the 'opposite group' be $G^\circ=(G,\bullet)$ where $\forall g,h \in G: g \bullet h = h \cdot g$ 
+ - Verify that $G^\circ$ is a group 
+ - Show that the 'identity' $G^\circ \xrightarrow G$ given by $g \mapsto g$ is a group isomorphism iff /G/ is commutative 
+ - Show that $G^\circ \cong G$ (even if /G/ is not commutative)
+ - Show that giving a /right/ action of /G/ on a set /A/ is the same as giving a homomorphism $G^\circ \rightarrow S_A$ (i.e. a /left/ action of $G^\circ$ on /A/)
+ - Show that the notions of left and right actions coincide 'on the nose' for /commutative/ groups (i.e. if $(g,a)\mapsto ag$ defines a right action of a commutative group /G/ on set /A/, then setting $ga=ag$ defines a left action)
+ - For any group /G/ explain how to turn a right action into a left action (note that $ga=ag$ does /not/ work in general if /G/ is not commutative)
+***** Solution
+ - [ ] to do
+**** <<E2.9.4>> :todo:
+***** Question
+ - Right multiplication is a natural right action of a group on itself. Find another.
+***** Solution
+ - [ ] to do
+**** <<E2.9.5>> :todo:
+***** Question
+ - Prove that action by left multiplication of a group on itself is free
+***** Solution
+ - [ ] What does /free/ mean here?
+**** <<E2.9.6>> :todo:
+***** Question
+ - Let /O/ be an orbit of an action of a group /G/ on a set. 
+ - Prove that the induced action of /G/ on /O/ is transitive
+***** Solution
+ - In virtue of /O/ being an orbit, there's a way to get from any element to any other element in the orbit...
+**** <<E2.9.7>>
+***** Question
+ - Prove that stabilizers are indeed subgroups
+***** Solution
+ - Let $g,h \in Stab_G(a)$ and consider $gh^{-1} \cdot a$
+ - $= g \cdot (h^{-1} \cdot a) = g \cdot a = a$
+ - Therefore $gh^{-1} \cdot a = a$ and $gh^{-1} \in Stab_G(a)$
+ - By the subgroup criterion, $Stab_G(a)$ is a subgroup.
+**** <<E2.9.8>> :todo:
+***** Question
+ - For any group /G/ verify that $G-Set$ is a category
+ - Verify that the isomorphisms in $G-Set$ are precisely equivariant bijections
+***** Solution
+ - [ ] to do
+**** <<E2.9.10>> :todo:
+***** Question
+ - Prove there is a bijection between the set $G/H$ of left cosets of a subgroup /H/ and the set $H\G$ of right cosets 
+ - Hint: /G/ acts on the right on the set of right cosets. Use [[E2.9.3]] and [[P2.9.9]]
+***** Solution
+ - [ ] to do
+**** <<E2.9.11>> :todo:
+***** Question
+ - Let /G/ be a finite group and /H/ be a subgroup of index /p/ where /p/ is the smallest prime dividing /|G|/
+ - Prove that $H \trianglelefteq G$ as follows:
+   - Interpret the action of /G/ on $G/H$ by left multiplication as a homomorphism $G \xrightarrow{\sigma} S_p$
+   - Then $G/ker(\sigma)$ is isomorphic to a subgroup of $S_p$. What does this say about the index of $ker(\sigma)$ in /G/ ?
+   - Show that $ker(\sigma) \subseteq H$
+   - Conclude that $H = ker(\sigma)$ by index considerations (and is therefore a normal subgroup)
+***** Solution
+ - [ ] to do
+**** <<E2.9.12>> :todo:
+***** Question
+ - Generalize the result of [[E2.9.11]] as follows:
+ - Let /G/ be a group and let $H leq G$ be a subgroup of index /n/. 
+ - Prove that /H/ contains a subgroup /K/ that is normal in /G/ and such that its index divides the gcd of /|G|/ and /n!/
+ - In particular, $[G:K]\leq n!$
+***** Solution
+ - [ ] to do
+**** <<E2.9.13>> :todo:
+***** Question
+ - Prove 'by hand' that for all subgroups $H \leq G$ and $\forall g \in G: G/H$ and $G/(gHg^{-1})$ (endowed with the action of /G/ by left multiplication) are isomorphic in $G-Set$
+***** Solution
+ -  [ ] to do
+**** <<E2.9.15>> :todo:
+***** Question
+ - Prove every finitely generated /G/ acts freely on a corresponding Cayley graph
+ - Note actions on a directed graph are defined as actions on the set of vertices preserving incidence
+ - I.e. if $v_1,v_2$ are connected by an edge, then so must $gv_1,gv_2$ for any /g/)
+ - In particular conclude that every free group acts freely on a tree.
+***** Solution
+ - [ ] to do
+**** <<E2.9.17>> :todo:
+***** Question
+ - Consider /G/ as a $G-set$ by acting with left multiplication.
+ - Prove that $Aut_{G-Set}(G) \cong g$
+***** Solution
+ - [ ] to do
+**** <<E2.9.18>> 
+***** Question
+ - Show how to construct a /groupoid/ carrying the information of the action of a group /G/ on a set /A/
+ - Hint: /A/ will be the set of objects of the groupoid. What will be the morphisms?
+***** Solution
+ - An action assigns to each pair $(g,a_1)$ another element $a_2 \in A$. There are $|G|\times |A|$ such assignments to be made.
+ - Because $a_1,a_2 \in Obj(\mathcal{C})$ we can interpret each assignment as a morphism in $\mathcal{C}$
+ - Identities exist because we know $e \in G$ will assign an arrow $a_i \mapsto a_i$
+ - Inverse morphisms exist because $g^{-1}$ will map to the inverse morphism of /g/. Thus the category is a groupoid.
+ - Composition is guaranteed because of the corresponding associativity of group multiplication
+** Section 10: Group objects in categories
+*** Part 1: Categorical Viewpoint
+**** Notes
+ - Earlier definition of a group is grounded in $Set$ but the notion of a group can be generalized
+ - A /topological group/ is a group in the category of topological spaces 
+ - A /Lie group/ is a group object in the category of differentiable manifolds
+**** Definitions
+***** <<D2.10.0>> :116:
+****** Term
+ - The /diagonal/ /morphism/ $\Delta_X$ in a category $\mathcal{C}$ with products and $X \in Obj(\mathcal{C})$
+****** Def
+ - The cartesian product $X \xrightarrow{id_X \times id_X} X \times X$
+ - The unique solution such that the following diagram commutes: $\begin{tikzcd} & X \arrow[ld, "f"'] \arrow[rd, "g"] \arrow[d, "\Delta_X", dashed] & \\X \arrow[d, "id_X"'] & X^2 \arrow[ld, "\pi_1"] \arrow[rd, "\pi_2"] & X \arrow[d, "id_X"] \\ X & & X    \end{tikzcd}$
+***** <<D2.10.1>> :116:
+****** Term
+ - A /group/ /object/ in $\mathcal{C}$
+ - Where $\mathcal{C}$ is a category with finite products and a final object /1/
+****** Def
+ - A group object requires an object /G/ as well as morphisms  
+   - ## $G \times G \xrightarrow{m} G$ ## 
+   - ## $1 \xrightarrow{e} G$ ##
+   - ## $G \xrightarrow{i} G$ ##
+   - such that the following diagrams commute:
+ - Associativity of /m/: ## $\begin{tikzcd}G \times G \times G \arrow[r, "id_G \times m"] \arrow[d, "m \times id_G"'] & G \times G\arrow[d, "m"] \\ G \times G \arrow[r, "m"'] & G \end{tikzcd}$ ##
+ - Two-sided identity picked out by /e/ ## $\begin{tikzcd}G \arrow[r, "e \times id_G"] \arrow[rd, "id_G"] \arrow[d, "id_G\times e"'] & G \times G\arrow[d, "m"] \\G \times G \arrow[r, "m"'] & G \end{tikzcd}$ ##
+ - Inverse: ## $\begin{tikzcd}G \arrow[d, "(i \times id_G) \circ \Delta_G"'] \arrow[r, "(id_G \times i) \circ \Delta_G"] & G \times G \arrow[d, "m"] & \\G \times G \arrow[r, "m"'] & G & \\& & 1 \arrow[lu, "e"]\end{tikzcd}$ ##
+*** Exercises
+**** <<E2.10.2>> :todo:
+***** Question
+ - Show that /groups/ as defined in $\S$ 2.1.2, are 'group objects in the category of sets
+***** Solution
+ - [ ] to do
+**** <<E2.10.3>> :todo:
+***** Question
+ - Let $(G,\cdot)$ be a group and suppose $G \times G \xrightrarrow{\circ} G$ is a group homomorphism (w/r/t $\cdot$) such that $(G, \circ)$ is /also/ a group. 
+ - Prove that $\circ$ aand $\cdot$ coincide
+ - Hint: Prove that the identity w/r/t the two operations must be the same
+***** Solution
+ - [ ] to do
+**** <<E2.10.4>> :todo:
+***** Question
+ - Prove that every /abelian/ group has exactly one structure of group object in the category $Ab$
+***** Solution
+ - [ ] to do
+**** <<E2.10.5>> :todo:
+***** Question
+ - By [[E2.10.4]], a group object in $Ab$ is nothign other than an abelian group. What is a group object in $Grp$ ?
+***** Solution
+ - [ ] to do
+* Chapter 3: Rings and modules
+** Section 1: Definition of ring 
+*** Part 1: Definition
+**** Definitions
+***** <<D3.1.1>> :119:
+****** Term
+ - A /ring/ $(R,+,\cdot)$ 
+****** Def
+ - An abelian group $(R,+)$ endowed with a second binary operation which is associative with a two-sided identity (i.e. a monoid) satisfying a distributive property: $\forall r,s,t \in R: (r+s)\cdot t = r\cdot t + s \cdot t$ (as well as left multiplication)
+ - A ring is commutative if /rs/ = /sr/
+*** Part 2: First examples
+**** Notes
+ - Wedderburn's little theorem shows that finite division rings are necessarily commutative.
+**** Examples
+***** <<X3.1.3>> :121:
+ - The ##trivial ring / zero ring## is a ring {a} with a+a=a and $a \cdot a = a$ . Note that 0=1 in this ring.**** Propositions
+**** Definitions
+***** <<D3.1.8>> :122:
+****** Term
+ - An element /a/ in a ring /R/ is a zero-divisor
+****** Def
+ - There exists an element /b/ that is not zero yet /ab=0/
+ - Zero is a zero-divisor in all nonzero rings, and the zero ring is the only ring without zero-divisors!
+***** <<D3.1.10>> :122:
+****** Term
+ - An integral domain
+****** Def
+ - A nonzero, commutative ring with no nonzero zero divisors.
+***** <<D3.1.11>> :123:
+****** Term
+ - An element /u/ of ring /R/ is a left-unit
+****** Def
+ - There exists a /v/ such that /uv=1/
+ - A /unit/ is both a left and a right unit.
+ - The inverse of a unit is unique and can be denoted $u^{-1}$, but we should not use this for just left or right units.
+***** <<D3.1.13>> :123:
+****** Term
+ - A division ring
+****** Def
+ - A ring in which every nonzero element is a unit
+***** <<D3.1.14>> :123:
+****** Term
+ - A field
+****** Def
+ - A nonzero commutative division ring (i.e. every nonzero element is a unit)
+**** Propositions
+***** <<P3.1.9>> :122:
+****** Proposition
+ - /a/ is not a left zero divisor iff left multiplication by /a/ is an injective function $R \rightarrow R$
+****** Proof
+ - Prove $\Rightarrow$:
+   - Let /ab=ac/ and consider /a(b-c)=ab-ac=0/
+   - If /a/ is not 0, then ## /b-c/ must be 0, so /b=c/. $ab=ac \implies b=c$ ##
+   - The contrapositive of this is ## $b \ne c \implies ab \ne ac$ ## (i.e. injectivity)
+ - Prove $\Leftarrow$:
+   - If /a/ is a zero divisor, then there are ## two things which map to zero when multiplied by /a/ (0 and /b/ which is not zero), ## so multiplication is not injective.
+
+***** <<P3.1.12>> :123:todo:
+****** Proposition
+ - In a ring /R/
+   - /u/ is a unit iff left multiplication by /u/ is surjective 
+   - /u/ is a unit iff right multiplication by /u/ is injective
+   - The inverse of a two-sided unit is unique 
+   - Two sided units form a group under multiplication
+****** Proof
+ - 
+***** <<P3.1.15>> :124:
+****** Proposition
+ - /R/ is a finite commutative ring. It is an integral domain iff it is a field.
+****** Proof
+ - All fields are integral domains, so we need to show that the finiteness of the integral domain implies that a non-zero-divisor must be a unit.
+ - Elements being nonzero divisors implies multiplication is /injective/ which, for a finite set $R \xrightarrow{\times} R$ is bijective.
+*** Part 3: Polynomial Rings
+**** Definitions
+***** <<D3.1.19>> :125:
+****** Term
+ - A polynomial ring with coefficients in ring /R/
+****** Def
+ - $\Sigma a_ix^i$
+ - The /degree/ of the polynomial is the largest integer for which $a_d\ne 0$
+**** Notes
+ - R[x] is commutative if R is commutative
+ - R[x] is an integral domain if R is an integral domain
+ - R[x] is not a field even if R is a field for there is no inverse for /x/ in R[x].
+*** Part 4: Monoid Rings
+**** Notes
+ - Given a monoid /M/ and a ring /R/ we can construct a new ring R[M].
+ - Elements are linear combinations $\Sigma_{m \in M}a_m\cdot m$.
+ - Addition is componentwise, the coeficient for /m/ in /M/ for multiplication is $\Sigma_{m_1m_2=m}(a_{m_1}b_{m_2})$
+ - Group rings are a special case where /M/ is a group.
+*** Exercises
+**** <<E3.1.1>>
+***** Question
+ - Prove that 0=1 implies a ring is the zero ring.
+***** Solution
+ - Let /r=r*1/ be an arbitrary element. If /1=0/ then /r=r*0=0/ thus there can only be one element in the ring.
+**** <<E3.1.2>> :todo:
+***** Question
+ - Let /S/ be a set and define operations on the power set:
+ - $A+B := (A \cup B) - (A \cap B)$ 
+ - $A \cdot B := A \cap B$
+ - Prove that $(\mathscr{P}(S),+,\cdot)$ is a commutative ring
+***** Solution
+ - 
+**** <<E3.1.3>>
+***** Question
+ - Let /R/ be a ring and /S/ any set. Explain how to endow the set of set functions $R^S$ with addition and multiplication to make it a ring, such that $R^S \cong R$ if /S/ is a singleton.
+***** Solution
+ - $(f+g)(a)\mapsto f(a)+g(a)$
+ - $(f\cdot g)(a) \mapsto f(a)\cdot g(a)$
+ - The additive identity is a function that sends every element to $0_R$.
+ - The additive inverse /-f/ sends /a/ to /-f(a)/
+ - The addition/multiplication of functions does not leave the space of $R^A$. 
+ - $f(g+h)=f(a)(g(a)+h(a))$ which inherits distributivity from /R/   
+ - When /S/ is a singleton, these 'functions' are just particular values of /R/
+**** <<E3.1.5>> 
+***** Question
+ - Let /R/ be a ring. If /a/, /b/ are zero-divisors in /R/, is /a+b/ necessarily a zero-divisor?
+***** Solution
+ - No, consider 2,3 $\in \mathbb{Z}/6\mathbb{Z}$. /5/ is a unit in this ring.
+**** <<E3.1.6>> :todo:
+***** Question
+ - An element /a/ of a ring /R/ is /nilpotent/ if $a^n=0$ for some /n/
+ - Prove that if /a/, /b/ are nilpotent then $ab=ba \implies a+b$ is nilpotent
+ - Is the hypothesis in the previous statement necessary for its condition to hold?
+***** Solution
+ - 
+**** <<E3.1.7>> :todo:
+***** Question
+ - Prove that $[m]$ is nilpotent in $\mathbb{Z}/n\mathbb{Z}$ iff /m/ is divisible by all prime factors of /n/
+***** Solution
+ - 
+**** <<E3.1.8>> :todo:
+***** Question
+ - Prove that $x = \pm 1$ are the only solutions to the equation $x^2=1$ in an integral domain.
+ - Find a ring in which the equation $x^2=1$ has more than 2 solutions
+***** Solution
+ - 
+**** <<E3.1.9>> :todo:
+***** Question
+ - Prove [[P3.1.12]]
+***** Solution
+ - 
+**** <<E3.1.10>> :todo:
+***** Question
+ - Let /R/ be a ring. Prove that, if $a \in R$ is a right unit and has two or more left-inverses, then /a/ is /not/ a left-zero-divisor and /is/ a right-zero-divisor.
+***** Solution
+ - 
+**** <<E3.1.14>> :todo:
+***** Question
+ - Let /R/ be a ring and $f,g \in R[x]$ be nonzero polynomials. 
+ - Prove $deg(f+g)\leq max(deg(f),deg(g))$
+ - Assuming /R/ is an integral domain, prove $deg(f\cdot g) = deg(f)+deg(g)$
+***** Solution
+ - 
+**** <<E3.1.15>> :todo:
+***** Question
+ - Prove $R[x]$ is an integral domain iff /R/ is an integral domain
+***** Solution
+ - 
+**** <<E3.1.16>> :todo:
+***** Question
+ - Let /R/ be a ring and consider the ring of power series.
+ - Prove that a power series $a_0+a_1x+a_2x^2+$... is a unit iff $a_0$ is a unit in /R/
+ - What is the inverse of $1-x$ in this ring?
+ - Prove that the power series ring is an integral domain iff /R/ is 
+***** Solution
+ - 
+**** <<E3.1.17>> :todo:
+***** Question
+ - Explain in what sense $R[x]$ agrees with the monoid ring $R[\mathbb{N}]$
+***** Solution
+ - 
+** Section 2: The category Ring
+*** Part 1: Ring homomorphisms
+**** Notes
+ - Both operations must be preserved.
+ - Rings form a category where zero rings are final.
+ - Zero rings are not initial because 0=1 so that we cannot map to categories where 0 and 1 are different.
+ - The ring of integers is initial (homomorphism is completely determined by where it sends 0 and 1, where are constrained to map to 0 and 1 in the image). 
+ - $\phi(mn)=(mn)1=(m1)(n1)=\phi(m)\phi(n)$
+ - The property of being a zero divisor may not be preserved in a ring homomorphism (e.g. every element in integers is not a zero divisor, but the integers mod /n/ may have zero divisors).
+*** Part 2: Universal property of polynomial rings
+**** Propositions
+***** <<P3.2.1>> :131:todo:
+****** Proposition
+ - $A \xrightarrow{i}\mathbb{Z}[x_1,...,x_n])$ is initial in $\mathcal{R}_A$
+ - Where $\mathcal{R}_A$ is a category with objects $A \xrightarrow{j}R$ and /A/ is a set of size /n/ and /R/ is a commutative ring.
+ - Morphisms are commutative triangles where the rings are joined by a ring homomorphism.
+****** Proof
+ -  We want a diagram like this: $\begin{tikzcd}{\mathbb{Z}[x_1,...,x_n]} \arrow[r, "\phi", dashed]& R \\ A \arrow[ru, "j"'] \arrow[u, "i"] &  \end{tikzcd}$
+ - The definition of $\phi$ is forced by the requirements.
+ - $\forall k: \phi(x_k)=j(a_k)$
+ - $\phi(\Sigma m_{i_1...i_n}x_1^{i_1}...x_n^{i_n})$
+ - $=\Sigma \phi(m_{i_1...i_n})\phi(x_1)^{i_1}...\phi(x_n)^{i_n}$
+ - $=\Sigma i(m_{i_1...i_n})j(a_1)^{i_1}...j(a_n)^{i_n}$
+**** Examples
+***** <<X3.2.3>> :131:
+ - Let $R \xrightarrow{\alpha} S$ be a fixed ring homomorphism
+ - Let $s \in S$ be an element commuting with $\alpha(r)$ for all $r \in R$ 
+ - Then there is a unique ring homomorphism $R[x]\xrightarrow{\bar a}S$ extending $\alpha$ and sending /x/ to /s/
+ - In particular, take $\alpha = $ ## $id_R$ ## and /s/ = ## r ## to get the evaluation map $R\rightarrow R$ which evaluates the polynomial at a value of /r/
+*** Part 3: Monomorphisms and epimorphisms
+**** Propositions
+***** <<P3.2.4>> :todo:132:
+****** Proposition
+ - For a ring homomorphism $R \xrightarrow{\phi} S$ the following are equivalent:
+   - $\phi$ is a monomorphism 
+   - $ker(\phi)=\{0\}$ 
+   - $\phi$ is injective (as a set-function)
+****** Proof
+ - ?
+*** Part 4: Products 
+*** Part 5: Endomorphisms of an abelian group
+**** Propositions 
+***** <<P3.2.6>> :134:todo:
+****** Proposition
+ - $End_{Ab}(\mathbb{Z})$ is ring-isomorphic to $\mathbb{Z}$
+****** Proof
+ - $End_{Ab}(\mathbb{Z})\xrightarrow{\phi}\mathbb{Z}$ with $\phi(\alpha)\mapsto \alpha(1)$
+ - $(\alpha + \beta)(n) = \alpha(n)+\beta(n)$
+ - $\phi(a+b)=(a+b)(1)=a(1)+b(1)=\phi(a)=\phi(b)$
+ - $\phi(\alpha \circ \beta)=(\alpha \circ \beta)(1) = \alpha(\beta(1)) = \alpha(1)\beta(1)=\phi(\alpha)\phi(\beta)$
+ 
+*** Exercises
+**** <<E3.2.1>> 
+***** Question
+ - Prove that if there is a ring homomorphism from the zero ring to /R/, then /R/ is a zero ring.
+***** Solution
+ - The homomorphism must preserve the additive and multiplicative identities, so if 0=1 (a defining property of the zero ring) in the domain, then it must hold true in the codomain.
+**** <<E3.2.2>> :todo:
+***** Question
+ - Let /R/ and /S/ be rings and $R \xrightarrow{\phi} S$ be a set function perserving both operations $+,\cdot$
+ - PRove that if $\phi$ is /surjective/, then $\phi(1_R)=1_S$
+ - Prove that if $\phi\ne0$ and /S/ is an integral domain, then $\phi(1_R)=1_S$
+***** Solution
+ - 
+**** <<E3.2.5>> :todo:
+***** Question
+ - The /norm/ of a quaternion $a+bi+cj+dk$ with $a,b,c,d \in \mathbb{R}$ is the real number $a^2+b^2+c^2+d^2$. 
+ - Prove that the norm is a homomorphism to the positive real numbers.
+ - Prove that the kernel of this homomorphism is isomorphic to $SU(2)$
+***** Solution
+ - 
+**** <<E3.2.6>> :todo:
+***** Question
+ - Verify the 'extension property' of polynomial rings from [[X3.2.3]]
+***** Solution
+ - 
+**** <<E3.2.7>> :todo:
+***** Question
+ - Let $R=\mathbb{Z}/2\mathbb{Z}$ and let $f(x)=x^2-x$, noting that $f \ne 0$. 
+ - What is the polynomial function determined by $f(x)$?
+***** Solution
+ - 
+**** <<E3.2.8>> :todo:
+***** Question
+ - Prove every subring of a field is an integral domain
+***** Solution
+ - 
+**** <<E3.2.9>> :todo:
+***** Question
+ - The /center/ of a ring /R/ consists in elements /a/ such that $ar=ra$. Prove that the center is a subring of /R/
+ - Prove that the center of a division ring is a field
+***** Solution
+ - 
+**** <<E3.2.10>> :todo:
+***** Question
+ - The centralizer of an element /a/ is a ring /R/ with all elements such that $ar=ra$. 
+ - Prove that the centralizer of any /a/ is a subring 
+ - Prove the the center of /R/ is the intersection of all its centralizers
+ - Prove that every centralizer in a divisoin ring is a division ring
+**** <<E3.2.11>> :todo:
+***** Question
+ - Let /R/ be a division ring with $p^2$ elements, where /p/ is prime.
+ - Prove that /R/ is commutative as follows:
+ - If /R/ is not commutative, then its center /C/ is a proper subring of /R/. Prove that /C/ would then consist of /p/ elements
+ - Let $r \in R, r \notin C$. Prove that the centralizer of /r/ contains both /r/ and /C/
+ - Deduce that the cetnralizer of /r/ is the whole of /R/
+ - Derive a contradiction and conclude that /R/ ahd to be commutative (hence, af field)
+***** Solution
+ - 
+***** Solution
+ - 
+**** <<E3.2.12>> :todo:
+***** Question
+ - Consider the inclusion map $\mathbb{Z} \xhookrightarrow{i} \mathbb{Q}$ 
+ - Describe the cokernel of /i/ in $Ab$ and its cokernel in $Ring$ (as defined by the appropriate universal property)
+***** Solution
+ - 
+**** <<E3.2.13>> :todo:
+***** Question
+ - Verify that the componentwise propduct $R_1 \times R_2$ of two rings satisfies the universal property for coproducts in a category.
+***** Solution
+ - 
+**** <<E3.2.14>> :todo:
+***** Question
+ - Verify that $\mathbb{Z}[x_1,x_2]$ (along with the evident morphisms) satisfies the universal property for the coproduct of two copies of $\mathbb{Z}[x]$ in the category of /commutative/ rings.
+ - Explain why it does not satisfy it in $Ring$.
+***** Solution
+ - 
+**** <<E3.2.15>> :todo:
+***** Question
+ - For /m/ > 1, the abelian groups $(\mathbb{Z},+)$ and $(m\mathbb{Z},+)$ are isomorphic. Use this isomorphism to transfer the structure of 'ring without identity' $(m\mathbb{Z},+,\cdot)$ back onto $\mathbb{Z}$
+ - Given an explicit formula for the 'multiplication' this defines on $\mathbb{Z}$ such that $\phi(a\bullet b)=\phi(a)\cdot\phi(b)$
+ - Explain why structures induced by diferent positive integers /m/ are nonisomorphic as 'rings without 1'.
+ - This shows there are many different ways to give a structure of ring without identity to the /group/ $(\mathbb{Z},+)$. Compare this observation with [[E3.2.16]]
+***** Solution
+ - 
+**** <<E3.2.16>> :todo:
+***** Question
+ - Prove that there is only one structure of ring /with/ /identity/ on the abelian group $(\mathbb{Z},+)$
+ - Hint: let /R/ be a ring whose underlying group is $\mathbb{Z}$. By [[P3.2.7]] there is an injective ring homomorphism $R \xrightarrow{\lambda} End_{Ab}(R)$ and the latter is isomorphic to $\mathbb{Z}$ by [[P3.2.6]]. Prove that $\lambda$ is surjective.
+
+***** Solution
+ - 
+**** <<E3.2.17>> :todo:
+***** Question
+ - Let /R/ be a ring and let $E=End_{Ab}(R)$ be the ring of endomorphisms of the underlying abelian group $(R,+)$. 
+ - Prove that the center of /E/ is isomorphic to the subring of the center of /R/. 
+ - Hint: prove that if $\alpha \in E$ commutes with all right multiplications by elmenets of /R/, then $\alpha$ is left-multilication by an element of /R/, then use [[P3.2.7]]
+***** Solution
+ - 
+**** <<E3.2.19>> :todo:
+***** Question
+ - Prove that for a positive integer /n/ that $End_{Ab}(\mathbb{Z}/n\mathbb{Z}) \cong \mathbb{Z}/n\mathbb{Z}$ as a /ring/ 
+***** Solution
+ - 
+** Section 3: Ideals and quotient rings 
+*** Part 1: Ideals 
+**** Definitions 
+***** <<D3.3.1>> :138:
+****** Term
+ - A subgroup /I/ of (/R/,+) is a left ideal of /R/ 
+****** Def
+ - $\forall r \in R: rI \in I$ (closure under left multiplication from all elements in the ring)
+ - An ideal is both a left and a right ideal.
+
+**** Notes
+ - The only ideal of /R/ containing the multiplicative identity is /R/ itself 
+ - Proper ideals are therefore not subrings (they are rngs) 
+ - The kernels of ring homomorphisms are ideals. 
+*** Part 2: Quotients 
+**** Notes 
+ - Given a subgroup /I/ of an abelian group, we can form a quotient group R/I whose elements are cosets of /I/ (r + I). 
+ - We are motivated to put a ring structure on R/I such that $r\mapsto r+I$ is a ring homomorphism, meaning $(a+I)(b+I)=ab+I$ 
+ - We need precisely the conditions of /I/ being an ideal (such that /aI/ and /Ib/ are both contained in /I/) for this to hold.
+**** Definitions 
+***** <<D3.3.7>> :141:
+****** Term
+ - The /characteristic/ of a ring /R/
+****** Def
+ - The kernel of the unique homomorphism $\mathbb{Z}\rightarrow R$ is an ideal of the form $n\mathbb{Z}$
+ - The /characteristic/ is the value of /n/
+ - Considering the order of $1_R$ in the abelian group of /R/: this is the characteristic when this value is finite, otherwise the characteristic is zero.
+**** Propositions
+***** <<P3.3.8>> :141:
+****** Proposition
+ - Let /I/ be an ideal of a ring /R/. For every ring homomorphism $R \xrightarrow{\phi} S$ such that $I \subseteq ker(\phi)$, there exists a unique ring homomorphism $R/I \xrightarrow{\tilde{\phi}} S$ so that the following diagram commutes:
+ - $\begin{tikzcd}R \arrow[rr, "\phi"] \arrow[rd, "\pi"'] & & S \\ & R/I \arrow[ru, "\tilde{\phi}"', dashed] &  \end{tikzcd}$ 
+ - Note $\tilde{\phi}(r+I)\mapsto \phi(r)$ and part of the content of the proposition is that this is well-defined.
+****** Proof
+ - That there exists a unique induced group homomorphism was proven in [[P2.7.12]]. 
+ - This is a ring homomorphism iff $\tilde\phi(a+I)\tilde\phi(b+I)=\tilde\phi(ab+I)$ which is tantamount to to $\phi(a)\phi(b)=\phi(ab)$, which is true because $\phi$ is a ring homomorphism.
+*** Part 3: Canonical decomposition and consequences 
+**** Notes 
+ - Like with groups, we can decompose a homomorphism into a surjective projection onto the kernel, the unique homomorphism induced in [[P3.3.8]], and an injective map onto the target. 
+ - The isomorphism theorems for groups naturally follow as a consequence, although many entities appear (e.g. ideals) are not technically rings.
+** Section 4: Ideals and quotients: remarks, examples, prime/maximal fields
+*** Part 1: Basic operations
+*** Part 2: Quotients of polynomial rings 
+*** Part 3: Prime and maximal ideals
+*** Exercises
+** Section 5: Modules over a ring
+*** Part 1: Definition of R-module
+*** Part 2: The category R-mod
+*** Part 3: Submodules and quotients
+*** Part 4: Canonical decomposition and isomorphism theorems
+*** Exercises
+** Section 6: Products, coproducts, etc. in R-Mod 
+*** Part 1: Products and coproducts
+*** Part 2: Kernels and cokernels
+*** Part 3: Free modules and free algebras
+*** Part 4: Submodule generated by a subset; Noetherian modules
+*** Part 5: Finitely generated vs. finite type
+*** Exercises
+** Section 7: Complexes and homology
+*** Part 1: Complexes and exact sequences
+*** Part 2: Split exact sequences
+*** Part 3: Homology and the snake lemma
+*** Exercises
+* Chapter 4: Groups, second encounter
+** Section 1: The conjugation action 
+*** Part 1: Actions of groups on sets, reminder 
+**** Propositions
+***** <<P4.1.1>>
+****** Proposition
+ - Let /S/ be a finite set, and /G/ be a group acting on /S/ 
+ - $|S| = |Z| + \sum_{a \in A} [G : G_a]$ 
+****** Proof
+ -  Orbits partition /S/, and $[G:G_a]$ equals the order of the orbit of /a/  
+***** <<P4.1.3>>
+****** Proposition
+ - Let /G/ be a /p/-group acting on a set /S/. And let /Z/ be the fixed point set of the action. Then $|Z| \equiv |S| \ mod\ p$  
+****** Proof
+ - Each $[G:G_a]$ term in [[P4.1.1]] is a larger number than one and a power of /p/, thus is /0/ /mod/ /p/.
+** Section 2: The Sylow Theorems
+*** Part 1: Cauchy's Theorem
+**** Propositions
+***** <<P4.2.1>> :195: :todo:
+****** Proposition
+ - Cauchy's Theorem
+ - Let /G/ be a finite group and /p/ be a finite divisor of /|G|/. Then /G/ contains an element of order /p/.
+****** Proof
+ - Consider a set /S/ of ordered /p/-tuples of elements of /G/: $(a_1,a_2,...,a_p)$ such that $a_1a_2...a_p=e$ 
+ - /|S|/  = ## $|G|^{p-1}$ because you pick /p-1/ elements arbitrarily and the final one is determined by inverse law. ##
+ - We can rotate the elements and stay within /S/ because ## if $a_1$ is a left inverse to $a_2...a_p$, then it is a right inverse as well ## so we may act on /S/ with $\mathbb{Z}/p\mathbb{Z}$.
+ - By [[P4.1.3]]
+* Local Variables
+# Local variables:
+# post-command-hook: kk/org-latex-fragment-toggle
+# end:
