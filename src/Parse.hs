@@ -18,6 +18,7 @@ import           Data.Text            (Text, append, intercalate, isInfixOf,
                                        pack, unpack)
 import           Data.Text.Encoding   (encodeUtf8)
 import           Data.Text.IO         (readFile)
+import           Debug.Trace          (trace)
 import           Prelude              hiding (readFile)
 import           Text.Read            (readMaybe)
 -- DATA TYPES
@@ -30,15 +31,16 @@ data Card = Card {
     cardBack  :: Text,
     cardChap  :: Text,
     cardSect  :: Text,
+    cardPart  :: Maybe Text,
     cardPage  :: Maybe Int
 } deriving (Eq,Show)
 
 isCloze :: Card -> Bool
 isCloze c = isInfixOf "##" $ append (cardFront c) (cardBack c)
+
 -- | Parse a top-level (i.e. chapter) headline of Aluffi notes
 parseAluffi :: IO [Card]
 parseAluffi = concatMap parseChap . init <$>  getDoc
-
 
 -- | Read in org mode file and parse
 getDoc :: IO [Headline]
@@ -52,12 +54,14 @@ parseChap :: Headline -> [Card]
 parseChap chap = concatMap (parseSection chapName) (subHeadlines chap)
  where chapName = title chap
 
+-- Get all types of cards from each section
 parseSection :: Text -> Headline -> [Card]
 parseSection chapName sect = concatMap (parsePart chapName sectName) (init sub)
                           ++ mapMaybe (parseQ chapName sectName) (subHeadlines $ last sub)
  where sub = subHeadlines sect
        sectName = title sect
 
+-- Get either Def, Prop, or Ex from a Part
 parsePart :: Text ->Text ->Headline -> [Card]
 parsePart chapName sectName part = concatMap (parseSubPart chapName sectName partName) (subHeadlines part)
   where partName = title part
@@ -65,29 +69,31 @@ parsePart chapName sectName part = concatMap (parseSubPart chapName sectName par
 parseSubPart :: Text -> Text -> Text ->Headline -> [Card]
 parseSubPart chapName sectName partName subPart  = case title subPart of
     "Notes"        -> []
-    "Propositions" -> map (mkCard Prop chapName sectName) (subHeadlines subPart)
-    "Definitions"  -> map (mkCard Def chapName sectName) (subHeadlines subPart)
-    "Examples"     -> map (mkCard Ex chapName sectName) (subHeadlines subPart)
+    "Propositions" -> map (mkCard Prop chapName sectName partName) (subHeadlines subPart)
+    "Definitions"  -> map (mkCard Def chapName sectName partName) (subHeadlines subPart)
+    "Examples"     -> map (mkCard Ex chapName sectName partName) (subHeadlines subPart)
     _              -> error (show(chapName,sectName,partName,subPart))
 
-mkCard :: CardType ->  Text -> Text -> Headline -> Card
-mkCard ct chap sect hl  = Card ct (parseTitle hl) front back chap sect page
+-- Construct card
+mkCard :: CardType ->  Text -> Text -> Text -> Headline -> Card
+mkCard ct chap sect prt hl = Card ct (parseTitle hl) front back chap sect (Just prt) page
  where (front,back) = frontBack ct hl
        page = pageParser hl
 
 parseQ :: Text ->Text -> Headline -> Maybe Card
 parseQ chapName sectName ex
   | nocard = Nothing
-  | otherwise = Just (Card Question (parseTitle ex) front back chapName sectName page)
-  where nocard = "nocard" `elem` tags ex
+  | otherwise = Just (Card Question (parseTitle ex) front back chapName sectName Nothing page)
+  where nocard = "nocard" `elem` tags ex || "todo" `elem` tags ex
         (front,back) = frontBack Question ex
         page = pageParser ex
+
 frontBack :: CardType -> Headline -> (Text,Text)
 frontBack ct hl
+ | ct == Ex = (getText hl,"") -- No "backside" to an Example
  | ct `elem` [Prop,Def,Question] = case map getText (subHeadlines hl) of
-                                        [a,b] -> (a,b)
+                                        [a,b] -> (a,b) -- These should all have exactly 2 subheadings
                                         _     -> error (show hl)
- | ct == Ex = (getText hl,"")
 
 getText :: Headline -> Text
 getText = sectionParagraph . section
@@ -97,6 +103,7 @@ parseTitle x = case parseOnly titleParser $ title x of
     Left err  -> error $ show (err,x,title x )
     Right val -> val
 
+-- Extracts text wrapped in <<these things>>
 titleParser :: Parser Text
 titleParser = do
     string "<<"
@@ -105,4 +112,4 @@ titleParser = do
     return t
 
 pageParser :: Headline -> Maybe Int
-pageParser = listToMaybe . mapMaybe (readMaybe . show) .tags
+pageParser = listToMaybe . mapMaybe (readMaybe .unpack ) . tags

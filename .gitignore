@@ -1,6 +1,14 @@
 
 \.stack-work/
 
-_cache/
+_cache/*
 
-_site/
+_site/*
+
+docs/ltximg/*
+
+backup/fcards/\.env/
+
+backup/fcards/__pycache__/
+
+content/*
