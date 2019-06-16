@@ -36,6 +36,7 @@ import           Text.Regex                (mkRegex, subRegex)
 
 import           Text.Pandoc.Definition    (MathType (..))
 
+import           LaTeX                     (initFormulaCompilerDataURI)
 import           Parse                     (Card (..), parseAluffi)
 
 --------------------------------------------------------------------------------
@@ -55,32 +56,36 @@ env :: PandocFormulaOptions
 env = defaultPandocFormulaOptions {formulaOptions = \_->FormulaOptions preamb "displaymath" 400}
 
 site :: IO ()
-site = hakyllWith config $ do
-    match "images/*" $ do
-        route   idRoute
-        compile copyFileCompiler
+site =  do
+    renderFormulae <- initFormulaCompilerDataURI 1000 defaultEnv
+    hakyllWith config $ do
 
-    match "docs/*" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "media/*" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "content/*" $ do
+      match "content/*.md" $ do
         route $ setExtension "html"
-        compile $ pandocCompilerWithTransformM defaultHakyllReaderOptions defaultHakyllWriterOptions
-               ( compileFormulaeDataURI defaultEnv env)
-               >>= loadAndApplyTemplate "templates/post_nodate.html"    defaultContext
-               >>= loadAndApplyTemplate "templates/default.html" defaultContext
-               >>= relativizeUrls
+        compile  (pandocCompilerWithTransformM defaultHakyllReaderOptions defaultHakyllWriterOptions
+                 (renderFormulae env)
 
-    match (fromList ["mediatest.html","docs/aluffi.org","docs/aluffi_org.html","docs/ltximg/*"]) $ do
+                >>= loadAndApplyTemplate "templates/post_nodate.html"    defaultContext
+                >>= loadAndApplyTemplate "templates/default.html" defaultContext
+                >>= relativizeUrls)
+
+      match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
 
-    match (fromList ["about.html"]) $ do
+      match "docs/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+      match "media/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+      match (fromList ["mediatest.html","docs/aluffi.org","docs/aluffi_org.html","docs/ltximg/*"]) $ do
+        route   idRoute
+        compile copyFileCompiler
+
+      match (fromList ["about.html"]) $ do
         route   idRoute
         compile $
             getResourceBody
@@ -88,7 +93,7 @@ site = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" defaultContext
                 >>= relativizeUrls
 
-    create ["aluffi.html"] $ do
+      create ["aluffi.html"] $ do
         route idRoute
         compile $ do
             examples  <- loadAll "content/X*"
@@ -109,7 +114,7 @@ site = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" archive2Ctx
                 >>= relativizeUrls
 
-    match "index.html" $ do
+      match "index.html" $ do
         route idRoute
         compile $ do
             content <- loadAll "content/*"
@@ -123,7 +128,7 @@ site = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
-    match "templates/*" $ compile templateBodyCompiler
+      match "templates/*" $ compile templateBodyCompiler
 
 -----------------
 

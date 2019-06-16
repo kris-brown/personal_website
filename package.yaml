@@ -32,6 +32,14 @@ dependencies:
 - vector
 - directory
 - process
+- JuicyPixels
+- temporary
+- directory
+- filepath
+- transformers
+- errors
+- lrucache
+
 library:
   source-dirs: src
 

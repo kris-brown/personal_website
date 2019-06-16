@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4aa18e73e7f57ff3aa3305a1d2128262bd65db82e6a946b1cc5bc4193ff65652
+-- hash: 54b99845eda28b69198afe44935aafe4939119765710e99cf8b4526dee7717e0
 
 name:           personal-website
 version:        0.1.0.0
@@ -26,29 +26,37 @@ source-repository head
 library
   exposed-modules:
       Anki
+      LaTeX
       Parse
+      Render
       Site
   other-modules:
       Paths_personal_website
   hs-source-dirs:
       src
   build-depends:
-      aeson
+      JuicyPixels
+    , aeson
     , attoparsec
     , base >=4.7 && <4.10
     , bytestring
     , directory
+    , errors
+    , filepath
     , hakyll
     , http-conduit
     , latex-formulae-hakyll
     , latex-formulae-image
     , latex-formulae-pandoc
+    , lrucache
     , orgmode-parse
     , pandoc-types
     , process
     , raw-strings-qq
     , regex-compat
+    , temporary
     , text
+    , transformers
     , unordered-containers
     , vector
     , yaml
@@ -63,23 +71,29 @@ executable prep
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      aeson
+      JuicyPixels
+    , aeson
     , attoparsec
     , base >=4.7 && <4.10
     , bytestring
     , directory
+    , errors
+    , filepath
     , hakyll
     , http-conduit
     , latex-formulae-hakyll
     , latex-formulae-image
     , latex-formulae-pandoc
+    , lrucache
     , orgmode-parse
     , pandoc-types
     , personal-website
     , process
     , raw-strings-qq
     , regex-compat
+    , temporary
     , text
+    , transformers
     , unordered-containers
     , vector
     , yaml
@@ -94,23 +108,29 @@ executable web
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      aeson
+      JuicyPixels
+    , aeson
     , attoparsec
     , base >=4.7 && <4.10
     , bytestring
     , directory
+    , errors
+    , filepath
     , hakyll
     , http-conduit
     , latex-formulae-hakyll
     , latex-formulae-image
     , latex-formulae-pandoc
+    , lrucache
     , orgmode-parse
     , pandoc-types
     , personal-website
     , process
     , raw-strings-qq
     , regex-compat
+    , temporary
     , text
+    , transformers
     , unordered-containers
     , vector
     , yaml
