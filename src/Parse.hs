@@ -69,24 +69,28 @@ parsePart chapName sectName part = concatMap (parseSubPart chapName sectName par
 parseSubPart :: Text -> Text -> Text ->Headline -> [Card]
 parseSubPart chapName sectName partName subPart  = case title subPart of
     "Notes"        -> []
-    "Propositions" -> map (mkCard Prop chapName sectName partName) (subHeadlines subPart)
-    "Definitions"  -> map (mkCard Def chapName sectName partName) (subHeadlines subPart)
-    "Examples"     -> map (mkCard Ex chapName sectName partName) (subHeadlines subPart)
+    "Propositions" -> mapMaybe (mkCard Prop chapName sectName partName) (subHeadlines subPart)
+    "Definitions"  -> mapMaybe (mkCard Def chapName sectName partName) (subHeadlines subPart)
+    "Examples"     -> mapMaybe (mkCard Ex chapName sectName partName) (subHeadlines subPart)
     _              -> error (show(chapName,sectName,partName,subPart))
 
 -- Construct card
-mkCard :: CardType ->  Text -> Text -> Text -> Headline -> Card
-mkCard ct chap sect prt hl = Card ct (parseTitle hl) front back chap sect (Just prt) page
+mkCard :: CardType ->  Text -> Text -> Text -> Headline -> Maybe Card
+mkCard ct chap sect prt hl
+ | nocard hl = Nothing
+ | otherwise = Just $ Card ct (parseTitle hl) front back chap sect (Just prt) page
  where (front,back) = frontBack ct hl
        page = pageParser hl
 
 parseQ :: Text ->Text -> Headline -> Maybe Card
 parseQ chapName sectName ex
-  | nocard = Nothing
+  | nocard ex = Nothing
   | otherwise = Just (Card Question (parseTitle ex) front back chapName sectName Nothing page)
-  where nocard = "nocard" `elem` tags ex || "todo" `elem` tags ex
-        (front,back) = frontBack Question ex
+  where (front,back) = frontBack Question ex
         page = pageParser ex
+
+nocard :: Headline -> Bool
+nocard hl = "nocard" `elem` tags hl || "todo" `elem` tags hl
 
 frontBack :: CardType -> Headline -> (Text,Text)
 frontBack ct hl

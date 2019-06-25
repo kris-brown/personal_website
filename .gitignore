@@ -12,3 +12,7 @@ backup/fcards/\.env/
 backup/fcards/__pycache__/
 
 content/*
+
+docs/\.DS_Store
+
+\.DS_Store

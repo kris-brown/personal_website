@@ -1,4 +1,4 @@
-#+TITLE: Algebra: Chapter 0 (Aluffi)
+#+Title: Algebra: Chapter 0 (Aluffi)
 #+LATEX_HEADER: \usepackage{amsmath}
 #+LATEX_HEADER: \usepackage{mathtools}
 #+LATEX_HEADER: \usepackage{amssymb}
@@ -47,7 +47,7 @@
 ***** Question
  - Locate a discussion of Russell's paradox and understand it
 ***** Solution
- - From S.E.P.: problem with naive set theory when considering all sets which are not contained in themselves
+ - From [S.E.P.: problem with naive set theory when considering all sets which are not contained in themselves
  - Naive comprehension: $\exists A: \forall x: (x \in A \equiv \phi)$
  - There is a set /A/ such that, for any object /x/, /x/ is an element of /A/ iff the condition expressed by $\phi$ holds.
  - Russell's paradox arises by taking $\phi$ to be the formula $x \notin x$
@@ -744,7 +744,7 @@
  - Prove that if /g/, /h/ commute and $gcd(|g|,|h|)=1$, then $|gh|=|g||h|$
  - Hint: Let $N=|gh|$, then $g^N=(h^{-1})^N$ (what can you say about this element?)
 ***** Solution
- -  From [[P2.1.14]], we have $\exists k \in \mathbb{N}^+:  N = |gh|=k\cdot  lcm(m,n)$
+ - From [[P2.1.14]], we have $\exists k \in \mathbb{N}^+:  N = |gh|=k\cdot  lcm(m,n)$
  - $gcd(m,n)=1 \implies lcm(m,n)=m\cdot n$
  - $N = k \cdot m n,\ k > 0$
  - Try $k=1$ as the smallest possible value for which this could be true
@@ -752,11 +752,16 @@
 **** <<E2.1.15>> :todo:
 ***** Question
  - Let /G/ be an abelian group and /g/ be an element of maximal order (if /h/ has finite order, then $|h| \leq |g|$).
- - Prove that, if /h/ has finite order than /|h|/ /divides/ /|g|/
- - Hint: argue by contradiction: there would have to exist a prime /p/ such that $|g|=p^mr,|h|=p^ns$ with $gcd(r,s)=1$ and /m/ < /n/.
+ - Prove that, if /h/ has finite order than $|h|$ divides $|g|$
+ - Hint: 
  - Use [[E2.1.14]] to compute the order of $g^{p^m}h^s$
 ***** Solution
- - Consider the product /|hg|/ which has an order which divides /|h|/ and /|g|/, i.e. $k\cdot gcd(p^mr,p^ns)=|hg|$
+ - Argue by contradiction: 
+   - If $|h|$ divided $|g|$, then $k|h|=|g|$. Considering the prime factorizations of $|h|$ and $|g|$, the factor $k$ has the difference in powers of each prime (where $p_i^{g_i}>p_i^{h_i}$)
+   - Assume $|h|$ does not divide $|g|$, i.e. for some prime factor the exponent in $|h|$ is greater than in $|g|$. 
+   - I.e. that $|g|=p^mr,|h|=p^ns$ with $gcd(r,s)=1$ and $m < n$.
+ - 
+ - 
 ** Section 2: Examples
 *** Part 1: Symmetric groups
 **** Notes
@@ -802,12 +807,14 @@ $(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=
 ***** Question
  - Prove /m/, /n/ are relatively prime iff there exist integers /a/, /b/ such that $am+bn=1$
 ***** Solution
- -
+ - 
 **** <<E2.2.17>> :todo:
 ***** Question
  - Show that if $m \equiv m'$ mod /n/, then /gcd(m,n)=1/ iff /gcd(m',n)=1/
 ***** Solution
- -
+ - Let $m=kn+m'$
+ - Prove $\rightarrow$:
+ - Suppose $am+bn=1$: then $(kn+m')a +bn=1$ so $am' + (b+k)n = 1$ 
 ** Section 3: The category Grp
 *** Part 1: Group Homomorphisms
 **** Definitions
@@ -1393,7 +1400,7 @@ $(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=
  - Let $H,K \leq G$ and $H \trianglelefteq G$
  - $HK \leq G$ and $H \trianglelefteq HK$
  - $H \cap K \trianglelefteq K$
- - $\frac{HK}/H \cong \frac{K}{H \cap K}$
+ - $\frac{HK}{H} \cong \frac{K}{H \cap K}$
 ****** Proof
  - ???
 *** Part 5: The index and Lagrange's Theorem
@@ -1458,7 +1465,7 @@ $(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=
 ****** Proof
  - $1 \implies 2$
    - $G\xrightarrow{\phi}H\overset{\pi}{\underset{e}{\rightrightarrows}}coker(\phi)$ where $\pi$ is the canonical projection and /e/ is the trivial map.
-   - ## Both $\pi \circ \phi$ and $e \circ \phi$ are the trivial map, meaning $pi=e$ ##
+   - ## Both $\pi \circ \phi$ and $e \circ \phi$ are the trivial map, meaning $\pi=e$ ##
    - The canonical projection being trivial implies $coker(\phi)$ is trivial
  - $2 \implies 3$
    - ## $coker(\phi)=H/im(\phi)$ being trivial ## implies $im(\phi)=H$ so $\phi$ is surjective
@@ -1564,8 +1571,8 @@ $(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=
  - The same does not hold for nonabelian groups, looking at the simplest example $S_3$ which has distinct 'swap' elements and is order $2 \cdot 3$.
 **** <<E2.8.19>>
 ***** Question
- - Let /G/ be a finite group and let /d/ be a proper divisor of /|G|/.
- - Is it necessarily true that there exists an element of /G/ of order /d/?
+ - Let $G$ be a finite group and let $d$ be a proper divisor of $|G|$.
+ - Is it necessarily true that there exists an element of $G$ of order $d$?
 ***** Solution
  - No, $A_4$ has order /12/ and no subgroup of order /6/
 **** <<E2.8.20>>
@@ -1647,24 +1654,39 @@ $(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=
  - We have a transitive action of /G/ on each orbit.
  - By [[P2.9.12]], if $Stab_G(a)$ happens to be normal, then it is independent of /a/ (in any given orbit). There is an isomorphism of /G/-sets between $G/H$ and $G/(gHg^{-1})$.
 **** Propositions
-***** <<P2.9.9>> :111:todo:
+***** <<P2.9.9>> :111:
 ****** Proposition
  - Every transitive left action of /G/ on a nonempty set /A/ is isomorphic to the left multiplication of /G/ on $G/Stab_G(a)$ for any $a \in A$
 ****** Proof
- - todo
-***** <<P2.9.10>> :112:todo:
+ - Let $H= Stab_G(a)$
+ - The action is of type $G \times A \xrightarrow{\circlearrowright} A$, whereas the multiplication is of type ## $G \times \frac{G}{H} \xrightarrow{\star} \frac{G}{H}$ ##
+ - We need not only an isomorphism $A\xrightarrow{\phi}G/H$, but it must also preserve the structure of the action: $\begin{tikzcd}G \times A \arrow[r, "id \times \phi"] \arrow[d, "\circlearrowright"'] & G \times \frac{G}{H} \arrow[d,"\star"] \\A \arrow[r, "\phi"'] & G/H \end{tikzcd}$
+ - (I.e. $\phi$ is a ## $G$-equivariant ## function [[D2.9.9]])
+ - Let  $\phi(g \cdot a)\mapsto gH$
+   - in order for this to be well-defined: we demand ## $\phi(g_1\cdot a)=\phi(g_2\cdot a)$ when $g_1 \cdot a=g_2 \cdot a$ ##
+   - $g_2^{-1}g_1 \cdot a = a$, i.e. $g_2^{-1}g_1 \in H=Stab_G(a)$
+   - From this it follows that $g_1H = g_2 H$
+   - This is only defined for ## elements of $A$ which could be represented as $g \cdot a$ for some arbitrary $g \in G$,## but because the action was assumed ## to be transitive ## this means all of $A$ is covered.
+ - The inverse must be ## $\phi^{-1}(gH)\mapsto g\cdot a$ ##
+   - in order for this to be well-defined: we demand $\phi^{-1}(g_1H)=\phi^{1-}(g_2H)$ when $g_1H=g_2H$
+   - if that is the case, then $g_2^{-1}g_1 \in H = Stab_G(a)$
+   - This is well defined: ##  $\phi^{-1}(g_2H) = g_2 \cdot a = g_2 \cdot g_2^{-1}g_1\cdot a = g_1\cdot a = \phi^{-1}(g_1H)$ ##
+ - Equivariance: $\phi(g'\cdot (ga))=\phi(g'g \cdot a)=g'gH = g \star gH = g \star \phi(ga)$ 
+***** <<P2.9.10>> :112:
 ****** Proposition
- - If /O/ is an orbit of the action of a finite group /G/ on a set /A/, then /O/ is a finite set and $|O|$ divides $|G|$
+ - If $O$ is an orbit of the action of a finite group $G$ on a set $A$, then $O$ is a finite set and $|O|$ divides $|G|$
 ****** Proof
- - [[P2.9.9]]
+ - By [[P2.9.9]] there is a bijection between $O$ and $G/Stab_G(a)$ for any element $a \in O$
+ - By [[P2.8.14][Lagrange's Theorem]], the left cosets of $Stab_G(a)$ partition $G$ and have an equal number of elements, so $|O| \cdot |Stab_G(a \in O)| = |G|$ 
 ***** <<P2.9.12>> :112:
 ****** Proposition
- - Suppose /G/ acts on /A/ with $a,b \in A, g \in G$, and  $\sigma_g(a)=b$
+ - Suppose $G$ acts via left multiplication on $A$ with $a,b \in A, g \in G$, and  $\sigma_g(a)=b$
  - $Stab_G(b)=gStab_G(a)g^{-1}$
 ****** Proof
- - $(ghg^{-1})(b)=gh(g^{-1}g)a=gha=ga=b$
- - Thus $ghg^{-1} \in Stab_G(b)$ which proves inclusion one way.
- - Inclusion the other way shown by same argument noting that $\sigma_{g^{-1}}(b)=a$
+ - $\begin{tikzcd}x\circlearrowright \bullet_a \arrow[r, "g", bend left] & \bullet_b \circlearrowleft y \arrow[l,"g^{-1}", bend left]\end{tikzcd}$ 
+ - Let $x$ be a generic member of $Stab_a$ and $y$ be a generic member of $Stab_b$ 
+ - Inclusion $\Rightarrow$: Consider how $g^{-1}yg$ acts on $a$ ($a \mapsto b \mapsto b \maspto a$), so $g^{-1}Stab_G(b)g \subseteq Stab_G(a)$, and $Stab_G(b)\subseteq gStab_G(a)g^{-1}$ 
+ - Inclusion $\Leftarrow$: consider how $gyg^{-1}$ acts on the element $b$ ($b\mapsto a \mapsto a \mapsto b$), so $gStab_G(a)g^{-1} \subseteq Stab_G(b)$
 **** Examples
 ***** <<X2.9.11>> :112:
  - There are /no/ transitive action of $S_3$ on a set with /5/ elements
@@ -1908,7 +1930,7 @@ $(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=
 ***** Question
  - Prove that 0=1 implies a ring is the zero ring.
 ***** Solution
- - Let /r=r*1/ be an arbitrary element. If /1=0/ then /r=r*0=0/ thus there can only be one element in the ring.
+ - Let $r=r*1$ be an arbitrary element. If $1=0$ then $r=r*0=0$ thus there can only be one element in the ring.
 **** <<E3.1.2>> :todo:
 ***** Question
  - Let /S/ be a set and define operations on the power set:
@@ -2014,7 +2036,7 @@ $(\mathbb{Z}/n\mathbb{Z})^* := \{[m]_n \in \mathbb{Z}/n\mathbb{Z} \ |\ gcd(m,n)=
  - Let $R \xrightarrow{\alpha} S$ be a fixed ring homomorphism
  - Let $s \in S$ be an element commuting with $\alpha(r)$ for all $r \in R$
  - Then there is a unique ring homomorphism $R[x]\xrightarrow{\bar a}S$ extending $\alpha$ and sending /x/ to /s/
- - In particular, take $\alpha = $ ## $id_R$ ## and /s/ = ## r ## to get the evaluation map $R\rightarrow R$ which evaluates the polynomial at a value of /r/
+ - In particular, take $\alpha =$ ## $id_R$ ## and /s/ = ## r ## to get the evaluation map $R\rightarrow R$ which evaluates the polynomial at a value of /r/
 *** Part 3: Monomorphisms and epimorphisms
 **** Propositions
 ***** <<P3.2.4>> :todo:132:
