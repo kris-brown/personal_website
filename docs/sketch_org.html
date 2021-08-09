@@ -1,0 +1,1567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-10-22 Tue 20:20 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Seven Sketches in Compositionality</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Kris Brown" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Seven Sketches in Compositionality</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgec3bd82">1. Info</a></li>
+<li><a href="#org77833e4">2. Open Questions</a></li>
+<li><a href="#org7e3c63d">3. Chapter 1: Generative Effects (Orders and Galois connections)</a>
+<ul>
+<li><a href="#orgaffc0a7">3.1. Section 1: More than the sum of their parts</a>
+<ul>
+<li><a href="#org1b50b78">3.1.1. Part 1: A first look at generative effects</a></li>
+<li><a href="#orgdd660e4">3.1.2. Part 2: Ordering systems</a></li>
+</ul>
+</li>
+<li><a href="#org99a5e01">3.2. Section 2: What is order?</a>
+<ul>
+<li><a href="#orgca8889e">3.2.1. Part 1: Review of sets, relations functions</a></li>
+<li><a href="#org4fb5496">3.2.2. Part 2: Preorders</a></li>
+<li><a href="#org329e14c">3.2.3. Part 3: Monotone maps</a></li>
+</ul>
+</li>
+<li><a href="#org51f9a1d">3.3. Section 3: Meets and Joins</a>
+<ul>
+<li><a href="#org0c277e2">3.3.1. Part 1: Definition and basic examples</a></li>
+<li><a href="#org3b0df69">3.3.2. Part 2: Back to observations and generative effects</a></li>
+</ul>
+</li>
+<li><a href="#org3255b21">3.4. Section 4: Galois connections</a>
+<ul>
+<li><a href="#org9bd5c91">3.4.1. Part 1: Definition and examples</a></li>
+<li><a href="#org0682ae1">3.4.2. Part 2: Back to partitions</a></li>
+<li><a href="#org00746cb">3.4.3. Part 3: Basic theory of Galois connections</a></li>
+<li><a href="#orgfc6e68b">3.4.4. Part 4: Closure operators</a></li>
+<li><a href="#orgd589fce">3.4.5. Part 5: Level shifting</a></li>
+</ul>
+</li>
+<li><a href="#orgb9b5254">3.5. Section 5: Summary and further reading</a></li>
+</ul>
+</li>
+<li><a href="#orgc999339">4. Chapter 2: Resource - monoidal preorders and enrichment</a></li>
+<li><a href="#org77b587c">5. Chapter 3: Databases - categories, functors, and (co)limits</a></li>
+<li><a href="#orgc84561e">6. Chapter 4: Co-design - profunctors and monoidal categories</a></li>
+<li><a href="#org5715c1b">7. Chapter 5: Signal flow graphs - props, presentations, and proofs</a></li>
+<li><a href="#org3033a89">8. Chapter 6: Circuits - hypergraph categories and operads</a></li>
+<li><a href="#orgd9283bc">9. Chapter 7: Logic of behavior - sheaves, toposes, languages</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgec3bd82" class="outline-2">
+<h2 id="orgec3bd82"><span class="section-number-2">1</span> Info</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Special tags:
+<ul class="org-ul">
+<li>integers (page numbers)</li>
+<li>nocard (don't make a Anki Flashcard)</li>
+<li>todo (needs work)</li>
+</ul></li>
+
+<li>Things enclosed in  any text  will be clozed on flashcards</li>
+<li>LaTeX triggered by closing within '$'</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org77833e4" class="outline-2">
+<h2 id="org77833e4"><span class="section-number-2">2</span> Open Questions</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li><a href="#org5470054">3.2.3.2.4</a> In what way is this related to the conventional notion of a pullback?</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7e3c63d" class="outline-2">
+<h2 id="org7e3c63d"><span class="section-number-2">3</span> Chapter 1: Generative Effects (Orders and Galois connections)</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgaffc0a7" class="outline-3">
+<h3 id="orgaffc0a7"><span class="section-number-3">3.1</span> Section 1: More than the sum of their parts</h3>
+<div class="outline-text-3" id="text-3-1">
+</div>
+<div id="outline-container-org1b50b78" class="outline-4">
+<h4 id="org1b50b78"><span class="section-number-4">3.1.1</span> Part 1: A first look at generative effects</h4>
+<div class="outline-text-4" id="text-3-1-1">
+</div>
+<ol class="org-ol">
+<li><a id="org88536b7"></a>Notes<br />
+<div class="outline-text-5" id="text-3-1-1-1">
+<ul class="org-ul">
+<li>Central theme of CT: study of structures and structure-preserving maps.</li>
+<li>Asking which aspects of structure one wants to preserve becomes the question "what category are you working in?".
+<ul class="org-ul">
+<li>Example: there are many functions <img src="ltximg/sketch_d24bd657c70700410d17ab4527f1fbe43eb40813.png" alt="sketch_d24bd657c70700410d17ab4527f1fbe43eb40813.png" />, which we can think of observations (rather than view <img src="ltximg/sketch_3b133db3cfba0c33858d2c91367611f7f46bd0ad.png" alt="sketch_3b133db3cfba0c33858d2c91367611f7f46bd0ad.png" /> directly we only view <img src="ltximg/sketch_75ed8ff5208f7abcac8f54e125c5468174612578.png" alt="sketch_75ed8ff5208f7abcac8f54e125c5468174612578.png" />). Only some preserve the order of numbers, only some preserve distances between numbers.</li>
+</ul></li>
+<li>The less structure that is preserved by our observation of a system, the more 'surprises' when we observe its operations - call these <i>generative effects</i>.</li>
+<li>Consider a world of systems which are points which may or may not be connected. There are 5 partitionings or systems of three points.</li>
+<li>Suppose Alice makes observations on systems with a function <img src="ltximg/sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" alt="sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" /> which returns whether or not point <img src="ltximg/sketch_b63e13acad79514ad90dacbf75b41311c88aa9b8.png" alt="sketch_b63e13acad79514ad90dacbf75b41311c88aa9b8.png" /> is connected to point <img src="ltximg/sketch_cb2e76c28f74dccc8de3bb43e1d72f0d2f1a7c3e.png" alt="sketch_cb2e76c28f74dccc8de3bb43e1d72f0d2f1a7c3e.png" />. Alice also has an operation on two systems called <i>join</i> which puts two points in the same partition if they are connected in either of the original systems.</li>
+<li>Alice's operation is not preserved by the <i>join</i> operation.</li>
+<li>Application: Alice is trying to address a possible contagion and needs to know whether or not it is safe to have each region extract their data and then aggregate vs aggregating data and then extracting from it.</li>
+</ul>
+</div>
+</li>
+<li><a id="org7a2ea20"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="org0c0d49d"></a><a id="org4002880"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="2">2</span></span><br />
+<ol class="org-ol">
+<li><a id="orga3bd965"></a>Question<br />
+<div class="outline-text-7" id="text-3-1-1-2-1-1">
+<ul class="org-ul">
+<li>Give an example and non-example for an order-preserving function, a metric-preserving function, and an addition-preserving function.</li>
+</ul>
+</div>
+</li>
+<li><a id="org3bfea6a"></a>Solution<br />
+<div class="outline-text-7" id="text-3-1-1-2-1-2">
+<ul class="org-ul">
+<li>Order-preserving <img src="ltximg/sketch_30d1244a67af523b3f1f8e40cee3af67fb6946f1.png" alt="sketch_30d1244a67af523b3f1f8e40cee3af67fb6946f1.png" />, non-order-preserving <img src="ltximg/sketch_2cb060ee5764128fab8f5b014fc8b37e48931e12.png" alt="sketch_2cb060ee5764128fab8f5b014fc8b37e48931e12.png" /></li>
+<li>Metric preserving <img src="ltximg/sketch_30d1244a67af523b3f1f8e40cee3af67fb6946f1.png" alt="sketch_30d1244a67af523b3f1f8e40cee3af67fb6946f1.png" />, non-metric-preserving <img src="ltximg/sketch_d06cabeb6df16e1aefe171a8edf368197dcb36d2.png" alt="sketch_d06cabeb6df16e1aefe171a8edf368197dcb36d2.png" /></li>
+<li>Addition-preserving <img src="ltximg/sketch_d06cabeb6df16e1aefe171a8edf368197dcb36d2.png" alt="sketch_d06cabeb6df16e1aefe171a8edf368197dcb36d2.png" />, non-addition-preserving <img src="ltximg/sketch_956daa9a8ad6f93cb2aad69ea725665f240856c9.png" alt="sketch_956daa9a8ad6f93cb2aad69ea725665f240856c9.png" />.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgdd660e4" class="outline-4">
+<h4 id="orgdd660e4"><span class="section-number-4">3.1.2</span> Part 2: Ordering systems</h4>
+<div class="outline-text-4" id="text-3-1-2">
+</div>
+<ol class="org-ol">
+<li><a id="org761dcf9"></a>Notes<br />
+<div class="outline-text-5" id="text-3-1-2-1">
+<ul class="org-ul">
+<li>The operation of joining systems in <a href="#org1b50b78">Part 1</a> can be derived from a more basic structure: order.</li>
+<li>Let <img src="ltximg/sketch_c4032a8ea3ec44a574252b80442ee1a7b13cd669.png" alt="sketch_c4032a8ea3ec44a574252b80442ee1a7b13cd669.png" /> be defined as a relationship that holds when <img src="ltximg/sketch_c57d28d2e0decd339b2f7d2a11226294dd8c92ef.png" alt="sketch_c57d28d2e0decd339b2f7d2a11226294dd8c92ef.png" />
+<ul class="org-ul">
+<li><img src="ltximg/sketch_4e692db74cb4661f3b013b3ed1559a20b0fe515e.png" alt="sketch_4e692db74cb4661f3b013b3ed1559a20b0fe515e.png" /></li>
+</ul></li>
+<li>The joined system <img src="ltximg/sketch_c953b64af490f62aef7b41ebbe9b498bffe600a9.png" alt="sketch_c953b64af490f62aef7b41ebbe9b498bffe600a9.png" /> is the smallest system that is bigger than both <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" /> and <img src="ltximg/sketch_aec036203eeeef70d1398ad3c6a501dd7fab201f.png" alt="sketch_aec036203eeeef70d1398ad3c6a501dd7fab201f.png" />.</li>
+<li>The possibility of a generative effect is captured in the inequality <img src="ltximg/sketch_f171586623d5e3397644332f154b96a7f6d0c9ab.png" alt="sketch_f171586623d5e3397644332f154b96a7f6d0c9ab.png" />, where <img src="ltximg/sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" alt="sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" /> was defined in <a href="#org1b50b78">Part 1</a>
+<ul class="org-ul">
+<li>There was a generative effect because there exist systems violate this (both are invidually false for <img src="ltximg/sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" alt="sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" /> but not when put together).</li>
+<li><img src="ltximg/sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" alt="sketch_a31f91896f675d6abd49d8e83709002f8bfe1f9b.png" /> preserves order but not <i>join</i>.</li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="org1ae6081"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="org4d69200"></a><a id="orga9213b4"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="6">6</span></span><br />
+<ol class="org-ol">
+<li><a id="orgc4c6a6f"></a>Question<br />
+<div class="outline-text-7" id="text-3-1-2-2-1-1">
+<ul class="org-ul">
+<li>Using the order <img src="ltximg/sketch_8f1b79b28883764ceccff65f0b91342daa597797.png" alt="sketch_8f1b79b28883764ceccff65f0b91342daa597797.png" /> for <img src="ltximg/sketch_f968d568ef8b2942214b236a320f4c11ac3cd3de.png" alt="sketch_f968d568ef8b2942214b236a320f4c11ac3cd3de.png" />, what is:
+<ul class="org-ul">
+<li><img src="ltximg/sketch_9cdf2bf10032782ef1ae760a05627aeba71b2feb.png" alt="sketch_9cdf2bf10032782ef1ae760a05627aeba71b2feb.png" /></li>
+<li><img src="ltximg/sketch_70de3eb49143173250f194115bc9fb14caa5dbb1.png" alt="sketch_70de3eb49143173250f194115bc9fb14caa5dbb1.png" /></li>
+<li><img src="ltximg/sketch_a1e5fb806659caaeaebd8c002c8c2235c5dc255d.png" alt="sketch_a1e5fb806659caaeaebd8c002c8c2235c5dc255d.png" /></li>
+<li><img src="ltximg/sketch_c7d101c8f1f1f83bd5237181aab808269f3c3647.png" alt="sketch_c7d101c8f1f1f83bd5237181aab808269f3c3647.png" /></li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="org9a9f7f5"></a>Solution<br />
+<div class="outline-text-7" id="text-3-1-2-2-1-2">
+<ul class="org-ul">
+<li><img src="ltximg/sketch_b48b1af31f690cffea905ecd2cf8f0dc134affa2.png" alt="sketch_b48b1af31f690cffea905ecd2cf8f0dc134affa2.png" /></li>
+<li>This is same as logical or.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org99a5e01" class="outline-3">
+<h3 id="org99a5e01"><span class="section-number-3">3.2</span> Section 2: What is order?</h3>
+<div class="outline-text-3" id="text-3-2">
+</div>
+<div id="outline-container-orgca8889e" class="outline-4">
+<h4 id="orgca8889e"><span class="section-number-4">3.2.1</span> Part 1: Review of sets, relations functions</h4>
+<div class="outline-text-4" id="text-3-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="org4278b3d"></a>Notes<br />
+<div class="outline-text-5" id="text-3-2-1-1">
+<ul class="org-ul">
+<li>Basic review of set, subset, partition, equivalence relation.</li>
+<li>A partition of a set is a surjective map to the parts.</li>
+<li>Any <img src="ltximg/sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" alt="sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" /> can be thought of as a function <img src="ltximg/sketch_70ec2a2049bd784e576398765e809b3dfd76e647.png" alt="sketch_70ec2a2049bd784e576398765e809b3dfd76e647.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="org5b0f730"></a>Definitions<br />
+<ol class="org-ol">
+<li><a id="orgcb3f24c"></a><a id="orgcd4adc7"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="8">8</span></span><br />
+<ol class="org-ol">
+<li><a id="org0cc0d97"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-1-2-1-1">
+<ul class="org-ul">
+<li>A <i>relation</i> between sets <i>X</i> and <i>Y</i></li>
+</ul>
+</div>
+</li>
+<li><a id="org8883ddc"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-1-2-1-2">
+<ul class="org-ul">
+<li>A subset <img src="ltximg/sketch_1c8b2bdacb950019259cd189567e9afc903a6641.png" alt="sketch_1c8b2bdacb950019259cd189567e9afc903a6641.png" />.</li>
+<li>A binary relation on <img src="ltximg/sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" alt="sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" /> is a subset of <img src="ltximg/sketch_7105e3d9d082fb6910b752fc2591f8eab8780cc7.png" alt="sketch_7105e3d9d082fb6910b752fc2591f8eab8780cc7.png" /></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org9e5109b"></a><a id="orgb963bfb"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="9">9</span></span><br />
+<ol class="org-ol">
+<li><a id="orgd14c41c"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-1-2-2-1">
+<ul class="org-ul">
+<li>A <i>partition</i> of set <i>A</i></li>
+</ul>
+</div>
+</li>
+<li><a id="org2b9fe45"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-1-2-2-2">
+<ul class="org-ul">
+<li>A set <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> ('part labels') and, for each <img src="ltximg/sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" alt="sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" />, a nonempty subset ('pth part') <img src="ltximg/sketch_96328340e74c794e8d97b3a7220bbad7f0d77a4b.png" alt="sketch_96328340e74c794e8d97b3a7220bbad7f0d77a4b.png" /> such that:
+<ul class="org-ul">
+<li><img src="ltximg/sketch_51b4d300e6098abab6ea09c8dea160cdf83fa64e.png" alt="sketch_51b4d300e6098abab6ea09c8dea160cdf83fa64e.png" /></li>
+<li><img src="ltximg/sketch_6fa8f40aeaddb0b731d87928549105b86af8cdbc.png" alt="sketch_6fa8f40aeaddb0b731d87928549105b86af8cdbc.png" /></li>
+</ul></li>
+<li>Two partitions are considered the same if the partitioned groups are the same, the labels don't matter.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org9e5c794"></a><a id="org497d4b9"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="10">10</span></span><br />
+<ol class="org-ol">
+<li><a id="org75814a9"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-1-2-3-1">
+<ul class="org-ul">
+<li>A quotient of a set under an equivalence relation</li>
+</ul>
+</div>
+</li>
+<li><a id="orgd262b85"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-1-2-3-2">
+<ul class="org-ul">
+<li>This is equivalent to the parts of the partition associated with the equivalence relation.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org2b76659"></a><a id="org140d691"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="10">10</span></span><br />
+<ol class="org-ol">
+<li><a id="org8c2b100"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-1-2-4-1">
+<ul class="org-ul">
+<li>A <i>function</i> from set <img src="ltximg/sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" alt="sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" /> to set <img src="ltximg/sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" alt="sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="org1a20e8e"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-1-2-4-2">
+<ul class="org-ul">
+<li>A relation <img src="ltximg/sketch_40a03abe1395a1435958f4891d8c77d474d1f93d.png" alt="sketch_40a03abe1395a1435958f4891d8c77d474d1f93d.png" /> such that <img src="ltximg/sketch_9cb69cde62aa526ce744b854efd4a2913c0eca71.png" alt="sketch_9cb69cde62aa526ce744b854efd4a2913c0eca71.png" /></li>
+<li>The preimage of an element <img src="ltximg/sketch_3d4b5f9d5cfe0f008e563831d2ab9eeaa55d1199.png" alt="sketch_3d4b5f9d5cfe0f008e563831d2ab9eeaa55d1199.png" /> is <img src="ltximg/sketch_a3a0deb75b983ddfe4b55cb57805ad5e547337e0.png" alt="sketch_a3a0deb75b983ddfe4b55cb57805ad5e547337e0.png" /></li>
+<li><img src="ltximg/sketch_380d7a287efe7640656599e0bf5bb0af8d0d001e.png" alt="sketch_380d7a287efe7640656599e0bf5bb0af8d0d001e.png" /> Injectivity: <img src="ltximg/sketch_76afc5939552a2b3e8d6f6d37b89c1a5a3c008cd.png" alt="sketch_76afc5939552a2b3e8d6f6d37b89c1a5a3c008cd.png" /></li>
+<li><img src="ltximg/sketch_47d31e75d0ddce6a25e2d300746bafab9170ce1c.png" alt="sketch_47d31e75d0ddce6a25e2d300746bafab9170ce1c.png" /> Surjectivity: <img src="ltximg/sketch_7f15ef6aa23a1524292277a7d2202f251e222f00.png" alt="sketch_7f15ef6aa23a1524292277a7d2202f251e222f00.png" /></li>
+<li><img src="ltximg/sketch_8a585c0833e9f26406f3634926c779b18e566814.png" alt="sketch_8a585c0833e9f26406f3634926c779b18e566814.png" /> Bijectivity: both injectivity and surjectivity.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org21a9c71"></a>Propositions<br />
+<ol class="org-ol">
+<li><a id="org55a595d"></a><a id="orge4f7023"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="10">10</span></span><br />
+<ol class="org-ol">
+<li><a id="orgf5127d4"></a>Proposition<br />
+<div class="outline-text-7" id="text-3-2-1-3-1-1">
+<ul class="org-ul">
+<li>There is a bijection between ways to partition a set <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" /> and the equivalence relations on <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" />.</li>
+</ul>
+</div>
+</li>
+<li><a id="org7a10950"></a>Proof<br />
+<div class="outline-text-7" id="text-3-2-1-3-1-2">
+<ul class="org-ul">
+<li>Every partition gives rise to a distinct equivalence relation.
+<ul class="org-ul">
+<li>Define <img src="ltximg/sketch_0b2df4bfe4706685b855939b3426f6329099faf7.png" alt="sketch_0b2df4bfe4706685b855939b3426f6329099faf7.png" /> to mean <img src="ltximg/sketch_da29d8d7977216733fb27a32c0c11068641d5744.png" alt="sketch_da29d8d7977216733fb27a32c0c11068641d5744.png" /> are in the same part. This is a reflective, symmetric, and transitive relation given the definition of a partition.</li>
+</ul></li>
+<li>Every equivalence relation gives rise to a distinct partition.
+<ul class="org-ul">
+<li>Define a subset <img src="ltximg/sketch_c010b1e30df267de79e171d52c544ea160347490.png" alt="sketch_c010b1e30df267de79e171d52c544ea160347490.png" /> as ~-closed if, for every <img src="ltximg/sketch_64d488d897c5a886a8a874b8761dab4b441c75c4.png" alt="sketch_64d488d897c5a886a8a874b8761dab4b441c75c4.png" /> and <img src="ltximg/sketch_c6f79acc62a9b4a85c8adb7735fe859259250353.png" alt="sketch_c6f79acc62a9b4a85c8adb7735fe859259250353.png" />, we have <img src="ltximg/sketch_49ae157ed45f52a3d40bc0947925f63d5b8edf20.png" alt="sketch_49ae157ed45f52a3d40bc0947925f63d5b8edf20.png" />.</li>
+<li>Define a subset <img src="ltximg/sketch_c010b1e30df267de79e171d52c544ea160347490.png" alt="sketch_c010b1e30df267de79e171d52c544ea160347490.png" /> as ~-connected if it is nonempty and <img src="ltximg/sketch_443c02ddd6ebc92543296f5d66e3f51a007ea8a8.png" alt="sketch_443c02ddd6ebc92543296f5d66e3f51a007ea8a8.png" /></li>
+<li>The parts corresponding to <img src="ltximg/sketch_c423c717c703b4322592a4bc55ec2df11a9a5bac.png" alt="sketch_c423c717c703b4322592a4bc55ec2df11a9a5bac.png" /> are precisely the ~-closed and ~-connected subsets.</li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org5ccc12a"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="org0ecf12a"></a><a id="orgdb632b5"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="9">9</span></span><br />
+<ol class="org-ol">
+<li><a id="orgc5998a1"></a>Question<br />
+<div class="outline-text-7" id="text-3-2-1-4-1-1">
+<ul class="org-ul">
+<li>Suppose <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" /> is a partition and <img src="ltximg/sketch_3833587cfdfc8102e73a291cce7fca53e9044422.png" alt="sketch_3833587cfdfc8102e73a291cce7fca53e9044422.png" /> are two partitions such that for each <img src="ltximg/sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" alt="sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" /> there exists a <img src="ltximg/sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" alt="sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" /> with <img src="ltximg/sketch_21c1fc5fd8ec3dfd0fa996fffdc85f8093baea3c.png" alt="sketch_21c1fc5fd8ec3dfd0fa996fffdc85f8093baea3c.png" />
+<ol class="org-ol">
+<li>Show that for each <img src="ltximg/sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" alt="sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" /> there is at most one <img src="ltximg/sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" alt="sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" /> such that <img src="ltximg/sketch_9cdc6228d2c6c7f82ef2ef08934079ba9ea644fa.png" alt="sketch_9cdc6228d2c6c7f82ef2ef08934079ba9ea644fa.png" /></li>
+<li>Show that for each <img src="ltximg/sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" alt="sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" /> there is a <img src="ltximg/sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" alt="sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" /> such that <img src="ltximg/sketch_9cdc6228d2c6c7f82ef2ef08934079ba9ea644fa.png" alt="sketch_9cdc6228d2c6c7f82ef2ef08934079ba9ea644fa.png" /></li>
+</ol></li>
+</ul>
+</div>
+</li>
+<li><a id="orgac598d3"></a>Solution<br />
+<div class="outline-text-7" id="text-3-2-1-4-1-2">
+<ol class="org-ol">
+<li>Suppose <img src="ltximg/sketch_9f4e85cc350bf744fc85f6bc1b85e2c41055b3ba.png" alt="sketch_9f4e85cc350bf744fc85f6bc1b85e2c41055b3ba.png" />. If they are both equal to <img src="ltximg/sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" alt="sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" /> then they are equal to each other, but a partition rule is that <img src="ltximg/sketch_9f4e85cc350bf744fc85f6bc1b85e2c41055b3ba.png" alt="sketch_9f4e85cc350bf744fc85f6bc1b85e2c41055b3ba.png" /> must have an empty intersection (and <img src="ltximg/sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" alt="sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" /> cannot be empty by the other rule).</li>
+<li>By part 1, the mapping between part labels is a bijection, so there is an inverse map as well.</li>
+</ol>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org8c6b5dc"></a><a id="org6fe2825"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="10">10</span></span><br />
+<ol class="org-ol">
+<li><a id="org3bc0c6f"></a>Question&#xa0;&#xa0;&#xa0;<span class="tag"><span class="10">10</span></span><br />
+<div class="outline-text-7" id="text-3-2-1-4-2-1">
+<ul class="org-ul">
+<li>Finish proof <a href="#orge4f7023">3.2.1.3.1</a>. Suppose that ∼ is an equivalence relation on a set A, and let P be the set of (∼)-closed and (∼)-connected subsets.
+<ol class="org-ol">
+<li>Show that each part <img src="ltximg/sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" alt="sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" /> is nonempty</li>
+<li>Show that <img src="ltximg/sketch_6fa8f40aeaddb0b731d87928549105b86af8cdbc.png" alt="sketch_6fa8f40aeaddb0b731d87928549105b86af8cdbc.png" /></li>
+<li>Show that <img src="ltximg/sketch_650896ff2e963b1547bf066a21e4139bceb0eda1.png" alt="sketch_650896ff2e963b1547bf066a21e4139bceb0eda1.png" /></li>
+</ol></li>
+</ul>
+</div>
+</li>
+<li><a id="org536eb24"></a>Solution<br />
+<div class="outline-text-7" id="text-3-2-1-4-2-2">
+<ol class="org-ol">
+<li>Part of the definition of ~-connected is being nonempty</li>
+<li>Suppose <img src="ltximg/sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" alt="sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" /> is in the intersection. Then <img src="ltximg/sketch_ff9f725e2fd4a8813e1ec30c541ef1ef8562a58d.png" alt="sketch_ff9f725e2fd4a8813e1ec30c541ef1ef8562a58d.png" /> and <img src="ltximg/sketch_4d58fa208ca324c210a74e95cf6500c88a123ed3.png" alt="sketch_4d58fa208ca324c210a74e95cf6500c88a123ed3.png" /> for some elements <img src="ltximg/sketch_7ad11f7c2627bd6a7f2bbd178adf4f21e6e7e2ea.png" alt="sketch_7ad11f7c2627bd6a7f2bbd178adf4f21e6e7e2ea.png" /> arbitrarily selected from <img src="ltximg/sketch_b121bc566216055da57b850e6e2195e6545b1a00.png" alt="sketch_b121bc566216055da57b850e6e2195e6545b1a00.png" />. But this is impossible because <img src="ltximg/sketch_c423c717c703b4322592a4bc55ec2df11a9a5bac.png" alt="sketch_c423c717c703b4322592a4bc55ec2df11a9a5bac.png" /> is transitive, so this must be impossible.</li>
+<li><ul class="org-ul">
+<li>Every <img src="ltximg/sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" alt="sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" /> is part of some equivalence class which is a ~-closed and ~-connected set, so <img src="ltximg/sketch_6bba453cb9e95c751a725b0d9226ee22f00b7b03.png" alt="sketch_6bba453cb9e95c751a725b0d9226ee22f00b7b03.png" />
+<ul class="org-ul">
+<li>The equivalence class is ~-closed because two elements being ~-related implies they are in the same equivalence class.</li>
+<li>The equivalence class is ~-connected because equivalence classes are nonempty and the equivalence relation is transitive.</li>
+</ul></li>
+<li>The constituents of <img src="ltximg/sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" alt="sketch_beb0a3b8e6c31e3218104378ea0b5f8171ff8018.png" /> were defined to be subsets of <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" />, so unioning these will also be a subset of <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" />, i.e. <img src="ltximg/sketch_4d2d0bb3188f875cc16f3c0d037ec092af7ba1c2.png" alt="sketch_4d2d0bb3188f875cc16f3c0d037ec092af7ba1c2.png" /></li>
+<li>Therefore  <img src="ltximg/sketch_650896ff2e963b1547bf066a21e4139bceb0eda1.png" alt="sketch_650896ff2e963b1547bf066a21e4139bceb0eda1.png" />.</li>
+</ul></li>
+</ol>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-org4fb5496" class="outline-4">
+<h4 id="org4fb5496"><span class="section-number-4">3.2.2</span> Part 2: Preorders</h4>
+<div class="outline-text-4" id="text-3-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="org610267a"></a>Notes<br />
+<div class="outline-text-5" id="text-3-2-2-1">
+<ul class="org-ul">
+<li>Preorders are just equivalence relations without the symmetric condition.</li>
+<li>Every set can be considered as a discrete preorder with the binary relation of equality. Also the trivial opposite (codiscrete preorder) where all pairs are in the relation.</li>
+<li>Every graph yields a preorder on the vertices where <img src="ltximg/sketch_e560b2adc093ed6b0a2fadae570810400b93962f.png" alt="sketch_e560b2adc093ed6b0a2fadae570810400b93962f.png" /> iff there is a path from <img src="ltximg/sketch_eb921c8b9e48dfe72df7957279a4c0fc959ba126.png" alt="sketch_eb921c8b9e48dfe72df7957279a4c0fc959ba126.png" /> to <img src="ltximg/sketch_32b4360e9baa6ea51d52912abc6479fecf3fa756.png" alt="sketch_32b4360e9baa6ea51d52912abc6479fecf3fa756.png" />. 
+<ul class="org-ul">
+<li>Reflexive because of length-0 paths, transitive because of path concatenation.</li>
+</ul></li>
+<li>Product of two preorders can be considered as a preorder by only comparing things when both preorders independently agree on the pairs.</li>
+</ul>
+</div>
+</li>
+<li><a id="orga7a1cb3"></a>Definitions<br />
+<ol class="org-ol">
+<li><a id="org81b0d57"></a><a id="org06ab4fa"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="12">12</span></span><br />
+<ol class="org-ol">
+<li><a id="orga67994a"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-2-2-1-1">
+<ul class="org-ul">
+<li>A <i>preorder/binary/partial order/total order relation</i> on a set <img src="ltximg/sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" alt="sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="orga68c946"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-2-2-1-2">
+<ul class="org-ul">
+<li>A binary relation on <img src="ltximg/sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" alt="sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" /> that is reflexive and transitive.</li>
+<li>A partial order (poset) has the additional constraint that <img src="ltximg/sketch_a071616ea046e351462464a6bd987714ab8582c1.png" alt="sketch_a071616ea046e351462464a6bd987714ab8582c1.png" />
+<ul class="org-ul">
+<li>We can always get a partial order from a preorder by quotienting, so it's not that special.</li>
+</ul></li>
+<li>A total order has all elements comparable.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org369f895"></a><a id="org2a0288c"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="13">13</span></span><br />
+<ol class="org-ol">
+<li><a id="org8f2e57e"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-2-2-2-1">
+<ul class="org-ul">
+<li>Categorical <i>skeletality</i></li>
+</ul>
+</div>
+</li>
+<li><a id="orgcba9cd0"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-2-2-2-2">
+<ul class="org-ul">
+<li><img src="ltximg/sketch_c0585b867b532dea25c296f2a253594dae34a0ad.png" alt="sketch_c0585b867b532dea25c296f2a253594dae34a0ad.png" /></li>
+<li>E.g. a skeletal preorder is a poset.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org3ef93de"></a><a id="orgd335163"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="14">14</span></span><br />
+<ol class="org-ol">
+<li><a id="org3af5c02"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-2-2-3-1">
+<ul class="org-ul">
+<li>A graph (of vertices, arrows)</li>
+</ul>
+</div>
+</li>
+<li><a id="org9350e7c"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-2-2-3-2">
+<ul class="org-ul">
+<li>A tuple <img src="ltximg/sketch_81c758ef2ce0e229561d682e397b9698b26f1a36.png" alt="sketch_81c758ef2ce0e229561d682e397b9698b26f1a36.png" /></li>
+<li>Set of vertices and arrows, with two functions <img src="ltximg/sketch_599a1b99222d275fa21c885703abf8fd00294949.png" alt="sketch_599a1b99222d275fa21c885703abf8fd00294949.png" /> which say where the source and target of each arrow goes to.</li>
+<li>A <i>path</i> in <img src="ltximg/sketch_8a8e07928f8efe34c1a2ef6a668566d04105c455.png" alt="sketch_8a8e07928f8efe34c1a2ef6a668566d04105c455.png" /> is any sequence of arrows such that the target of one arrow is the source of the next (including length 0 and 1 sequences).</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orga9a23be"></a><a id="org9852425"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="17">17</span></span><br />
+<ol class="org-ol">
+<li><a id="orge0875a6"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-2-2-4-1">
+<ul class="org-ul">
+<li>An <i>upper set</i> in <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> for some preorder <img src="ltximg/sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" alt="sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgd70d732"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-2-2-4-2">
+<ul class="org-ul">
+<li>A subset <img src="ltximg/sketch_486d11cab54d94d7943ba47bca32e282fd340f4a.png" alt="sketch_486d11cab54d94d7943ba47bca32e282fd340f4a.png" /> of <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> satisfying the condition <img src="ltximg/sketch_4d0b84ec36b0b03dda1e105b968625b0da1dc1c3.png" alt="sketch_4d0b84ec36b0b03dda1e105b968625b0da1dc1c3.png" /></li>
+<li>Anything you add to the upper set means you have to add everything greater than it.</li>
+<li>Example: the possible upper sets of <img src="ltximg/sketch_f200a9efd637db451bf21ca1629e33e50beb2d03.png" alt="sketch_f200a9efd637db451bf21ca1629e33e50beb2d03.png" /> are <img src="ltximg/sketch_3355a11c621637f5209de304e3b17b7af40f45d3.png" alt="sketch_3355a11c621637f5209de304e3b17b7af40f45d3.png" /></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgdd4799f"></a><a id="org52caae8"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="18">18</span></span><br />
+<ol class="org-ol">
+<li><a id="org591baed"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-2-2-5-1">
+<ul class="org-ul">
+<li>An opposite preorder</li>
+</ul>
+</div>
+</li>
+<li><a id="org61a9eb3"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-2-2-5-2">
+<ul class="org-ul">
+<li>Given a preorder <img src="ltximg/sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" alt="sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" />, we define <img src="ltximg/sketch_0e40661b4a054f49e511c6eb4c72f923c546f97b.png" alt="sketch_0e40661b4a054f49e511c6eb4c72f923c546f97b.png" /></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="orge2d5160"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="org113e70e"></a><a id="orgad6c3f2"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="17">17</span></span><br />
+<ol class="org-ol">
+<li><a id="orge0398cb"></a>Question<br />
+<div class="outline-text-7" id="text-3-2-2-3-1-1">
+<ul class="org-ul">
+<li>For any set <img src="ltximg/sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" alt="sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" /> there is a coarsest partition having just one part. What surjective function does this correspond to?</li>
+<li>Likewise for the finest partition?</li>
+</ul>
+</div>
+</li>
+<li><a id="orga0fe120"></a>Solution<br />
+<div class="outline-text-7" id="text-3-2-2-3-1-2">
+<ul class="org-ul">
+<li>The map to <img src="ltximg/sketch_fd504ba2eb8c9173e19885b296f9e5832eab7099.png" alt="sketch_fd504ba2eb8c9173e19885b296f9e5832eab7099.png" /> and the identity, respectively.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org71721fe"></a><a id="org00c3c00"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="17">17</span></span><br />
+<ol class="org-ol">
+<li><a id="org409c441"></a>Question<br />
+<div class="outline-text-7" id="text-3-2-2-3-2-1">
+<ul class="org-ul">
+<li>Prove that the upper sets on a discrete preorder for some set <img src="ltximg/sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" alt="sketch_a14935ceca6ed5a874c468a28516435fdcafa64d.png" /> is simply the power set <img src="ltximg/sketch_49d29f3eac4ac71bbeaa0780f5494c71cbed40fc.png" alt="sketch_49d29f3eac4ac71bbeaa0780f5494c71cbed40fc.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgebef2bf"></a>Solution<br />
+<div class="outline-text-7" id="text-3-2-2-3-2-2">
+<ul class="org-ul">
+<li>The upper set criterion is satisfied by any subset, thus all possible subsets are upper sets.
+<ul class="org-ul">
+<li>The binary relation is equality, thus the upper subset criterion becomes <img src="ltximg/sketch_c1687325acf636541dab2d9d664494fa5b809cc0.png" alt="sketch_c1687325acf636541dab2d9d664494fa5b809cc0.png" /> or alternatively <img src="ltximg/sketch_5cb4242430e58bcec60bbac0fc122dbc57246555.png" alt="sketch_5cb4242430e58bcec60bbac0fc122dbc57246555.png" /> which is always satisfied.</li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-org329e14c" class="outline-4">
+<h4 id="org329e14c"><span class="section-number-4">3.2.3</span> Part 3: Monotone maps</h4>
+<div class="outline-text-4" id="text-3-2-3">
+</div>
+<ol class="org-ol">
+<li><a id="org653a040"></a>Notes<br />
+<div class="outline-text-5" id="text-3-2-3-1">
+<ul class="org-ul">
+<li>Category theory emphasizes that preorders themselves (each a minature world, composed of many relationships) can be related to one another.</li>
+<li><i>Monotone maps</i> are important because they are the right notion of <i>structure-preserving map</i> for preorders.</li>
+<li>The map ('cardinality') sending a power-set (with inclusion ordering) to the natural numbers with standard ordering is a monotone map.</li>
+<li>Given a preorder, the inclusion map of the upper sets of <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> (ordered by inclusion) to the power set of <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> (ordered by inclusion) is a monotone map.</li>
+</ul>
+</div>
+</li>
+<li><a id="orgf95c865"></a>Definitions<br />
+<ol class="org-ol">
+<li><a id="orgafc2c54"></a><a id="orgef29a7d"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="18">18</span></span><br />
+<ol class="org-ol">
+<li><a id="org9af4f4e"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-3-2-1-1">
+<ul class="org-ul">
+<li>A <i>monotone map</i> between preorders <img src="ltximg/sketch_904cde48d8d7ebb4ffe1eef2902c2ac74f085f60.png" alt="sketch_904cde48d8d7ebb4ffe1eef2902c2ac74f085f60.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgb5e55b1"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-3-2-1-2">
+<ul class="org-ul">
+<li>A function <img src="ltximg/sketch_1822ffe012f47ae7c80880802ec90c1e571f9799.png" alt="sketch_1822ffe012f47ae7c80880802ec90c1e571f9799.png" /> such that <img src="ltximg/sketch_c6968f644824000d0dca96081a66ca3adde51bc0.png" alt="sketch_c6968f644824000d0dca96081a66ca3adde51bc0.png" /></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgb54b5b8"></a><a id="org56ecd53"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="21">21</span></span><br />
+<ol class="org-ol">
+<li><a id="org3703f2a"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-3-2-2-1">
+<ul class="org-ul">
+<li>A <i>dagger</i> preorder</li>
+</ul>
+</div>
+</li>
+<li><a id="org8a6ff48"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-3-2-2-2">
+<ul class="org-ul">
+<li><img src="ltximg/sketch_acbfec94ca11473f1e188b5add9731bd69340eee.png" alt="sketch_acbfec94ca11473f1e188b5add9731bd69340eee.png" /> - this is tantamount to an equivalence relation.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orge7bc1cb"></a><a id="org34f9af0"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="21">21</span></span><br />
+<ol class="org-ol">
+<li><a id="orgcef1699"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-3-2-3-1">
+<ul class="org-ul">
+<li>A preorder <i>isomorphism</i></li>
+</ul>
+</div>
+</li>
+<li><a id="org0a1c0b9"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-3-2-3-2">
+<ul class="org-ul">
+<li>A <a href="#orgef29a7d">monotone map</a> for which there exists an inverse <a href="#orgef29a7d">monotone map</a> (<img src="ltximg/sketch_1d32d2c8c4aa050c661d8d395da26f39a7f8e7dc.png" alt="sketch_1d32d2c8c4aa050c661d8d395da26f39a7f8e7dc.png" /> and <img src="ltximg/sketch_851bd6c5bddcdde4913c679942c4b2bb0300c8f7.png" alt="sketch_851bd6c5bddcdde4913c679942c4b2bb0300c8f7.png" />)</li>
+<li>If this exists, we say the preorders involved are isomorphic.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgf2d86b8"></a><a id="org5470054"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="22">22</span></span><br />
+<ol class="org-ol">
+<li><a id="org78a3934"></a>Term<br />
+<div class="outline-text-7" id="text-3-2-3-2-4-1">
+<ul class="org-ul">
+<li>A <i>pullback</i> along a <a href="#orgef29a7d">monotone map</a> <img src="ltximg/sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" alt="sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgf51f9c8"></a>Def<br />
+<div class="outline-text-7" id="text-3-2-3-2-4-2">
+<ul class="org-ul">
+<li>A <a href="#orgef29a7d">monotone map</a> <img src="ltximg/sketch_447fc1f2fd9203d1220495b1cc06e85af37ef97b.png" alt="sketch_447fc1f2fd9203d1220495b1cc06e85af37ef97b.png" /> sending an <a href="#org9852425">upper set</a> <img src="ltximg/sketch_cba11c59dc370f907dddef942a95a8c611505297.png" alt="sketch_cba11c59dc370f907dddef942a95a8c611505297.png" /> to the upper set <img src="ltximg/sketch_ee2ad22070a933ab62125cfb8b9a729b4673b437.png" alt="sketch_ee2ad22070a933ab62125cfb8b9a729b4673b437.png" />
+<ul class="org-ul">
+<li><img src="ltximg/sketch_02adc222546d0a34b8d65c3ffc361f28efebef13.png" alt="sketch_02adc222546d0a34b8d65c3ffc361f28efebef13.png" /></li>
+<li><img src="ltximg/sketch_390fc30a290f23ae29ebd20e824771344af4ec28.png" alt="sketch_390fc30a290f23ae29ebd20e824771344af4ec28.png" /> is induced by <img src="ltximg/sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" alt="sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" /> and has the property that the diagram commutes.</li>
+<li>Vertically, we ask the question <i>is this element p in the <a href="#org9852425">upper set</a> we are talking about?</i></li>
+<li>The answer is yes iff <img src="ltximg/sketch_09fb5da922a536a1628c65efc7528fed9843dd72.png" alt="sketch_09fb5da922a536a1628c65efc7528fed9843dd72.png" /> is in the <a href="#org9852425">upper set</a> <img src="ltximg/sketch_ad1fc91760307600b974b55d69763bf3babfd5cf.png" alt="sketch_ad1fc91760307600b974b55d69763bf3babfd5cf.png" />, which is the same as saying <img src="ltximg/sketch_50735762ae12565a14fc1dff39285d262743bad4.png" alt="sketch_50735762ae12565a14fc1dff39285d262743bad4.png" /></li>
+<li>Other ways of representing this:
+<ul class="org-ul">
+<li><img src="ltximg/sketch_dd360cd7f76b9d035e58b2b731f1253df6dcf688.png" alt="sketch_dd360cd7f76b9d035e58b2b731f1253df6dcf688.png" /> (the pullback is defined for a given <a href="#org9852425">upper set</a> of <img src="ltximg/sketch_c6faf02fee45a9c813cbfa0be522cba6bdb541ec.png" alt="sketch_c6faf02fee45a9c813cbfa0be522cba6bdb541ec.png" /> as the function which makes this diagram commute)</li>
+<li><img src="ltximg/sketch_31071d160441d776a2eee352ac1898bf2108cb97.png" alt="sketch_31071d160441d776a2eee352ac1898bf2108cb97.png" /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org1a7dad6"></a>Propositions<br />
+<ol class="org-ol">
+<li><a id="orgc32f28c"></a><a id="org32dfe91"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="21">21</span></span><br />
+<ol class="org-ol">
+<li><a id="org73d6e97"></a>Proposition<br />
+<div class="outline-text-7" id="text-3-2-3-3-1-1">
+<ul class="org-ul">
+<li>For any preorder, the identity function is monotone.</li>
+<li>The composition of two monotone maps (<img src="ltximg/sketch_7677c707096b048adeab9559c69aa779e4a49050.png" alt="sketch_7677c707096b048adeab9559c69aa779e4a49050.png" />) is also monotone.</li>
+</ul>
+</div>
+</li>
+<li><a id="org71caa53"></a>Proof<br />
+<div class="outline-text-7" id="text-3-2-3-3-1-2">
+<ul class="org-ul">
+<li>Monotonicity translates to <img src="ltximg/sketch_ac908423928529799c8764322191e0350dc01fc9.png" alt="sketch_ac908423928529799c8764322191e0350dc01fc9.png" /> and is trivially true.</li>
+<li>Need to show: <img src="ltximg/sketch_41dccaaff34ff7117949bf78184861b92c331ab0.png" alt="sketch_41dccaaff34ff7117949bf78184861b92c331ab0.png" />
+<ul class="org-ul">
+<li>The monotonicity of <img src="ltximg/sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" alt="sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" /> gives us <img src="ltximg/sketch_689bfae9133a906f86f973ae9d1b96a8cca419f9.png" alt="sketch_689bfae9133a906f86f973ae9d1b96a8cca419f9.png" /> and the monotonicty of <img src="ltximg/sketch_dd48c5053068f5e27e10919a464fc381e7c5a10e.png" alt="sketch_dd48c5053068f5e27e10919a464fc381e7c5a10e.png" /> gives us the result we need.</li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org91cbda5"></a><a id="orgfd227ea"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="22">22</span></span><br />
+<ol class="org-ol">
+<li><a id="org39aca0d"></a>Proposition<br />
+<div class="outline-text-7" id="text-3-2-3-3-2-1">
+<ul class="org-ul">
+<li>Let <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> be a preorder. Monotone maps <img src="ltximg/sketch_d61832d863d6ca3b9f67ef4f6639489c8fef843a.png" alt="sketch_d61832d863d6ca3b9f67ef4f6639489c8fef843a.png" /> are in one-to-one correspondance with upper sets of <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" />.</li>
+</ul>
+</div>
+</li>
+<li><a id="org2476044"></a>Proof<br />
+<div class="outline-text-7" id="text-3-2-3-3-2-2">
+<ul class="org-ul">
+<li>Let <img src="ltximg/sketch_7a63f88ac6614f53d4c0658f05257db6074d3e49.png" alt="sketch_7a63f88ac6614f53d4c0658f05257db6074d3e49.png" /> be a monotone map. The subset <img src="ltximg/sketch_7533a0d09cab0bf9959dc82470490501334c6ba5.png" alt="sketch_7533a0d09cab0bf9959dc82470490501334c6ba5.png" /> is an upper set. 
+<ul class="org-ul">
+<li>Suppose <img src="ltximg/sketch_5c6b67b3db21afa43824481f47815832bcb66fb3.png" alt="sketch_5c6b67b3db21afa43824481f47815832bcb66fb3.png" /> and <img src="ltximg/sketch_bfc058310f4a2d0e269bfe45c8a2a429ca459e69.png" alt="sketch_bfc058310f4a2d0e269bfe45c8a2a429ca459e69.png" />.</li>
+<li>Then <img src="ltximg/sketch_8b96d065d2a3b3e5ea721ebff6681f18358def7d.png" alt="sketch_8b96d065d2a3b3e5ea721ebff6681f18358def7d.png" /> because <img src="ltximg/sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" alt="sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" /> is monotonic.</li>
+<li>But there is nothing strictly greater than <img src="ltximg/sketch_2bdb3d3f770a9f343e158c71f36ddbca6e44f25b.png" alt="sketch_2bdb3d3f770a9f343e158c71f36ddbca6e44f25b.png" /> in <img src="ltximg/sketch_f968d568ef8b2942214b236a320f4c11ac3cd3de.png" alt="sketch_f968d568ef8b2942214b236a320f4c11ac3cd3de.png" />, so <img src="ltximg/sketch_2b18d22b286bffb66d9e0ce25241d1a9de1d5419.png" alt="sketch_2b18d22b286bffb66d9e0ce25241d1a9de1d5419.png" /> and therefore <img src="ltximg/sketch_c59d9e052dc6500d7390eac97592cb486f9feb7e.png" alt="sketch_c59d9e052dc6500d7390eac97592cb486f9feb7e.png" /> too.</li>
+</ul></li>
+<li>Suppose <img src="ltximg/sketch_ff3eb28f87449efa3000f74c7271aebf06afe972.png" alt="sketch_ff3eb28f87449efa3000f74c7271aebf06afe972.png" />, and define <img src="ltximg/sketch_a3062c38b5609001c962666bc1dd6220c4032c87.png" alt="sketch_a3062c38b5609001c962666bc1dd6220c4032c87.png" /> such that <img src="ltximg/sketch_823fa19843577d1c4ba34cd0d348e0b5f3924946.png" alt="sketch_823fa19843577d1c4ba34cd0d348e0b5f3924946.png" />
+<ul class="org-ul">
+<li>This is monotone because <img src="ltximg/sketch_cde5701bbf0414d244653533777fafff618bdce5.png" alt="sketch_cde5701bbf0414d244653533777fafff618bdce5.png" /> and <img src="ltximg/sketch_f5c325a28e7334239fa18938cd0499c127a1a4d2.png" alt="sketch_f5c325a28e7334239fa18938cd0499c127a1a4d2.png" /> are both in <img src="ltximg/sketch_486d11cab54d94d7943ba47bca32e282fd340f4a.png" alt="sketch_486d11cab54d94d7943ba47bca32e282fd340f4a.png" /> if <img src="ltximg/sketch_7014b7d1d4c6719f31db72f1aaa9fdf1311fda1e.png" alt="sketch_7014b7d1d4c6719f31db72f1aaa9fdf1311fda1e.png" /> is, and if <img src="ltximg/sketch_7014b7d1d4c6719f31db72f1aaa9fdf1311fda1e.png" alt="sketch_7014b7d1d4c6719f31db72f1aaa9fdf1311fda1e.png" /> is not in <img src="ltximg/sketch_486d11cab54d94d7943ba47bca32e282fd340f4a.png" alt="sketch_486d11cab54d94d7943ba47bca32e282fd340f4a.png" /> then the monotonicity property is trivially satisfied (nothing is strictly less than <img src="ltximg/sketch_03e339be868a0ee58900ed882c186e17a71a849c.png" alt="sketch_03e339be868a0ee58900ed882c186e17a71a849c.png" />).</li>
+</ul></li>
+<li>The two constructions are mutually inverse.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="orga90cb16"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="orgf968dd1"></a><a id="orgb6fcee0"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="20">20</span></span><br />
+<ol class="org-ol">
+<li><a id="org33df867"></a>Question<br />
+<div class="outline-text-7" id="text-3-2-3-4-1-1">
+<ul class="org-ul">
+<li>Let <img src="ltximg/sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" alt="sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" /> be a preorder and recall the <a href="#org52caae8">opposite preorder</a>.
+<ol class="org-ol">
+<li>Show that the set <img src="ltximg/sketch_067be07a10e3364dc6a613c92e11dd9b2b8acc47.png" alt="sketch_067be07a10e3364dc6a613c92e11dd9b2b8acc47.png" /> is an <a href="#org9852425">upper set</a> for any <img src="ltximg/sketch_7ca2932fd9df5248a7f2c5ea6fdc5a14330a55eb.png" alt="sketch_7ca2932fd9df5248a7f2c5ea6fdc5a14330a55eb.png" /></li>
+<li>Show that this construction defines a <a href="#orgef29a7d">monotone map</a> <img src="ltximg/sketch_6a761960b89ecc17a98b4fcaf9ea82fbebd699e4.png" alt="sketch_6a761960b89ecc17a98b4fcaf9ea82fbebd699e4.png" /></li>
+<li>Show that <img src="ltximg/sketch_ecbcbd37f7ee4d4231252c13a4d26cce20ae2916.png" alt="sketch_ecbcbd37f7ee4d4231252c13a4d26cce20ae2916.png" /></li>
+<li>Draw a picture of the map <img src="ltximg/sketch_fc8d11144b842e0d9673e46dbe343720b385bc28.png" alt="sketch_fc8d11144b842e0d9673e46dbe343720b385bc28.png" /> in the case where <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> is the preorder <img src="ltximg/sketch_12bdab29b016139f599155b30810f6baed2a09aa.png" alt="sketch_12bdab29b016139f599155b30810f6baed2a09aa.png" />.</li>
+</ol></li>
+</ul>
+</div>
+</li>
+<li><a id="org84d282e"></a>Solution<br />
+<div class="outline-text-7" id="text-3-2-3-4-1-2">
+<ul class="org-ul">
+<li>This is the <i>Yoneda lemma for preorders</i> (up to equivalence, to know an element is the same as knowing its upper set).</li>
+<li>A non-upper-set excludes some element that is larger than an element already in the set, but <img src="ltximg/sketch_df7f1ad29406b0fd3bef704ed6925dc0c39ef96e.png" alt="sketch_df7f1ad29406b0fd3bef704ed6925dc0c39ef96e.png" /> (with <img src="ltximg/sketch_cf0af3de2eaa012b0837d16bddf8f9f8fe746d30.png" alt="sketch_cf0af3de2eaa012b0837d16bddf8f9f8fe746d30.png" />, as we are assuming <img src="ltximg/sketch_0a94efbca368e9832bb164ccd4e8e07fc01472eb.png" alt="sketch_0a94efbca368e9832bb164ccd4e8e07fc01472eb.png" />) implies <img src="ltximg/sketch_95b8798455621150f6dd8a590983a92077684566.png" alt="sketch_95b8798455621150f6dd8a590983a92077684566.png" /> by the transitive property, so it is not possible for such a larger element to be excluded.</li>
+<li>Interpreting the meaning of the preorder in the domain and codomain of <img src="ltximg/sketch_fc8d11144b842e0d9673e46dbe343720b385bc28.png" alt="sketch_fc8d11144b842e0d9673e46dbe343720b385bc28.png" />, this boils down to showing <img src="ltximg/sketch_66067cf85ce157d0d6822c77388572793c52f3fc.png" alt="sketch_66067cf85ce157d0d6822c77388572793c52f3fc.png" />
+<ul class="org-ul">
+<li>This is shown by noting that <img src="ltximg/sketch_5b582cd20a270600a39120685bf6a0484cb32b9f.png" alt="sketch_5b582cd20a270600a39120685bf6a0484cb32b9f.png" /> and that, by the transitive property, anything 'above' <img src="ltximg/sketch_0fb78dae44acf151d337ac8f0e6846f011f7d64c.png" alt="sketch_0fb78dae44acf151d337ac8f0e6846f011f7d64c.png" /> (i.e. $(a)) will therefore be in <img src="ltximg/sketch_ba6c77fb222ff5cdce07f8bb02e6a01cac888410.png" alt="sketch_ba6c77fb222ff5cdce07f8bb02e6a01cac888410.png" />.</li>
+</ul></li>
+<li>One direction has been shown already (substitute <img src="ltximg/sketch_d5eeba17ce13ee93b5e555d1ad7845ac0381e05b.png" alt="sketch_d5eeba17ce13ee93b5e555d1ad7845ac0381e05b.png" />)
+<ul class="org-ul">
+<li>The other direction is shown just by noting that <img src="ltximg/sketch_0fad0d7c31d4b49c1820ae59e5b1d4850e3455d0.png" alt="sketch_0fad0d7c31d4b49c1820ae59e5b1d4850e3455d0.png" /> must be in <img src="ltximg/sketch_c93d831b4aecc0a9558aebc4211f890d8387306f.png" alt="sketch_c93d831b4aecc0a9558aebc4211f890d8387306f.png" /> because <img src="ltximg/sketch_da77e357cb3612a27b4bb03f610c46161fb553cd.png" alt="sketch_da77e357cb3612a27b4bb03f610c46161fb553cd.png" /> (preorder is reflexive), therefore <img src="ltximg/sketch_446da8fe98cbc71189466ff02b12239f2ee632eb.png" alt="sketch_446da8fe98cbc71189466ff02b12239f2ee632eb.png" />.</li>
+</ul></li>
+<li><img src="ltximg/sketch_f9c257c442742f141230fbae5db74e855e0f2c98.png" alt="sketch_f9c257c442742f141230fbae5db74e855e0f2c98.png" /></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgf0f0ebd"></a><a id="orgc1a4c08"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="20">20</span></span><br />
+<ol class="org-ol">
+<li><a id="org53cf204"></a>Question<br />
+<div class="outline-text-7" id="text-3-2-3-4-2-1">
+<ul class="org-ul">
+<li>Show that when <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> is a discrete preorder, then every function <img src="ltximg/sketch_8fb28ef4f124bfdf581044e80afd656036e0678e.png" alt="sketch_8fb28ef4f124bfdf581044e80afd656036e0678e.png" /> is a monatone map, regardless of the order <img src="ltximg/sketch_11b67a3bede586a2fc07f19a9ebc9af793e6c174.png" alt="sketch_11b67a3bede586a2fc07f19a9ebc9af793e6c174.png" />.</li>
+</ul>
+</div>
+</li>
+<li><a id="orgdb7b313"></a>Solution<br />
+<div class="outline-text-7" id="text-3-2-3-4-2-2">
+<ul class="org-ul">
+<li>The only time the monotonicity criterion is deployed is when two elements of <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> are related, and for a discrete category this means we only have to check whether <img src="ltximg/sketch_2026e9ed4a5a5d8fca1a0ac6c8fbbe23b7a2f57b.png" alt="sketch_2026e9ed4a5a5d8fca1a0ac6c8fbbe23b7a2f57b.png" />, which is true because preorders are reflexive.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org9308835"></a><a id="org0f053db"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="21">21</span></span><br />
+<ol class="org-ol">
+<li><a id="org93f8c6c"></a>Question<br />
+<div class="outline-text-7" id="text-3-2-3-4-3-1">
+<ul class="org-ul">
+<li>Recall <a href="#org2a0288c">skeletal preorders</a> and <a href="#org56ecd53">dagger preorders</a>. Show that a skeletal dagger preorder is just a discrete preorder (and hence can be identified with a set)</li>
+</ul>
+</div>
+</li>
+<li><a id="org4df94c8"></a>Solution<br />
+<div class="outline-text-7" id="text-3-2-3-4-3-2">
+<ul class="org-ul">
+<li>Because preorders are reflexive, we just have to show <img src="ltximg/sketch_ee2e754286994f8a83b22f0cd2d969869ef194b6.png" alt="sketch_ee2e754286994f8a83b22f0cd2d969869ef194b6.png" />, or its contrapositive: <img src="ltximg/sketch_09ef31b24b73ff433d5c93f1fbc0a3b9ec11de0b.png" alt="sketch_09ef31b24b73ff433d5c93f1fbc0a3b9ec11de0b.png" />.</li>
+<li><img src="ltximg/sketch_214610073eabfeaa98c246fb291c209770cf2ea5.png" alt="sketch_214610073eabfeaa98c246fb291c209770cf2ea5.png" /></li>
+</ul>
+<p>
+** Section 3: Meets and joins
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org51f9a1d" class="outline-3">
+<h3 id="org51f9a1d"><span class="section-number-3">3.3</span> Section 3: Meets and Joins</h3>
+<div class="outline-text-3" id="text-3-3">
+</div>
+<div id="outline-container-org0c277e2" class="outline-4">
+<h4 id="org0c277e2"><span class="section-number-4">3.3.1</span> Part 1: Definition and basic examples</h4>
+<div class="outline-text-4" id="text-3-3-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgd3e7273"></a>Notes<br />
+<div class="outline-text-5" id="text-3-3-1-1">
+<ul class="org-ul">
+<li>There could be multiple meets/joins, but the definition forces them to be isomorphic.</li>
+<li>An arbitrary preorder need not have a meet nor join.
+<ul class="org-ul">
+<li>E.g a two element discrete preorder has no overall meet/join, because the meet must be less/greater than or equal to both elements in the set.</li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="org19b77e5"></a>Definitions<br />
+<ol class="org-ol">
+<li><a id="org4f023d1"></a><a id="org01a999b"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="23">23</span></span><br />
+<ol class="org-ol">
+<li><a id="org329cfef"></a>Term<br />
+<div class="outline-text-7" id="text-3-3-1-2-1-1">
+<ul class="org-ul">
+<li>For a preorder <img src="ltximg/sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" alt="sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" />, the <i>meet</i> and <i>join</i> of <img src="ltximg/sketch_ebe4e2509d1281dab8a5d62edbf25960c881d20b.png" alt="sketch_ebe4e2509d1281dab8a5d62edbf25960c881d20b.png" />.</li>
+</ul>
+</div>
+</li>
+<li><a id="org19aa812"></a>Def<br />
+<div class="outline-text-7" id="text-3-3-1-2-1-2">
+<p>
+-The meet <img src="ltximg/sketch_1dbee679375254f5dd66e4dd3712947f197772eb.png" alt="sketch_1dbee679375254f5dd66e4dd3712947f197772eb.png" /> is an element such that 
+</p>
+<ul class="org-ul">
+<li><img src="ltximg/sketch_8fb65583068a9093690153dd63d4844940e97f65.png" alt="sketch_8fb65583068a9093690153dd63d4844940e97f65.png" /></li>
+<li><img src="ltximg/sketch_0009ac271bf584029d15f903a2abda85cf7bf407.png" alt="sketch_0009ac271bf584029d15f903a2abda85cf7bf407.png" /></li>
+</ul>
+<ul class="org-ul">
+<li>The join <img src="ltximg/sketch_1cb5c4a91c55a08616c3f033761ad2d701776c53.png" alt="sketch_1cb5c4a91c55a08616c3f033761ad2d701776c53.png" /> is an element such that 
+<ul class="org-ul">
+<li><img src="ltximg/sketch_51d74c051a13191820b6422e81be06a3d6d798b5.png" alt="sketch_51d74c051a13191820b6422e81be06a3d6d798b5.png" /></li>
+<li><img src="ltximg/sketch_803dbf94e45523668dc1334547392d94a855c4de.png" alt="sketch_803dbf94e45523668dc1334547392d94a855c4de.png" /></li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="orgc0ecb5f"></a>Propositions<br />
+<ol class="org-ol">
+<li><a id="orgdbeffea"></a><a id="orgeb34fa4"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="25">25</span></span><br />
+<ol class="org-ol">
+<li><a id="org44d1b80"></a>Proposition<br />
+<div class="outline-text-7" id="text-3-3-1-3-1-1">
+<ul class="org-ul">
+<li>Suppose <img src="ltximg/sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" alt="sketch_9d94a9d6de6760c013e0d30d6c0f0e3dbf10319c.png" /> is a preorder and <img src="ltximg/sketch_fd71ebf3dc3c4a5737547aa37d5d63546ff89b21.png" alt="sketch_fd71ebf3dc3c4a5737547aa37d5d63546ff89b21.png" /> are subsets that have meets.</li>
+<li>Then <img src="ltximg/sketch_61d38662b58819ae8837f9a4b23b86d03d550311.png" alt="sketch_61d38662b58819ae8837f9a4b23b86d03d550311.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="orga1da40c"></a>Proof<br />
+<div class="outline-text-7" id="text-3-3-1-3-1-2">
+<ul class="org-ul">
+<li>Let <img src="ltximg/sketch_e34bf5aef61220f5025933e0cfdfd08b4dad5e91.png" alt="sketch_e34bf5aef61220f5025933e0cfdfd08b4dad5e91.png" /> and <img src="ltximg/sketch_f17f67ff2150e54368a69a0c60d7b70a8dfd6d8a.png" alt="sketch_f17f67ff2150e54368a69a0c60d7b70a8dfd6d8a.png" />.</li>
+<li>For any <img src="ltximg/sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" alt="sketch_58e4305a577a3c4285b5843359777ff2ee31c23d.png" /> we also have <img src="ltximg/sketch_79a81a584e79841624e019ae426395aba2487766.png" alt="sketch_79a81a584e79841624e019ae426395aba2487766.png" />, so <img src="ltximg/sketch_713d5787806c38b73dbff2493494ae168261d7d1.png" alt="sketch_713d5787806c38b73dbff2493494ae168261d7d1.png" /> because <img src="ltximg/sketch_4350d13d09a9dcc179e39f35f77f4ade3a9b710e.png" alt="sketch_4350d13d09a9dcc179e39f35f77f4ade3a9b710e.png" /> is a lower bound for <img src="ltximg/sketch_aec036203eeeef70d1398ad3c6a501dd7fab201f.png" alt="sketch_aec036203eeeef70d1398ad3c6a501dd7fab201f.png" />.</li>
+<li>Thus <img src="ltximg/sketch_4350d13d09a9dcc179e39f35f77f4ade3a9b710e.png" alt="sketch_4350d13d09a9dcc179e39f35f77f4ade3a9b710e.png" /> is also a lower bound for <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" /> and hence <img src="ltximg/sketch_ce2ad138816931cf2a5e0791e2936a6b02a9f22a.png" alt="sketch_ce2ad138816931cf2a5e0791e2936a6b02a9f22a.png" /> because <img src="ltximg/sketch_29af7a68affaaf78eb37c609546a96ef1de23164.png" alt="sketch_29af7a68affaaf78eb37c609546a96ef1de23164.png" /> is <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" />'s greatest lower bound.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="orgb185eb7"></a>Examples<br />
+<ol class="org-ol">
+<li><a id="orgbe8221d"></a><a id="orgb9d8868"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="25">25</span></span><br />
+<div class="outline-text-6" id="text-3-3-1-4-1">
+<ul class="org-ul">
+<li>In a power set, the meet of a collection of subsets is their intersection, while the join is their union.</li>
+</ul>
+</div>
+</li>
+<li><a id="orgafa9af0"></a><a id="org94d3bca"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="25">25</span></span><br />
+<div class="outline-text-6" id="text-3-3-1-4-2">
+<ul class="org-ul">
+<li>In the booleans, the meet of any two elements is given by <img src="ltximg/sketch_82a38485043ce2768859fb32ae3f7e9d4e6b15f7.png" alt="sketch_82a38485043ce2768859fb32ae3f7e9d4e6b15f7.png" /> and the join of any two elements is given by <img src="ltximg/sketch_5f1c3aef0017bceb48fb84f933db9dc962a54919.png" alt="sketch_5f1c3aef0017bceb48fb84f933db9dc962a54919.png" />.</li>
+</ul>
+</div>
+</li>
+<li><a id="org9ffecaf"></a><a id="org0bbb553"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="25">25</span></span><br />
+<div class="outline-text-6" id="text-3-3-1-4-3">
+<ul class="org-ul">
+<li>In a total order, the meet of a set is its infimum, while the join is the supremum.</li>
+<li>Note that <img src="ltximg/sketch_f968d568ef8b2942214b236a320f4c11ac3cd3de.png" alt="sketch_f968d568ef8b2942214b236a320f4c11ac3cd3de.png" /> is a total order, to generalize <a href="#org94d3bca">3.3.1.4.2</a>.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgfeac7e1"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="org3c01192"></a><a id="org6b14e85"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="24">24</span></span><br />
+<ol class="org-ol">
+<li><a id="org457e462"></a>Question<br />
+<div class="outline-text-7" id="text-3-3-1-5-1-1">
+<ul class="org-ul">
+<li>Let <img src="ltximg/sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" alt="sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" /> be an element in a preorder. Consider <img src="ltximg/sketch_4cd847d19b3a21b50f4e2e8d3a262bfa3d89b219.png" alt="sketch_4cd847d19b3a21b50f4e2e8d3a262bfa3d89b219.png" />
+<ol class="org-ol">
+<li>Show that <img src="ltximg/sketch_a0831f242ec7ad1e49ee2a16793295ccc2f8eadb.png" alt="sketch_a0831f242ec7ad1e49ee2a16793295ccc2f8eadb.png" /></li>
+<li>Show that if <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> is a partial order, then <img src="ltximg/sketch_23a74c9790c27010678103ae58306a3d805344dd.png" alt="sketch_23a74c9790c27010678103ae58306a3d805344dd.png" /></li>
+<li>Are the analogous facts true when <img src="ltximg/sketch_8b4b50c6326c1a66f01f78cc9d551b208c78950d.png" alt="sketch_8b4b50c6326c1a66f01f78cc9d551b208c78950d.png" /> is replaced by <img src="ltximg/sketch_8c307bd4407853c698aaad54258c0894c54b61aa.png" alt="sketch_8c307bd4407853c698aaad54258c0894c54b61aa.png" />?</li>
+</ol></li>
+</ul>
+</div>
+</li>
+<li><a id="org231595c"></a>Solution<br />
+<div class="outline-text-7" id="text-3-3-1-5-1-2">
+<ol class="org-ol">
+<li><ul class="org-ul">
+<li>The first condition of the meet gives us that <img src="ltximg/sketch_003778f3d3bdb67995a24613e071f67ffa43a6da.png" alt="sketch_003778f3d3bdb67995a24613e071f67ffa43a6da.png" />.</li>
+<li>The second condition is that <img src="ltximg/sketch_a1f3bd7a083008ef7978b0b1b59edb9d26d694dd.png" alt="sketch_a1f3bd7a083008ef7978b0b1b59edb9d26d694dd.png" />.
+<ul class="org-ul">
+<li>Substituting <img src="ltximg/sketch_7014b7d1d4c6719f31db72f1aaa9fdf1311fda1e.png" alt="sketch_7014b7d1d4c6719f31db72f1aaa9fdf1311fda1e.png" /> in for <img src="ltximg/sketch_f5c325a28e7334239fa18938cd0499c127a1a4d2.png" alt="sketch_f5c325a28e7334239fa18938cd0499c127a1a4d2.png" />, the antecedent holds such that we get <img src="ltximg/sketch_75d0d040aa6c816c9e064a65941d3e996ced0fc1.png" alt="sketch_75d0d040aa6c816c9e064a65941d3e996ced0fc1.png" /></li>
+</ul></li>
+<li>Therefore <img src="ltximg/sketch_ca66d5cbef820c3750cd22f335bad6cac484e771.png" alt="sketch_ca66d5cbef820c3750cd22f335bad6cac484e771.png" /></li>
+</ul></li>
+<li>The difference between a partial order and a preorder is that congruent elements are equal, so we directly get that <img src="ltximg/sketch_1dbee679375254f5dd66e4dd3712947f197772eb.png" alt="sketch_1dbee679375254f5dd66e4dd3712947f197772eb.png" /></li>
+<li>Yes, the argument is perfectly symmetric.</li>
+</ol>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-org3b0df69" class="outline-4">
+<h4 id="org3b0df69"><span class="section-number-4">3.3.2</span> Part 2: Back to observations and generative effects</h4>
+<div class="outline-text-4" id="text-3-3-2">
+</div>
+<ol class="org-ol">
+<li><a id="org8c344e4"></a>Notes<br />
+<div class="outline-text-5" id="text-3-3-2-1">
+<ul class="org-ul">
+<li>We are comparing the observation of a combined system or the combination of observations.</li>
+<li>The other direction, restricting an observation of a system to a subsystem, does not have problems for monotone maps (which preserve meets, not joins).</li>
+</ul>
+</div>
+</li>
+<li><a id="org0025a98"></a>Definitions<br />
+<ol class="org-ol">
+<li><a id="org40bb920"></a><a id="org8034a04"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="26">26</span></span><br />
+<ol class="org-ol">
+<li><a id="org58dce27"></a>Term<br />
+<div class="outline-text-7" id="text-3-3-2-2-1-1">
+<ul class="org-ul">
+<li>A monotone map <img src="ltximg/sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" alt="sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" /> that <i>preserves meets</i></li>
+</ul>
+</div>
+</li>
+<li><a id="orgac98b87"></a>Def<br />
+<div class="outline-text-7" id="text-3-3-2-2-1-2">
+<ul class="org-ul">
+<li><img src="ltximg/sketch_35c7f5d359b0f56c13755de38aecf7d9587bd196.png" alt="sketch_35c7f5d359b0f56c13755de38aecf7d9587bd196.png" /></li>
+<li>Likewise, to <i>preserve joins</i> is for <img src="ltximg/sketch_d0435ace0c910b77ca6ae2b2b65f6bbf9d02758d.png" alt="sketch_d0435ace0c910b77ca6ae2b2b65f6bbf9d02758d.png" /></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org0d683af"></a><a id="orgc7e7672"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="26">26</span></span><br />
+<ol class="org-ol">
+<li><a id="org7d7aee4"></a>Term<br />
+<div class="outline-text-7" id="text-3-3-2-2-2-1">
+<ul class="org-ul">
+<li>A monotone map <img src="ltximg/sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" alt="sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" /> has a <i>generative effect</i></li>
+</ul>
+</div>
+</li>
+<li><a id="org21e5e88"></a>Def<br />
+<div class="outline-text-7" id="text-3-3-2-2-2-2">
+<ul class="org-ul">
+<li><img src="ltximg/sketch_f2077b5194ac716ca331139bac19f995fae49ef1.png" alt="sketch_f2077b5194ac716ca331139bac19f995fae49ef1.png" /></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org2b3a5ce"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="orgf11d5d5"></a><a id="org5351fff"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="26">26</span></span><br />
+<ol class="org-ol">
+<li><a id="org2f5ef5f"></a>Question<br />
+<div class="outline-text-7" id="text-3-3-2-3-1-1">
+<ul class="org-ul">
+<li>Prove that for any <a href="#orgef29a7d">monotone map</a> <img src="ltximg/sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" alt="sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" />: 
+<ul class="org-ul">
+<li>if there exist <img src="ltximg/sketch_89f8d28ba997ff8b0290fb84b0fefb0ee78e929e.png" alt="sketch_89f8d28ba997ff8b0290fb84b0fefb0ee78e929e.png" /> and <img src="ltximg/sketch_26cd1857b1843633409e8de8bf0e94862becabb9.png" alt="sketch_26cd1857b1843633409e8de8bf0e94862becabb9.png" />:</li>
+<li><img src="ltximg/sketch_994d52f9678ababd33647433c31739f1065ec706.png" alt="sketch_994d52f9678ababd33647433c31739f1065ec706.png" /></li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="orgce428ba"></a>Solution<br />
+<div class="outline-text-7" id="text-3-3-2-3-1-2">
+<ul class="org-ul">
+<li>Let's abbreviate <img src="ltximg/sketch_879e5149852ff9c0ec908773889c32ba16502d0e.png" alt="sketch_879e5149852ff9c0ec908773889c32ba16502d0e.png" /> as <img src="ltximg/sketch_544c690d956c462cb01073d6ec709b1f4c74943f.png" alt="sketch_544c690d956c462cb01073d6ec709b1f4c74943f.png" /> (join-first) and <img src="ltximg/sketch_43e7bd3b15886cdc36c53f30106e98269beed554.png" alt="sketch_43e7bd3b15886cdc36c53f30106e98269beed554.png" /> as <img src="ltximg/sketch_609af5560b66cf35a53296a22d0bc207158b0736.png" alt="sketch_609af5560b66cf35a53296a22d0bc207158b0736.png" /> (join-last)
+<ul class="org-ul">
+<li>This exercise is to show that <img src="ltximg/sketch_ffe44a75f03315f9d1b746607432bd05e5133d9b.png" alt="sketch_ffe44a75f03315f9d1b746607432bd05e5133d9b.png" /></li>
+</ul></li>
+<li>The property of joins gives us that <img src="ltximg/sketch_0f1112756db1191cadeed1f0b7b8e3eeaf7bf43d.png" alt="sketch_0f1112756db1191cadeed1f0b7b8e3eeaf7bf43d.png" /> and <img src="ltximg/sketch_a7cf360104ad12cc2b333c127d72a3376f673cc7.png" alt="sketch_a7cf360104ad12cc2b333c127d72a3376f673cc7.png" />
+<ul class="org-ul">
+<li>Monotonicity gives us <img src="ltximg/sketch_166dedbff078fd949ef2e9bbfb08a9b21c1f23fb.png" alt="sketch_166dedbff078fd949ef2e9bbfb08a9b21c1f23fb.png" /> and <img src="ltximg/sketch_be9c5d0583aa37f44be39bb73972975a0dc242ac.png" alt="sketch_be9c5d0583aa37f44be39bb73972975a0dc242ac.png" /></li>
+</ul></li>
+<li>We also know from the property of joins that <img src="ltximg/sketch_0ee1ebe47ee01e1e2461804a803f93b4082e6ae1.png" alt="sketch_0ee1ebe47ee01e1e2461804a803f93b4082e6ae1.png" /> and <img src="ltximg/sketch_b3707013c9dfc5a47c9060dc764f81931df80c0f.png" alt="sketch_b3707013c9dfc5a47c9060dc764f81931df80c0f.png" /></li>
+<li>The only way that <img src="ltximg/sketch_544c690d956c462cb01073d6ec709b1f4c74943f.png" alt="sketch_544c690d956c462cb01073d6ec709b1f4c74943f.png" /> could be strictly smaller than <img src="ltximg/sketch_609af5560b66cf35a53296a22d0bc207158b0736.png" alt="sketch_609af5560b66cf35a53296a22d0bc207158b0736.png" />, given that both are <img src="ltximg/sketch_6eca261013f00ee96782a01c3db17c060df7d8e9.png" alt="sketch_6eca261013f00ee96782a01c3db17c060df7d8e9.png" /> and <img src="ltximg/sketch_ca807c4d5050aed31ba2b780dfd07908262fc913.png" alt="sketch_ca807c4d5050aed31ba2b780dfd07908262fc913.png" /> is for <img src="ltximg/sketch_ff72853d24725c7242b82ed651227df4a3fd341f.png" alt="sketch_ff72853d24725c7242b82ed651227df4a3fd341f.png" /> and  <img src="ltximg/sketch_de75279e4a178c3937afd8f6d9eb27547d2a82da.png" alt="sketch_de75279e4a178c3937afd8f6d9eb27547d2a82da.png" /></li>
+<li>But, <img src="ltximg/sketch_6c1f80c3cb7b267f75d27b40a300d75b80479401.png" alt="sketch_6c1f80c3cb7b267f75d27b40a300d75b80479401.png" /> is the smallest thing (or equal to it) that is greater than <img src="ltximg/sketch_9ba83a27371f93721cf582e3161228ccf5ae7764.png" alt="sketch_9ba83a27371f93721cf582e3161228ccf5ae7764.png" /> and <img src="ltximg/sketch_aaa8639d9293f5a7f18ab52365b940627bd59afe.png" alt="sketch_aaa8639d9293f5a7f18ab52365b940627bd59afe.png" />, so this situation is not possible.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org3255b21" class="outline-3">
+<h3 id="org3255b21"><span class="section-number-3">3.4</span> Section 4: Galois connections</h3>
+<div class="outline-text-3" id="text-3-4">
+</div>
+<div id="outline-container-org9bd5c91" class="outline-4">
+<h4 id="org9bd5c91"><span class="section-number-4">3.4.1</span> Part 1: Definition and examples</h4>
+<div class="outline-text-4" id="text-3-4-1">
+</div>
+<ol class="org-ol">
+<li><a id="org4c1d54d"></a>Definitions<br />
+<ol class="org-ol">
+<li><a id="org032b21e"></a><a id="orgb539b6a"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="27">27</span></span><br />
+<ol class="org-ol">
+<li><a id="orgb2c1345"></a>Term<br />
+<div class="outline-text-7" id="text-3-4-1-1-1-1">
+<ul class="org-ul">
+<li>A <i>Galois connection</i> between preorders <img src="ltximg/sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" alt="sketch_06bd5790a81877517f83cc5804c871b8612022fd.png" /> and <img src="ltximg/sketch_c6faf02fee45a9c813cbfa0be522cba6bdb541ec.png" alt="sketch_c6faf02fee45a9c813cbfa0be522cba6bdb541ec.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="orgcced13d"></a>Def<br />
+<div class="outline-text-7" id="text-3-4-1-1-1-2">
+<ul class="org-ul">
+<li>A pair of monotone maps <img src="ltximg/sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" alt="sketch_5f090296c7a5c4011b6aa68ae5a42e635f80f2e8.png" /> and <img src="ltximg/sketch_159df23bcf117538fd2c3ac9c5ac8378f7481f86.png" alt="sketch_159df23bcf117538fd2c3ac9c5ac8378f7481f86.png" /> such that:
+<ul class="org-ul">
+<li><img src="ltximg/sketch_bca3898cd4f0d3a17202009907e14d6dfb5dd05c.png" alt="sketch_bca3898cd4f0d3a17202009907e14d6dfb5dd05c.png" /></li>
+</ul></li>
+<li><img src="ltximg/sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" alt="sketch_f44f7f4f13fb2bcbdec134a5207b1789b2d0db68.png" /> is <i>left adjoint</i> and <img src="ltximg/sketch_dd48c5053068f5e27e10919a464fc381e7c5a10e.png" alt="sketch_dd48c5053068f5e27e10919a464fc381e7c5a10e.png" /> is <i>right adjoint</i> of the Galois connection.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="orgbbd657a"></a>Examples<br />
+<ol class="org-ol">
+<li><a id="orge861595"></a><a id="orgb16c814"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="27">27</span></span><br />
+<div class="outline-text-6" id="text-3-4-1-2-1">
+<ul class="org-ul">
+<li>Consider the map <img src="ltximg/sketch_a714f63574cab2c82e911e95493cdc99216fe029.png" alt="sketch_a714f63574cab2c82e911e95493cdc99216fe029.png" /> which sends an integer to <img src="ltximg/sketch_c6a7f6a55630a18f7b44926ad2be19d586b0dc78.png" alt="sketch_c6a7f6a55630a18f7b44926ad2be19d586b0dc78.png" /> in the reals.</li>
+<li>To find a left adjoint for this map, we write <img src="ltximg/sketch_5a375ab3b6b7e98273c60ba87e248f7128ec5bf5.png" alt="sketch_5a375ab3b6b7e98273c60ba87e248f7128ec5bf5.png" /> for the smallest natural above <img src="ltximg/sketch_1184f910d6909b6a6e538b5dcb5e8389c0ecab64.png" alt="sketch_1184f910d6909b6a6e538b5dcb5e8389c0ecab64.png" /> and <img src="ltximg/sketch_634e7f0989c9f6fe38890a97523bdd2c30bf7bee.png" alt="sketch_634e7f0989c9f6fe38890a97523bdd2c30bf7bee.png" /> for the largest integer below <img src="ltximg/sketch_1184f910d6909b6a6e538b5dcb5e8389c0ecab64.png" alt="sketch_1184f910d6909b6a6e538b5dcb5e8389c0ecab64.png" /></li>
+<li>The left adjoint is <img src="ltximg/sketch_5751c1b34114c29abf5a877ab7b6d8d0ad937717.png" alt="sketch_5751c1b34114c29abf5a877ab7b6d8d0ad937717.png" /></li>
+<li>Check: <img src="ltximg/sketch_1bcbc843e726c4fcd4b5f32153b2c960840a05e4.png" alt="sketch_1bcbc843e726c4fcd4b5f32153b2c960840a05e4.png" /></li>
+</ul>
+</div>
+</li>
+<li><a id="org5c16f13"></a><a id="org10cb7ba"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="27">27</span></span><br />
+<div class="outline-text-6" id="text-3-4-1-2-2">
+<ul class="org-ul">
+<li>Consider the total orders <img src="ltximg/sketch_cef24760212200bbff526ac062a3cd577071d8e6.png" alt="sketch_cef24760212200bbff526ac062a3cd577071d8e6.png" /> with the following monotone maps
+<ul class="org-ul">
+<li><img src="ltximg/sketch_298e16a2318d5f9ec6feb81f2bc4703947e257d4.png" alt="sketch_298e16a2318d5f9ec6feb81f2bc4703947e257d4.png" /></li>
+<li>These do form a Galois connection</li>
+</ul></li>
+<li>These maps do not form a monotone map:
+<ul class="org-ul">
+<li><img src="ltximg/sketch_cfcd54169a4005a838499d1b0171318f2dc58b25.png" alt="sketch_cfcd54169a4005a838499d1b0171318f2dc58b25.png" /></li>
+<li>These do not because of <img src="ltximg/sketch_1260437112bf0fec0b9d6cb720632d44f4c88412.png" alt="sketch_1260437112bf0fec0b9d6cb720632d44f4c88412.png" /></li>
+<li><img src="ltximg/sketch_46fbf64e7994c572c2df997fb1526750d4be58d3.png" alt="sketch_46fbf64e7994c572c2df997fb1526750d4be58d3.png" /> which is not the same as <img src="ltximg/sketch_a5539e3bae3dcec3f35a007d2fa128cddf743121.png" alt="sketch_a5539e3bae3dcec3f35a007d2fa128cddf743121.png" /></li>
+</ul></li>
+<li>In some sense that can be formalized, for total orders the notion of Galois connection corresponds to the maps not 'crossing over'.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgbefcd39"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="org10d1caf"></a><a id="org692cda3"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="28">28</span></span><br />
+<ol class="org-ol">
+<li><a id="org1f58775"></a>Question<br />
+<div class="outline-text-7" id="text-3-4-1-3-1-1">
+<ul class="org-ul">
+<li>Does <img src="ltximg/sketch_c156dc840293b7ead9a977b807a77438d1ca4c91.png" alt="sketch_c156dc840293b7ead9a977b807a77438d1ca4c91.png" /> have a left adjoint <img src="ltximg/sketch_252d3192df04032cb906e81363288f4cc3a5921e.png" alt="sketch_252d3192df04032cb906e81363288f4cc3a5921e.png" />?</li>
+<li>If not, why? If so, does its left adjoint have a left adjoint?</li>
+</ul>
+</div>
+</li>
+<li><a id="orge4bdc13"></a>Solution<br />
+<div class="outline-text-7" id="text-3-4-1-3-1-2">
+<ul class="org-ul">
+<li>It does not, drawing out the total order in the style of Exercise 1.99 will show that, e.g., <img src="ltximg/sketch_9727480f4c57c7abceba0fcf039a4d93a8fc4323.png" alt="sketch_9727480f4c57c7abceba0fcf039a4d93a8fc4323.png" /> has to go to <img src="ltximg/sketch_53f3688312f552cba53cbb503787bfcac8a994fb.png" alt="sketch_53f3688312f552cba53cbb503787bfcac8a994fb.png" />, but there is no way to do this with downward counterclockwise-bending arrows without making the arrow cross with the upward arrow from <img src="ltximg/sketch_53f3688312f552cba53cbb503787bfcac8a994fb.png" alt="sketch_53f3688312f552cba53cbb503787bfcac8a994fb.png" /> to <img src="ltximg/sketch_790b3c132f3439011713aa26aa1c03c88afbdaaa.png" alt="sketch_790b3c132f3439011713aa26aa1c03c88afbdaaa.png" />.</li>
+<li>Counterexample for <img src="ltximg/sketch_a2c8603ec7908c199c98ae03c62a2505fd8252b4.png" alt="sketch_a2c8603ec7908c199c98ae03c62a2505fd8252b4.png" />: <img src="ltximg/sketch_12d35a7d9d4b7b48c14116275bcfdea33926f691.png" alt="sketch_12d35a7d9d4b7b48c14116275bcfdea33926f691.png" />
+<ul class="org-ul">
+<li><img src="ltximg/sketch_53af86abbb1f0976a97adde50ca7410c911fc19f.png" alt="sketch_53af86abbb1f0976a97adde50ca7410c911fc19f.png" /></li>
+<li><img src="ltximg/sketch_7b90310e77a5247e110dde83b86b438c69b38c1c.png" alt="sketch_7b90310e77a5247e110dde83b86b438c69b38c1c.png" /></li>
+<li><img src="ltximg/sketch_c0e2cfa3fc965f793514133ed824880383f0de40.png" alt="sketch_c0e2cfa3fc965f793514133ed824880383f0de40.png" /></li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org0682ae1" class="outline-4">
+<h4 id="org0682ae1"><span class="section-number-4">3.4.2</span> Part 2: Back to partitions</h4>
+<div class="outline-text-4" id="text-3-4-2">
+</div>
+<ol class="org-ol">
+<li><a id="org6dfa243"></a>Notes<br />
+<div class="outline-text-5" id="text-3-4-2-1">
+<ul class="org-ul">
+<li>Given any function <img src="ltximg/sketch_64009140e32c1372a5c35c91329a894d516ffeb0.png" alt="sketch_64009140e32c1372a5c35c91329a894d516ffeb0.png" />, we can induce a Galois connection <img src="ltximg/sketch_d0548b4e82cdf63e960fd986f8eeefe0903b8352.png" alt="sketch_d0548b4e82cdf63e960fd986f8eeefe0903b8352.png" /> between the sets of partitions of the domain and codomain.
+<ul class="org-ul">
+<li>Determine the left adjoint <img src="ltximg/sketch_f4acbcd82acd56b67778007ec736a9c19f0acc65.png" alt="sketch_f4acbcd82acd56b67778007ec736a9c19f0acc65.png" />
+<ul class="org-ul">
+<li>Starting with a given partition in <img src="ltximg/sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" alt="sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" />, obtain a partition in <img src="ltximg/sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" alt="sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" /> by saying two elements, <img src="ltximg/sketch_54bfbdb27ad0bb7cac7bfd856e33e73232c05eda.png" alt="sketch_54bfbdb27ad0bb7cac7bfd856e33e73232c05eda.png" /> are in the same partition if <img src="ltximg/sketch_77235a18183de0beb95c1b8d57685707210ca66a.png" alt="sketch_77235a18183de0beb95c1b8d57685707210ca66a.png" /></li>
+<li>This is not necessarily a transitive relation, so take the transitive closure.</li>
+</ul></li>
+<li>Determine the right adjoint <img src="ltximg/sketch_c1631ddcbe8f6df696f582307b957b1f749e7b1a.png" alt="sketch_c1631ddcbe8f6df696f582307b957b1f749e7b1a.png" />
+<ul class="org-ul">
+<li>Given a partition of <img src="ltximg/sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" alt="sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" />, we say two elements in <img src="ltximg/sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" alt="sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" /> are connected iff <img src="ltximg/sketch_8468ba52bce19d63e71959bd3bc2a1779144e23e.png" alt="sketch_8468ba52bce19d63e71959bd3bc2a1779144e23e.png" /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="orgc54f8ac"></a>Exercises<br /></li>
+<li><a id="orgb6d0a73"></a><a id="org363cb78"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="29">29</span></span><br />
+<ol class="org-ol">
+<li><a id="org416c1c9"></a>Question<br />
+<div class="outline-text-6" id="text-3-4-2-3-1">
+<ul class="org-ul">
+<li>Given a function <img src="ltximg/sketch_4e8e1d699f470603d25c49efd05ae984d19cc06a.png" alt="sketch_4e8e1d699f470603d25c49efd05ae984d19cc06a.png" /> from the four element set <img src="ltximg/sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" alt="sketch_0c4ed7bd84a22740766f5246fb44139151cb47f0.png" /> to the three element set <img src="ltximg/sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" alt="sketch_a16ead15cbd6f2676776dd098e9c00e8709421f2.png" />
+<ol class="org-ol">
+<li>Choose a nontrivial partition <img src="ltximg/sketch_d4d2f4d3840dec5eb1693a17db8cc2e84315b1cb.png" alt="sketch_d4d2f4d3840dec5eb1693a17db8cc2e84315b1cb.png" /> and compute <img src="ltximg/sketch_0d9b95d090d867da2651df3737aa5835582936d1.png" alt="sketch_0d9b95d090d867da2651df3737aa5835582936d1.png" /></li>
+<li>Choose any coarser partition <img src="ltximg/sketch_d8bddd984667904bff1979de31a9882187988eaf.png" alt="sketch_d8bddd984667904bff1979de31a9882187988eaf.png" /></li>
+<li>Choose any non-coarser partition <img src="ltximg/sketch_100a14bd13c1d4199442fa16c7edfacf10a04cb4.png" alt="sketch_100a14bd13c1d4199442fa16c7edfacf10a04cb4.png" /></li>
+<li>Find <img src="ltximg/sketch_dad80969cb914ce130a8d5ea5c352263536f4c43.png" alt="sketch_dad80969cb914ce130a8d5ea5c352263536f4c43.png" /> and <img src="ltximg/sketch_2e8af992043367dcae1b1ad39d321327eef90233.png" alt="sketch_2e8af992043367dcae1b1ad39d321327eef90233.png" /></li>
+<li>Show that the adjunction formula is true, i.e. that <img src="ltximg/sketch_4ae383a40d831bc3d40f95f79a7e5fbe3e5d8ab4.png" alt="sketch_4ae383a40d831bc3d40f95f79a7e5fbe3e5d8ab4.png" /> (because <img src="ltximg/sketch_88eb5e66ad255cab301919beb8180f613b28bf3a.png" alt="sketch_88eb5e66ad255cab301919beb8180f613b28bf3a.png" />) and <img src="ltximg/sketch_9d1d4f6dbc2c4960c5bee0822c65abf950fa9b63.png" alt="sketch_9d1d4f6dbc2c4960c5bee0822c65abf950fa9b63.png" /> (because <img src="ltximg/sketch_ec32accf8e4f602d0831af7e85b9e125642a3da6.png" alt="sketch_ec32accf8e4f602d0831af7e85b9e125642a3da6.png" />)</li>
+</ol></li>
+</ul>
+</div>
+</li>
+<li><a id="org7ef3bfc"></a>Solution<br />
+<div class="outline-text-6" id="text-3-4-2-3-2">
+<ol class="org-ol">
+<li><img src="ltximg/sketch_91fa1fae25603a20c2cb20aa6a9e771b84b341c5.png" alt="sketch_91fa1fae25603a20c2cb20aa6a9e771b84b341c5.png" />, <img src="ltximg/sketch_7375500fbe40f32b948989cd5295d5e52593c8e9.png" alt="sketch_7375500fbe40f32b948989cd5295d5e52593c8e9.png" /></li>
+<li><img src="ltximg/sketch_42ee01191377e761440176d557b701594845a974.png" alt="sketch_42ee01191377e761440176d557b701594845a974.png" /></li>
+<li><img src="ltximg/sketch_69a55bcae329bc867982df57a6047dfb7f75e9ca.png" alt="sketch_69a55bcae329bc867982df57a6047dfb7f75e9ca.png" /></li>
+<li><img src="ltximg/sketch_16e41a48e0821997818ff55ba543f8aaab4000ea.png" alt="sketch_16e41a48e0821997818ff55ba543f8aaab4000ea.png" /></li>
+<li><img src="ltximg/sketch_4ae383a40d831bc3d40f95f79a7e5fbe3e5d8ab4.png" alt="sketch_4ae383a40d831bc3d40f95f79a7e5fbe3e5d8ab4.png" /> and <img src="ltximg/sketch_9d1d4f6dbc2c4960c5bee0822c65abf950fa9b63.png" alt="sketch_9d1d4f6dbc2c4960c5bee0822c65abf950fa9b63.png" /></li>
+</ol>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-org00746cb" class="outline-4">
+<h4 id="org00746cb"><span class="section-number-4">3.4.3</span> Part 3: Basic theory of Galois connections</h4>
+<div class="outline-text-4" id="text-3-4-3">
+</div>
+<ol class="org-ol">
+<li><a id="org7132b05"></a>Propositions<br />
+<ol class="org-ol">
+<li><a id="org0b4845c"></a><a id="org58b987e"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="30">30</span></span><br />
+<ol class="org-ol">
+<li><a id="orge70b6a7"></a>Proposition<br />
+<div class="outline-text-7" id="text-3-4-3-1-1-1">
+<ul class="org-ul">
+<li>Suppose <img src="ltximg/sketch_c030484053a5c6b6ffcba013a8f70e039b902600.png" alt="sketch_c030484053a5c6b6ffcba013a8f70e039b902600.png" /> are monotone maps. The following are equivalent:
+<ul class="org-ul">
+<li><i>f</i> and <i>g</i> form a Galois connection where <i>f</i> is left adjoint to <i>g</i></li>
+<li>for every <img src="ltximg/sketch_c12c080ab691da664fdf11dbd6deb64b5704877c.png" alt="sketch_c12c080ab691da664fdf11dbd6deb64b5704877c.png" /> we have:
+<ol class="org-ol">
+<li><img src="ltximg/sketch_be98de494b78b476229edfa88d7ecb06c99a94e0.png" alt="sketch_be98de494b78b476229edfa88d7ecb06c99a94e0.png" /></li>
+<li><img src="ltximg/sketch_2cb77b2db8ddef9d51a450815f4bcafac5024a0c.png" alt="sketch_2cb77b2db8ddef9d51a450815f4bcafac5024a0c.png" /></li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="orgbb88a5b"></a>Proof<br />
+<div class="outline-text-7" id="text-3-4-3-1-1-2">
+<ul class="org-ul">
+<li>Forward direction
+<ul class="org-ul">
+<li>Take any <img src="ltximg/sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" alt="sketch_fe8b6fd26f9bcdeb1c0d4f1c4a4ab187976c16b4.png" /> and let <img src="ltximg/sketch_89d916f8eb6b57398dc287cede1486a50f50eb6b.png" alt="sketch_89d916f8eb6b57398dc287cede1486a50f50eb6b.png" />
+<ul class="org-ul">
+<li>By reflexivity, we have <img src="ltximg/sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" alt="sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" /></li>
+<li>By definition of Galois connection, we then have <img src="ltximg/sketch_1281a8336601a71f47f380936667c55cd9d09949.png" alt="sketch_1281a8336601a71f47f380936667c55cd9d09949.png" />, so (1) holds</li>
+</ul></li>
+<li>Take any <img src="ltximg/sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" alt="sketch_00876209c2fff90fda883c8d9e1d2a515f82baf1.png" /> and let <img src="ltximg/sketch_117c0a49d33b5cea11a5b2f4a7fa8bbc3530f4c3.png" alt="sketch_117c0a49d33b5cea11a5b2f4a7fa8bbc3530f4c3.png" />
+<ul class="org-ul">
+<li>By reflexivity, we have <img src="ltximg/sketch_1281a8336601a71f47f380936667c55cd9d09949.png" alt="sketch_1281a8336601a71f47f380936667c55cd9d09949.png" /></li>
+<li>By definition of Galois connection, we then have <img src="ltximg/sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" alt="sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" />, so (2) holds.</li>
+</ul></li>
+</ul></li>
+<li>Reverse direction
+<ul class="org-ul">
+<li>Want to show <img src="ltximg/sketch_9e6586dc1f614b136660c0501140a33d79270a5b.png" alt="sketch_9e6586dc1f614b136660c0501140a33d79270a5b.png" /></li>
+<li>Suppose <img src="ltximg/sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" alt="sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" />
+<ul class="org-ul">
+<li>Since <i>g</i> is monotonic, <img src="ltximg/sketch_b8d6794327dee48927cf27d6be8122131b44a880.png" alt="sketch_b8d6794327dee48927cf27d6be8122131b44a880.png" /></li>
+<li>but, by (1), <img src="ltximg/sketch_be98de494b78b476229edfa88d7ecb06c99a94e0.png" alt="sketch_be98de494b78b476229edfa88d7ecb06c99a94e0.png" />, therefore <img src="ltximg/sketch_1281a8336601a71f47f380936667c55cd9d09949.png" alt="sketch_1281a8336601a71f47f380936667c55cd9d09949.png" /></li>
+</ul></li>
+<li>Suppose <img src="ltximg/sketch_1281a8336601a71f47f380936667c55cd9d09949.png" alt="sketch_1281a8336601a71f47f380936667c55cd9d09949.png" />
+<ul class="org-ul">
+<li>Since <i>f</i> is monotonic, <img src="ltximg/sketch_9df4a5106b8411668ac4c655964a5a22d99513f8.png" alt="sketch_9df4a5106b8411668ac4c655964a5a22d99513f8.png" /></li>
+<li>but, by (2), <img src="ltximg/sketch_2cb77b2db8ddef9d51a450815f4bcafac5024a0c.png" alt="sketch_2cb77b2db8ddef9d51a450815f4bcafac5024a0c.png" />, therefore <img src="ltximg/sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" alt="sketch_ffebb64901163070e93d1258a701aa4e5a213626.png" /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgef0aca2"></a><a id="orgc01603b"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="31">31</span></span><br />
+<ol class="org-ol">
+<li><a id="org1213163"></a>Proposition<br />
+<div class="outline-text-7" id="text-3-4-3-1-2-1">
+<ul class="org-ul">
+<li>Let <img src="ltximg/sketch_853ae5444e2354cf95931a88c118bab7aa2003d1.png" alt="sketch_853ae5444e2354cf95931a88c118bab7aa2003d1.png" /> be monotone maps with <i>f</i> left adjoint to <i>g</i>.</li>
+<li>Right adjoints preserve meets
+<ul class="org-ul">
+<li>Suppose <img src="ltximg/sketch_8dc39da56f375392413696f16c92f43383290abf.png" alt="sketch_8dc39da56f375392413696f16c92f43383290abf.png" /> is any subset and <img src="ltximg/sketch_c8357486c92c6d690d22af13eb96b2b4078f29bb.png" alt="sketch_c8357486c92c6d690d22af13eb96b2b4078f29bb.png" /> is its image.</li>
+<li>Then, if <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" /> has a meet <img src="ltximg/sketch_596838fa8f999acbf773e6272425b3f3e325189d.png" alt="sketch_596838fa8f999acbf773e6272425b3f3e325189d.png" />, then <img src="ltximg/sketch_c8357486c92c6d690d22af13eb96b2b4078f29bb.png" alt="sketch_c8357486c92c6d690d22af13eb96b2b4078f29bb.png" /> has a meet <img src="ltximg/sketch_efc1ea76abfd9bd55805dd3d1ce6e9510c923b78.png" alt="sketch_efc1ea76abfd9bd55805dd3d1ce6e9510c923b78.png" /></li>
+<li>And <img src="ltximg/sketch_e29d4e212100d795c99c7d05be7dc721121a0302.png" alt="sketch_e29d4e212100d795c99c7d05be7dc721121a0302.png" /></li>
+</ul></li>
+<li>Left adjoints preserve joins
+<ul class="org-ul">
+<li>Given <img src="ltximg/sketch_ebe4e2509d1281dab8a5d62edbf25960c881d20b.png" alt="sketch_ebe4e2509d1281dab8a5d62edbf25960c881d20b.png" /> and its image <img src="ltximg/sketch_34beeec8cffef73cc12b401d9c8b338f29e5e180.png" alt="sketch_34beeec8cffef73cc12b401d9c8b338f29e5e180.png" /></li>
+<li>Then, if <img src="ltximg/sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" alt="sketch_e233eab87c7dd204ca5e338daf83e425f8ec2819.png" /> has a join <img src="ltximg/sketch_5f46d881d36a394d85a7e2f7aeb91619d84c32c6.png" alt="sketch_5f46d881d36a394d85a7e2f7aeb91619d84c32c6.png" />, then <img src="ltximg/sketch_1e9bfe34dc96421b5064a2f2fb4880f1914a6843.png" alt="sketch_1e9bfe34dc96421b5064a2f2fb4880f1914a6843.png" /> exists</li>
+<li>And <img src="ltximg/sketch_2e93fd8ab6cfadb8f9c0c779c686c1d6ccc8625e.png" alt="sketch_2e93fd8ab6cfadb8f9c0c779c686c1d6ccc8625e.png" /></li>
+</ul></li>
+</ul>
+</div>
+</li>
+<li><a id="orgba86388"></a>Proof<br />
+<div class="outline-text-7" id="text-3-4-3-1-2-2">
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><a id="org60008b5"></a>Notes<br />
+<div class="outline-text-5" id="text-3-4-3-2">
+<ul class="org-ul">
+<li>If we replace the <img src="ltximg/sketch_85f7e374ad56af2ba3b38a0f0fc058db52432e19.png" alt="sketch_85f7e374ad56af2ba3b38a0f0fc058db52432e19.png" /> in <a href="#org58b987e">3.4.3.1.1</a> with <img src="ltximg/sketch_7853304fb7297970001dc4bf033206c832c6ffc5.png" alt="sketch_7853304fb7297970001dc4bf033206c832c6ffc5.png" />, then we obtain the notion of a preorder isomorphism.</li>
+</ul>
+</div>
+</li>
+<li><a id="org89fc659"></a>Exercises<br />
+<ol class="org-ol">
+<li><a id="orgad7df3b"></a><a id="org76f45ac"></a>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="30">30</span>&#xa0;<span class="todo">todo</span></span><br />
+<ol class="org-ol">
+<li><a id="org4101a06"></a>Question<br />
+<div class="outline-text-7" id="text-3-4-3-3-1-1">
+<ul class="org-ul">
+<li>Show that if <img src="ltximg/sketch_66c1ca5a64f161e35aa1870508f85c977a3e0f54.png" alt="sketch_66c1ca5a64f161e35aa1870508f85c977a3e0f54.png" /> has a right adjoint <i>g</i>, then it is unique up to isomorphism.</li>
+<li>Is the same true for left adjoints?</li>
+</ul>
+</div>
+</li>
+<li><a id="org3ee46fb"></a>Solution<br />
+<div class="outline-text-7" id="text-3-4-3-3-1-2">
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-orgfc6e68b" class="outline-4">
+<h4 id="orgfc6e68b"><span class="section-number-4">3.4.4</span> Part 4: Closure operators</h4>
+</div>
+<div id="outline-container-orgd589fce" class="outline-4">
+<h4 id="orgd589fce"><span class="section-number-4">3.4.5</span> Part 5: Level shifting</h4>
+</div>
+</div>
+<div id="outline-container-orgb9b5254" class="outline-3">
+<h3 id="orgb9b5254"><span class="section-number-3">3.5</span> Section 5: Summary and further reading</h3>
+</div>
+</div>
+<div id="outline-container-orgc999339" class="outline-2">
+<h2 id="orgc999339"><span class="section-number-2">4</span> Chapter 2: Resource - monoidal preorders and enrichment</h2>
+</div>
+<div id="outline-container-org77b587c" class="outline-2">
+<h2 id="org77b587c"><span class="section-number-2">5</span> Chapter 3: Databases - categories, functors, and (co)limits</h2>
+</div>
+<div id="outline-container-orgc84561e" class="outline-2">
+<h2 id="orgc84561e"><span class="section-number-2">6</span> Chapter 4: Co-design - profunctors and monoidal categories</h2>
+</div>
+<div id="outline-container-org5715c1b" class="outline-2">
+<h2 id="org5715c1b"><span class="section-number-2">7</span> Chapter 5: Signal flow graphs - props, presentations, and proofs</h2>
+</div>
+<div id="outline-container-org3033a89" class="outline-2">
+<h2 id="org3033a89"><span class="section-number-2">8</span> Chapter 6: Circuits - hypergraph categories and operads</h2>
+</div>
+<div id="outline-container-orgd9283bc" class="outline-2">
+<h2 id="orgd9283bc"><span class="section-number-2">9</span> Chapter 7: Logic of behavior - sheaves, toposes, languages</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kris Brown</p>
+<p class="date">Created: 2019-10-22 Tue 20:20</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -43,6 +43,7 @@ extra-deps:
  - latex-formulae-hakyll-0.2.0.4
  - latex-formulae-image-0.1.1.4
  - latex-formulae-pandoc-0.2.0.6
+ - text-format-simple-1.1.0@sha256:5815236396328f556b9896fdcb949d15b485ef05394c9dc846e94b0306cb4036
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

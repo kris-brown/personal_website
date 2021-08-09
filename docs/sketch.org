@@ -1,0 +1,461 @@
+#+Title: Seven Sketches in Compositionality
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{mathtools}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{mathrsfs}
+#+LATEX_HEADER: \usepackage{tikz-cd}
+#+LATEX_HEADER: \usepackage{tikz}
+#+OPTIONS: tex:imagemagick
+* Info
+- Special tags:
+ - integers (page numbers)
+ - nocard (don't make a Anki Flashcard)
+ - todo (needs work)
+
+- Things enclosed in ## any text ## will be clozed on flashcards
+- LaTeX triggered by closing within '$'
+
+* Open Questions
+- [[D1.79]] In what way is this related to the conventional notion of a pullback?
+* Chapter 1: Generative Effects (Orders and Galois connections)
+** Section 1: More than the sum of their parts
+*** Part 1: A first look at generative effects
+**** Notes
+ - Central theme of CT: study of structures and structure-preserving maps.
+ - Asking which aspects of structure one wants to preserve becomes the question "what category are you working in?".
+   - Example: there are many functions $\mathbb{R} \xrightarrow{f} \mathbb{R}$, which we can think of observations (rather than view $x$ directly we only view $f(x)$). Only some preserve the order of numbers, only some preserve distances between numbers. 
+ - The less structure that is preserved by our observation of a system, the more 'surprises' when we observe its operations - call these /generative effects/.
+ - Consider a world of systems which are points which may or may not be connected. There are 5 partitionings or systems of three points.
+ - Suppose Alice makes observations on systems with a function $\phi$ which returns whether or not point $\cdot$ is connected to point $*$. Alice also has an operation on two systems called /join/ which puts two points in the same partition if they are connected in either of the original systems.
+ - Alice's operation is not preserved by the /join/ operation.
+ - Application: Alice is trying to address a possible contagion and needs to know whether or not it is safe to have each region extract their data and then aggregate vs aggregating data and then extracting from it.
+**** Exercises
+***** <<E1.1>> :2:
+****** Question
+ - Give an example and non-example for an order-preserving function, a metric-preserving function, and an addition-preserving function.
+****** Solution
+ - Order-preserving $x+1$, non-order-preserving $-x$
+ - Metric preserving $x+1$, non-metric-preserving $2x$
+ - Addition-preserving $2x$, non-addition-preserving $x^2$.
+*** Part 2: Ordering systems
+**** Notes
+ - The operation of joining systems in [[Part 1: A first look at generative effects][Part 1]] can be derived from a more basic structure: order.
+ - Let $A \leq B$ be defined as a relationship that holds when $\forall x,y:\ (x,y) \in A \implies (x,y) \in B$
+   - $\begin{tikzcd}& \boxed{a b c}&\\\boxed{a b} \boxed{c} \arrow[ru] & \boxed{ac}\boxed{b} \arrow[u] & \boxed{a}\boxed{bc} \arrow[lu] \\& \boxed{a}\boxed{b}\boxed{c} \arrow[lu] \arrow[u] \arrow[ru] & \end{tikzcd}$
+ - The joined system $A \lor B$ is the smallest system that is bigger than both $A$ and $B$.
+ - The possibility of a generative effect is captured in the inequality $\phi(A) \lor \phi(B) \leq \phi(A \lor B)$, where $\phi$ was defined in [[Part 1: A first look at generative effects][Part 1]]
+   - There was a generative effect because there exist systems violate this (both are invidually false for $\phi$ but not when put together).
+   - $\phi$ preserves order but not /join/.
+**** Exercises
+***** <<E1.7>> :6:
+****** Question
+ - Using the order $false \leq true$ for $\mathbb{B}$, what is:
+   - $true \lor false$
+   - $false \lor true$
+   - $true \lor true$
+   - $false \lor false$
+****** Solution
+ - $true,\ true,\ true,\ false$
+ - This is same as logical or.
+** Section 2: What is order?
+*** Part 1: Review of sets, relations functions
+**** Notes
+ - Basic review of set, subset, partition, equivalence relation.
+ - A partition of a set is a surjective map to the parts.
+ - Any $a \in A$ can be thought of as a function $\{1\} \xrightarrow{a} A$
+**** Definitions
+***** <<D1.12>> :8:
+****** Term
+ - A /relation/ between sets /X/ and /Y/
+****** Def
+ - A subset $R \subseteq X \times Y$. 
+ - A binary relation on $X$ is a subset of $X \times X$
+***** <<D1.14>> :9:
+****** Term
+ - A /partition/ of set /A/
+****** Def
+ - A set $P$ ('part labels') and, for each $p \in P$, a nonempty subset ('pth part') $A_p \subseteq A$ such that:
+   - $A = \bigcup_{p \in P}A_p$ 
+   - $p \ne q \implies A_p \cap A_q = \varnothing$
+ - Two partitions are considered the same if the partitioned groups are the same, the labels don't matter.
+***** <<D1.21>> :10:
+****** Term
+ - A quotient of a set under an equivalence relation
+****** Def
+ - This is equivalent to the parts of the partition associated with the equivalence relation.
+***** <<D1.22>> :10:
+****** Term
+ - A /function/ from set $S$ to set $T$
+****** Def
+ - A relation $F \subseteq S \times T$ such that $\forall s \in S:\ \exists! t \in T:\ (s,t) \in F$
+ - The preimage of an element $t \in T$ is $\{s \in S\ |\ F(s)=t\)$
+ - $\hookrightarrow$ Injectivity: $s\ne s' \implies F(s)\ne F(s')$
+ - $\twoheadrightarrow$ Surjectivity: $\forall t \in T:\ \exists s \in S:\ (s,t) \in F$
+ - $\xrightarrow{\cong}$ Bijectivity: both injectivity and surjectivity.
+**** Propositions
+***** <<P1.19>> :10:
+****** Proposition
+ - There is a bijection between ways to partition a set $A$ and the equivalence relations on $A$.
+****** Proof
+ - Every partition gives rise to a distinct equivalence relation.
+   - Define $a \sim b$ to mean $a,b$ are in the same part. This is a reflective, symmetric, and transitive relation given the definition of a partition.
+ - Every equivalence relation gives rise to a distinct partition.
+   - Define a subset $X \subseteq A$ as ~-closed if, for every $x \in X$ and $x' \sim x$, we have $x' \in X$.
+   - Define a subset $X \subseteq A$ as ~-connected if it is nonempty and $\forall x,y \in X:\ x \sim y$
+   - The parts corresponding to $\sim$ are precisely the ~-closed and ~-connected subsets.
+**** Exercises
+***** <<E1.16>>                                                           :9:
+****** Question
+ - Suppose $A$ is a partition and $P,Q$ are two partitions such that for each $p \in P$ there exists a $q \in Q$ with $A_p=A_q$
+   1. Show that for each $p \in P$ there is at most one $q \in Q$ such that $A_p = A_q$
+   2. Show that for each $q \in Q$ there is a $p \in P$ such that $A_p = A_q$
+****** Solution
+ 1. Suppose $q' \ne q$. If they are both equal to $A_p$ then they are equal to each other, but a partition rule is that $q' \ne q$ must have an empty intersection (and $A_p$ cannot be empty by the other rule).
+ 2. By part 1, the mapping between part labels is a bijection, so there is an inverse map as well.
+***** <<E1.20>>                                                          :10:
+****** Question :10:
+ - Finish proof [[P1.19]]. Suppose that ∼ is an equivalence relation on a set A, and let P be the set of (∼)-closed and (∼)-connected subsets.
+   1. Show that each part $A_p$ is nonempty 
+   2. Show that $p \ne q \implies A_p \cap A_q = \varnothing$
+   3. Show that $A = \bigcup_{p \in P} A_p$
+****** Solution
+ 1. Part of the definition of ~-connected is being nonempty
+ 2. Suppose $a \in A$ is in the intersection. Then $a \sim p$ and $a \sim q$ for some elements $p \not\sim q$ arbitrarily selected from $A_p, A_q$. But this is impossible because $\sim$ is transitive, so this must be impossible.
+ 3. 
+  - Every $a \in A$ is part of some equivalence class which is a ~-closed and ~-connected set, so $A \subseteq \bigcup_{p \in P} A_p$
+    - The equivalence class is ~-closed because two elements being ~-related implies they are in the same equivalence class.
+    - The equivalence class is ~-connected because equivalence classes are nonempty and the equivalence relation is transitive.
+  - The constituents of $A_p$ were defined to be subsets of $A$, so unioning these will also be a subset of $A$, i.e. $\bigcup_{p \in P} A_p \subseteq A$ 
+  - Therefore  $A = \bigcup_{p \in P} A_p$.
+*** Part 2: Preorders 
+**** Notes
+ - Preorders are just equivalence relations without the symmetric condition.
+ - Every set can be considered as a discrete preorder with the binary relation of equality. Also the trivial opposite (codiscrete preorder) where all pairs are in the relation.
+ - Every graph yields a preorder on the vertices where $v \leq w$ iff there is a path from $v$ to $w$. 
+   - Reflexive because of length-0 paths, transitive because of path concatenation.
+ - Product of two preorders can be considered as a preorder by only comparing things when both preorders independently agree on the pairs.
+**** Definitions
+***** <<D1.30>> :12:
+****** Term
+ - A /preorder/binary/partial order/total order relation/ on a set $X$
+****** Def
+ - A binary relation on $X$ that is reflexive and transitive.
+ - A partial order (poset) has the additional constraint that $x \leq y \land y \leq x \implies x=y$
+   - We can always get a partial order from a preorder by quotienting, so it's not that special.
+ - A total order has all elements comparable.
+***** <<D1.35>> :13:
+****** Term
+ - Categorical /skeletality/
+****** Def
+ - $x \cong y \implies x = y$
+ - E.g. a skeletal preorder is a poset.
+***** <<D1.36>> :14:
+****** Term
+ - A graph (of vertices, arrows)
+****** Def
+ - A tuple $G=(V, A, s, t)$
+ - Set of vertices and arrows, with two functions $A\rightarrow V$ which say where the source and target of each arrow goes to.
+ - A /path/ in $G$ is any sequence of arrows such that the target of one arrow is the source of the next (including length 0 and 1 sequences).
+***** <<D1.54>> :17:
+****** Term
+ - An /upper set/ in $P$ for some preorder $(P, \leq)$
+****** Def 
+ - A subset $U$ of $P$ satisfying the condition $p \in U \land p \leq q \implies q \in U$
+ - Anything you add to the upper set means you have to add everything greater than it.
+ - Example: the possible upper sets of $Bool$ are $\{\varnothing, \{true\}, \{true, false\}\}$
+***** <<D1.58>> :18:
+****** Term
+ - An opposite preorder
+****** Def
+ - Given a preorder $(P, \leq)$, we define $p \leq^{op} q \iff q \leq p$
+**** Exercises
+***** <<E1.53>> :17:
+****** Question
+ - For any set $S$ there is a coarsest partition having just one part. What surjective function does this correspond to?
+ - Likewise for the finest partition?
+****** Solution
+ - The map to $\{1\}$ and the identity, respectively.
+***** <<E1.55>> :17:
+****** Question
+ - Prove that the upper sets on a discrete preorder for some set $X$ is simply the power set $P(X)$
+****** Solution
+ - The upper set criterion is satisfied by any subset, thus all possible subsets are upper sets.
+   - The binary relation is equality, thus the upper subset criterion becomes $p \in U \land p = q \implies q \in U$ or alternatively $p \in U \implies p \in U$ which is always satisfied.
+*** Part 3: Monotone maps
+**** Notes
+ - Category theory emphasizes that preorders themselves (each a minature world, composed of many relationships) can be related to one another.
+ - /Monotone maps/ are important because they are the right notion of /structure-preserving map/ for preorders.
+ - The map ('cardinality') sending a power-set (with inclusion ordering) to the natural numbers with standard ordering is a monotone map.
+ - Given a preorder, the inclusion map of the upper sets of $P$ (ordered by inclusion) to the power set of $P$ (ordered by inclusion) is a monotone map.
+**** Definitions
+***** <<D1.59>> :18:
+****** Term
+ - A /monotone map/ between preorders $(A, \leq_A), (B, \leq_B)$
+****** Def
+ - A function $A \xrightarrow{f} B$ such that $\forall x,y \in A: x \leq_A y \implies f(x) \leq_B f(y)$
+***** <<D1.72>> :21:
+****** Term
+ - A /dagger/ preorder
+****** Def
+ - $q \leq p \iff p \leq q$ - this is tantamount to an equivalence relation.
+***** <<D1.75>> :21:
+****** Term
+ - A preorder /isomorphism/
+****** Def
+ - A [[D1.59][monotone map]] for which there exists an inverse [[D1.59][monotone map]] ($f;g=id$ and $g;f = id$)
+ - If this exists, we say the preorders involved are isomorphic.
+***** <<D1.79>> :22:
+****** Term
+ - A /pullback/ along a [[D1.59][monotone map]] $P \xrightarrow{f} Q$
+****** Def
+ - A [[D1.59][monotone map]] $U(Q) \xrightarrow{f^*} U(P)$ sending an [[D1.54][upper set]] $U \subseteq Q$ to the upper set $f^{-1}(U) \subseteq P$
+   - $\begin{tikzcd} {(P, \leq_P)} \arrow[d, "f^*(u) \in U(P)"', dashed] \arrow[r, "f"] & {(Q, \leq_Q)} \arrow[ld, "u \in U(Q)"] \\ \mathbb{B}ool& \end{tikzcd}$
+   - $f^*$ is induced by $f$ and has the property that the diagram commutes.
+   - Vertically, we ask the question /is this element p in the [[D1.54][upper set]] we are talking about?/
+   - The answer is yes iff $f(p)$ is in the [[D1.54][upper set]] $u \in U(Q)$, which is the same as saying $p \in f^{-1}(U)$
+   - Other ways of representing this:
+     - $\begin{tikzcd}P \arrow[d, "id"'] \arrow[r, "f"] & Q \arrow[d, "u"] \\P \arrow[r, "f^*(u)"'] & \mathbb{B}ool   \end{tikzcd}$ (the pullback is defined for a given [[D1.54][upper set]] of $Q$ as the function which makes this diagram commute)
+     - $\begin{tikzcd}f^*(u)\ \lrcorner \arrow[d, "id"', hook] \arrow[r, "f"] & Q \arrow[d, "u"] \\P \arrow[r, "True"']& \mathbb{B}ool   \end{tikzcd}$ 
+**** Propositions
+***** <<P1.70>> :21:
+****** Proposition
+ - For any preorder, the identity function is monotone.
+ - The composition of two monotone maps ($P \xrightarrow{f} Q \xrightarrow{g} R$) is also monotone.
+****** Proof
+ - Monotonicity translates to $a \leq b \implies a \leq b$ and is trivially true.
+ - Need to show: $a \leq_P b \implies g(f(a)) \leq_R g(f(b))$
+   - The monotonicity of $f$ gives us $f(a) \leq_Q f(b)$ and the monotonicty of $g$ gives us the result we need.
+***** <<P1.78>> :22:
+****** Proposition
+ - Let $P$ be a preorder. Monotone maps $P \rightarrow \mathbb{B}$ are in one-to-one correspondance with upper sets of $P$.
+****** Proof
+ - Let $P \xrightarrow{f} \mathbb{B}$ be a monotone map. The subset $f^{-1}(true)$ is an upper set. 
+  - Suppose $p \in f^{-1}(true)$ and $p \leq q$. 
+  - Then $true = f(p) \leq f(q)$ because $f$ is monotonic. 
+  - But there is nothing strictly greater than $true$ in $\mathbb{B}$, so $f(q) = true$ and therefore $q \in f^{-1}(true)$ too.
+ - Suppose $U \in U(P)$, and define $P\xrightarrow{f_U}\mathbb{B}$ such that $f_U=true \iff p \in U$
+   - This is monotone because $p \leq q \implies p$ and $q$ are both in $U$ if $p$ is, and if $p$ is not in $U$ then the monotonicity property is trivially satisfied (nothing is strictly less than $false \in \mathbb{B}$).
+ - The two constructions are mutually inverse.
+**** Exercises
+***** <<E1.66>> :20:
+****** Question
+ - Let $(P, \leq)$ be a preorder and recall the [[D1.58][opposite preorder]].
+   1. Show that the set $\uparrow(p) := \{p' \in P\ |\ p \leq p'\}$ is an [[D1.54][upper set]] for any $$p \in P$$
+   2. Show that this construction defines a [[D1.59][monotone map]] $(P, \leq^{op}) \xrightarrow{\uparrow} U(P)$
+   3. Show that $p \leq p' \iff \uparrow(p') \subseteq \uparrow(p)$
+   4. Draw a picture of the map $\uparrow$ in the case where $P$ is the preorder $(b\geq a \leq c)$.
+****** Solution
+ - This is the /Yoneda lemma for preorders/ (up to equivalence, to know an element is the same as knowing its upper set).
+ 1. A non-upper-set excludes some element that is larger than an element already in the set, but $a \leq b$ (with $p \leq a$, as we are assuming $a \in \uparrow(p)$) implies $p \leq b$ by the transitive property, so it is not possible for such a larger element to be excluded.
+ 2. Interpreting the meaning of the preorder in the domain and codomain of $\uparrow$, this boils down to showing $b \leq a \implies \uparrow(a) \subseteq \uparrow(b)$
+   - This is shown by noting that $a \in \uparrow(b)$ and that, by the transitive property, anything 'above' $a$ (i.e. $\upaarrow(a)) will therefore be in $\uparrow(b)$.
+ 3. One direction has been shown already (substitute $a \mapsto p', b \mapsto p$)
+   - The other direction is shown just by noting that $p\prime$ must be in $\uparrow(p)$ because $p' \in \uparrow(p')$ (preorder is reflexive), therefore $p \leq p'$.
+ 4. $\begin{tikzcd}B & & C &  & \{B\} & & \{C\} \\  & A \arrow[lu] \arrow[ru] &  \arrow[rr, "\uparrow", dotted, bend left] &  &       & {\{A, B, C\}}\arrow[ru] \arrow[lu] & \end{tikzcd}$
+***** <<E1.67>> :20:
+****** Question
+ - Show that when $P$ is a discrete preorder, then every function $P \rightarrow Q$ is a monatone map, regardless of the order $\leq_Q$.
+****** Solution
+ -  The only time the monotonicity criterion is deployed is when two elements of $P$ are related, and for a discrete category this means we only have to check whether $f(a) \leq_Q f(a)$, which is true because preorders are reflexive.
+***** <<E1.73>> :21:
+****** Question
+ - Recall [[D1.35][skeletal preorders]] and [[D1.72][dagger preorders]]. Show that a skeletal dagger preorder is just a discrete preorder (and hence can be identified with a set)
+****** Solution
+ - Because preorders are reflexive, we just have to show $a \ne b \implies a \not\leq b$, or its contrapositive: $a \leq b \implies a = b$.
+ - $a \leq b \overset{dagger}{\implies} b \leq a \overset{skeletal}{\implies} a = b$
+ ** Section 3: Meets and joins
+** Section 3: Meets and Joins
+*** Part 1: Definition and basic examples
+**** Notes
+ - There could be multiple meets/joins, but the definition forces them to be isomorphic.
+ - An arbitrary preorder need not have a meet nor join.
+   - E.g a two element discrete preorder has no overall meet/join, because the meet must be less/greater than or equal to both elements in the set.
+**** Definitions
+***** <<D1.81>> :23:
+****** Term
+ - For a preorder $(P, \leq)$, the /meet/ and /join/ of $A \subseteq P$.
+****** Def
+ -The meet $p = \wedge A$ is an element such that 
+   - $\forall a \in A: p \leq a$
+   - $\forall q \in P: (\forall a \in A: q \leq a) \implies q \leq p$
+ - The join $p = \vee A$ is an element such that 
+   - $\forall a \in A: a \leq p$
+   - $\forall q \in P: (\forall a \in A: a \leq q) \implies p \leq q$ 
+**** Propositions
+***** <<P1.91>> :25:
+****** Proposition
+ - Suppose $(P, \leq)$ is a preorder and $A \subseteq B \subseteq P$ are subsets that have meets. 
+ - Then $\wedge B \leq \wedge A$  
+****** Proof
+ - Let $m = \wedge A$ and $n = \wedge B$. 
+ - For any $a \in A$ we also have $a \in B$, so $n \leq A$ because $n$ is a lower bound for $B$. 
+ - Thus $n$ is also a lower bound for $A$ and hence $n \leq m$ because $m$ is $A$'s greatest lower bound.
+**** Examples
+***** <<X1.87>> :25:
+ - In a power set, the meet of a collection of subsets is their intersection, while the join is their union.
+***** <<X1.88>> :25:
+ - In the booleans, the meet of any two elements is given by $AND$ and the join of any two elements is given by $OR$.
+***** <<X1.89>> :25:
+ - In a total order, the meet of a set is its infimum, while the join is the supremum.
+ - Note that $\mathbb{B}$ is a total order, to generalize [[X1.88]].
+**** Exercises
+***** <<E1.85>> :24:
+****** Question
+ - Let $p \in P$ be an element in a preorder. Consider $A = \{p\}$
+   1. Show that $\wedge A \cong p$ 
+   2. Show that if $P$ is a partial order, then $\wedge A = p$
+   3. Are the analogous facts true when $\wedge$ is replaced by $\vee$? 
+****** Solution
+1. 
+   - The first condition of the meet gives us that $\wedge A \leq p$. 
+   - The second condition is that $\forall q \in P: q \leq p \implies q \leq \wedge A$.
+     - Substituting $p$ in for $q$, the antecedent holds such that we get $p \leq \wedge A$ 
+   - Therefore $p \cong \wedge A$ 
+2. The difference between a partial order and a preorder is that congruent elements are equal, so we directly get that $p = \wedge A$
+3. Yes, the argument is perfectly symmetric.
+*** Part 2: Back to observations and generative effects
+**** Notes
+ - We are comparing the observation of a combined system or the combination of observations.
+ - The other direction, restricting an observation of a system to a subsystem, does not have problems for monotone maps (which preserve meets, not joins).
+**** Definitions
+***** <<D1.92>> :26:
+****** Term
+ - A monotone map $P \xrightarrow{f} Q$ that /preserves meets/
+****** Def
+ - $f(a \land_P b) \cong f(a) \land_Q f(b)$
+ - Likewise, to /preserve joins/ is for $f(a \lor_P b) \cong f(a) \lor_Q f(b)$
+***** <<D1.93>> :26:
+****** Term
+ - A monotone map $P \xrightarrow{f} Q$ has a /generative effect/
+****** Def
+ - $\exists a,b \in P: f(a) \lor f(b) \not\cong f(a \lor v)$
+**** Exercises
+***** <<E1.94>> :26:
+****** Question
+ - Prove that for any [[D1.59][monotone map]] $P \xrightarrow{f} Q$: 
+   - if there exist $a \lor b \in P$ and $f(a) \lor f(b) \in Q$:
+   - $f(a) \lor_Q f(b) \leq f(a \lor_P b)$
+****** Solution
+ - Let's abbreviate $f(a\lor_P b)$ as $JF$ (join-first) and $f(b) \leq_Q  f(a)$ as $JL$ (join-last)
+   - This exercise is to show that $JL \leq JF$
+ - The property of joins gives us that $a \leq_P a \lor_P b$ and $b \leq_P a \lor_P b$
+   - Monotonicity gives us $f(a) \leq_Q JF$ and $f(b) \leq_Q JF$
+ - We also know from the property of joins that $f(a) \leq_Q JL$ and $f(b) \leq_Q JL$
+ - The only way that $JF$ could be strictly smaller than $JL$, given that both are $\geq_Q f(a)$ and $\geq_Q f(b)$ is for $f(a) \leq_Q JF < JL$ and  $f(b) \leq_Q JF < JL$
+ - But, $JL \in Q$ is the smallest thing (or equal to it) that is greater than $f(a)$ and $f(b)$, so this situation is not possible.
+** Section 4: Galois connections
+*** Part 1: Definition and examples
+**** Definitions
+***** <<D1.95>> :27:
+****** Term
+ - A /Galois connection/ between preorders $P$ and $Q$
+****** Def
+ - A pair of monotone maps $P \xrightarrow{f} Q$ and $Q \xrightarrow{g} P$ such that:
+  - $f(p) \leq q \iff p \leq g(q)$
+ - $f$ is /left adjoint/ and $g$ is /right adjoint/ of the Galois connection. 
+**** Examples
+***** <<X1.97>> :27:
+ - Consider the map $\mathbb{Z} \xrightarrow{3z} \mathbb{R}$ which sends an integer to $3z$ in the reals.
+ - To find a left adjoint for this map, we write $\lceil r \rceil$ for the smallest natural above $r \in \mathbb{R}$ and $\lfloor r \rfloor$ for the largest integer below $r \in \mathbb{R}$
+ - The left adjoint is $\lceil r/3 \rceil$
+ - Check: $\lceil x/3 \rceil \leq y \iff x \leq 3y$ 
+***** <<X1.99>> :27:
+ - Consider the total orders $P = Q = \underline{3}$ with the following monotone maps
+   - $\begin{tikzcd} P \arrow[d, "f"', dotted] & \overset{1}{\bullet} \arrow[r] \arrow[d, dotted, bend right]  & \overset{2}{\bullet} \arrow[r] \arrow[ld, dotted, bend right] & \overset{3}{\bullet} \arrow[d, dotted, bend right] & P \\ Q & \overset{1}{\bullet} \arrow[r] \arrow[ru, dashed, bend right] & \overset{2}{\bullet} \arrow[r] \arrow[u, dashed, bend right]  & \overset{3}{\bullet} \arrow[u, dashed, bend right] & Q \arrow[u, "g"', dashed] \end{tikzcd}$
+   - These do form a Galois connection
+ - These maps do not form a monotone map:
+   - $\begin{tikzcd}P \arrow[d, "f"', dotted] & \overset{1}{\bullet} \arrow[r] \arrow[d, dotted, bend right]     & \overset{2}{\bullet} \arrow[r] \arrow[d, dotted, bend right=49] & \overset{3}{\bullet} \arrow[d, dotted, bend right] & P \\ Q & \overset{1}{\bullet} \arrow[r] \arrow[ru, dashed, bend right=49] & \overset{2}{\bullet} \arrow[r] \arrow[u, dashed, bend right]    & \overset{3}{\bullet} \arrow[u, dashed, bend right] & Q \arrow[u, "g"', dashed] \end{tikzcd}$
+   - These do not because of $p=2, q = 1$
+   - $f(p)=2 \not \leq q=1$ which is not the same as $p = 1 \leq g(q)=2$
+ - In some sense that can be formalized, for total orders the notion of Galois connection corresponds to the maps not 'crossing over'. 
+**** Exercises
+***** <<E1.101>> :28:
+****** Question
+ - Does $\mathbb{R}\xrightarrow{\lceil x/3 \rceil}\mathbb{Z}$ have a left adjoint $\mathbb{Z} \xrightarrow{L} \mathbb{R}$?
+ - If not, why? If so, does its left adjoint have a left adjoint?
+****** Solution
+ - It does not, drawing out the total order in the style of Exercise 1.99 will show that, e.g., $1 \in \mathbb{Z}$ has to go to $0 \in \mathbb{R}$, but there is no way to do this with downward counterclockwise-bending arrows without making the arrow cross with the upward arrow from $0 \in \mathbb{R}$ to $0 \in \mathbb{Z}$.
+ - Counterexample for $L=\mathbb{Z}\xrightarrow{3(x-1)}\mathbb{R}$: $z = 0, r = -3$
+  - $3(0-1) \leq -3 \iff 0 \leq \lceil -3/3 \rceil$
+  - $-3 \leq -3 \iff 0 \leq -1$
+  - $True \iff False$
+
+*** Part 2: Back to partitions
+**** Notes
+ - Given any function $S \xrightarrow{g} T$, we can induce a Galois connection $Prt(S) \leftrightarrows Prt(T)$ between the sets of partitions of the domain and codomain.
+   - Determine the left adjoint $Prt(S) \xrightarrow{g_!} Prt(T)$
+     - Starting with a given partition in $S$, obtain a partition in $T$ by saying two elements, $t_1,t_2$ are in the same partition if $\exists s_1 \sim s_2: g(s_1)=t_1 \land g(s_2)=t_2$
+     - This is not necessarily a transitive relation, so take the transitive closure.
+   - Determine the right adjoint $Prt(T) \xrightarrow{g^*} Prt(S)$
+     - Given a partition of $T$, we say two elements in $S$ are connected iff $g(s_1) \sim g(s_2)$
+**** Exercises
+**** <<E1.106>> :29:
+***** Question
+ - Given a function $\{1 \mapsto 12, 2 \mapsto 12, 3 \mapsto 3, 4 \mapsto 4\}$ from the four element set $S$ to the three element set $T$
+  1. Choose a nontrivial partition $c \in Prt(S)$ and compute $g_!(c) \in Prt(T)$
+  2. Choose any coarser partition $g_!(c)\leq d \in Prt(T)$
+  3. Choose any non-coarser partition $g_!(c) > e \in Prt(T)$
+  4. Find $g^*(d)$ and $g^*(e)$
+  5. Show that the adjunction formula is true, i.e. that $c \leq g^*(d)$ (because $g_!(c) \leq d$) and $g^*(e) > c$ (because $e > g_!(c)$)
+***** Solution
+1. $c = \{(1, 3),(2,), (4,)\}$, $g_!(c) = \{(12,3),(4,)\}$
+2. $d = \{(12,),(3,),(4,)\}$
+3. $e = \{(12,3,4)\}$
+4. $g^*(d)=\{(1,2),(3,),(4,)\}, g^*(e)=\{(1,2,3,4)\}$
+5. $c \leq g^*(d)$ and $g^*(e) > c$
+*** Part 3: Basic theory of Galois connections
+**** Propositions
+***** <<P1.107>> :30:
+****** Proposition
+ - Suppose $P \overset{g}{\underset{f}{\leftrightarrows}} Q$ are monotone maps. The following are equivalent:
+   - /f/ and /g/ form a Galois connection where /f/ is left adjoint to /g/
+   - for every $p \in P, q \in Q$ we have:
+      1. $p \leq g(f(p))$
+      2. $f(g(q)) \leq q$
+****** Proof
+ - Forward direction
+   - Take any $p \in P$ and let $q = f(p) \in Q$
+     - By reflexivity, we have $f(p) \leq q$
+     - By definition of Galois connection, we then have $p \leq g(q)$, so (1) holds
+   - Take any $q \in Q$ and let $p = g(q) \in P$
+     - By reflexivity, we have $p \leq g(q)$
+     - By definition of Galois connection, we then have $f(p) \leq q$, so (2) holds.
+ - Reverse direction
+   - Want to show $f(p)\leq q \iff p \leq g(q)$
+   - Suppose $f(p) \leq q$
+     - Since /g/ is monotonic, $g(f(p)) \leq g(q)$
+     - but, by (1), $p \leq g(f(p))$, therefore $p \leq g(q)$
+   - Suppose $p \leq g(q)$
+     - Since /f/ is monotonic, $f(p) \leq f(g(q))$
+     - but, by (2), $f(g(q)) \leq q$, therefore $f(p) \leq q$
+***** <<P1.111>> :31:
+****** Proposition
+ - Let $P \overset{f}{\underset{g}{\rightleftarrows}} Q$ be monotone maps with /f/ left adjoint to /g/.
+ - Right adjoints preserve meets
+   - Suppose $A \subseteq Q$ is any subset and $g(A)$ is its image.
+   - Then, if $A$ has a meet $\wedge A \in Q$, then $g(A)$ has a meet $\wedge g(A) \in P$
+   - And $g(\wedge A) \cong \wedge g(A)$
+ - Left adjoints preserve joins
+   - Given $A \subseteq P$ and its image $f(A) \subseteq Q$
+   - Then, if $A$ has a join $\vee A \in P$, then $\vee f(a) \in Q$ exists
+   - And $f(\vee A) \cong \vee f(A)$
+****** Proof
+ - 
+**** Notes
+ - If we replace the $\leq$ in [[P1.107]] with $=$, then we obtain the notion of a preorder isomorphism.
+**** Exercises
+***** <<E1.110>> :30:todo:
+****** Question
+ - Show that if $P \xrightarrow{f}Q$ has a right adjoint /g/, then it is unique up to isomorphism.
+ - Is the same true for left adjoints?
+****** Solution
+ - 
+*** Part 4: Closure operators
+*** Part 5: Level shifting
+** Section 5: Summary and further reading
+* Chapter 2: Resource - monoidal preorders and enrichment
+* Chapter 3: Databases - categories, functors, and (co)limits
+* Chapter 4: Co-design - profunctors and monoidal categories
+* Chapter 5: Signal flow graphs - props, presentations, and proofs
+* Chapter 6: Circuits - hypergraph categories and operads
+* Chapter 7: Logic of behavior - sheaves, toposes, languages

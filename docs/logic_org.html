@@ -1,0 +1,1545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-10-22 Tue 20:20 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modal Logic as Metaphysics</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Kris Brown" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Modal Logic as Metaphysics</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orge401c9a">1. Info</a></li>
+<li><a href="#orgb855a93">2. Questions</a></li>
+<li><a href="#org4adef6f">3. Overall Equations</a>
+<ul>
+<li><a href="#org21ed75c">3.1. K</a></li>
+<li><a href="#orgc9665e7">3.2. D</a></li>
+<li><a href="#orgc5625be">3.3. M</a></li>
+<li><a href="#orgfee1105">3.4. Axiom 4</a></li>
+<li><a href="#org2f2869f">3.5. B</a></li>
+<li><a href="#org9935316">3.6. Axiom 5</a></li>
+<li><a href="#orgc829025">3.7. Axiom CD</a></li>
+<li><a href="#org4dcd168">3.8. Axiom \(\Box\) M</a></li>
+<li><a href="#org7562499">3.9. Axiom C4</a></li>
+<li><a href="#orgf72b9c6">3.10. Axiom C</a></li>
+</ul>
+</li>
+<li><a href="#org031636f">4. Chapter 1: Contingentism and Necessitism</a>
+<ul>
+<li><a href="#orgdb87b6f">4.1. The question</a>
+<ul>
+<li><a href="#orgaa92fd6">4.1.1. Notes:</a></li>
+</ul>
+</li>
+<li><a href="#org50593ef">4.2. Forms of necessitism</a>
+<ul>
+<li><a href="#org4593966">4.2.1. Notes:</a></li>
+</ul>
+</li>
+<li><a href="#orgdeebd36">4.3. Possible Fs</a>
+<ul>
+<li><a href="#org2cee739">4.3.1. Notes:</a></li>
+</ul>
+</li>
+<li><a href="#orgd1d87c2">4.4. Unrestricted generality</a>
+<ul>
+<li><a href="#orgbf84e8b">4.4.1. Notes:</a></li>
+</ul>
+</li>
+<li><a href="#orgaf3f25e">4.5. Necessitism and Meinongianism</a>
+<ul>
+<li><a href="#org2a54a33">4.5.1. Notes:</a></li>
+</ul>
+</li>
+<li><a href="#org1707aa0">4.6. Actualism and possibilism</a>
+<ul>
+<li><a href="#org08e6f6d">4.6.1. Notes:</a></li>
+</ul>
+</li>
+<li><a href="#org13af199">4.7. Identity and distinctness</a>
+<ul>
+<li><a href="#org191bfd1">4.7.1. Notes:</a></li>
+</ul>
+</li>
+<li><a href="#org6d12288">4.8. Dying and never being born</a>
+<ul>
+<li><a href="#org2a42c0c">4.8.1. Notes:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orga87829f">5. Chapter 2: The Barcan Formula and its Converse&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></a>
+<ul>
+<li><a href="#org3bf7c9f">5.1. The Barcan Formula</a>
+<ul>
+<li><a href="#org2caaedd">5.1.1. Definitions</a></li>
+<li><a href="#org7451b90">5.1.2. Formulas</a></li>
+<li><a href="#org8c300e8">5.1.3. Notes</a></li>
+</ul>
+</li>
+<li><a href="#org9d0fa71">5.2. The Converse Barcan Formula</a>
+<ul>
+<li><a href="#orgae9e3a4">5.2.1. Definitions</a></li>
+<li><a href="#org9fffc8f">5.2.2. Formulas</a></li>
+<li><a href="#org3e54f72">5.2.3. Notes</a></li>
+</ul>
+</li>
+<li><a href="#orgb54f7e4">5.3. Ibn-Sina</a>
+<ul>
+<li><a href="#orged7fa1b">5.3.1. Definitions</a></li>
+<li><a href="#org2533998">5.3.2. Formulas</a></li>
+<li><a href="#org90e956b">5.3.3. Notes</a></li>
+</ul>
+</li>
+<li><a href="#orgad7604f">5.4. Carnap</a>
+<ul>
+<li><a href="#org3f13aee">5.4.1. Notes</a></li>
+</ul>
+</li>
+<li><a href="#org4ddaaa7">5.5. Barcan Marcus again&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></a></li>
+<li><a href="#org5788dbd">5.6. Prior&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></a></li>
+<li><a href="#orga29c44c">5.7. Truth-value gaps&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></a></li>
+<li><a href="#org67b1ce1">5.8. Logical modalities&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></a></li>
+</ul>
+</li>
+<li><a href="#orgc28bafe">6. Chapter 3 Possible worlds model theory&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></a>
+<ul>
+<li><a href="#orgf7f8f62">6.1. Kripke</a>
+<ul>
+<li><a href="#orgdb917f3">6.1.1. Notes</a></li>
+</ul>
+</li>
+<li><a href="#orgead0b2e">6.2. Kripke models for normal propositional modal logic</a>
+<ul>
+<li><a href="#org96c8b48">6.2.1. Definitions</a></li>
+<li><a href="#orge5d6b7d">6.2.2. Notes</a></li>
+</ul>
+</li>
+<li><a href="#orgda03e6e">6.3. Metaphysical universality in propositional modal logic</a>
+<ul>
+<li><a href="#orgc9f4fca">6.3.1. Definitions</a></li>
+<li><a href="#org71cf04c">6.3.2. Notes</a></li>
+</ul>
+</li>
+<li><a href="#org3077ac3">6.4. Part 3.4 Kripke models for first-order modal logic</a>
+<ul>
+<li><a href="#orge1efd06">6.4.1. Notes</a></li>
+</ul>
+</li>
+<li><a href="#org7f55154">6.5. Part 3.5 BF and CBF in Kripke's model theory</a>
+<ul>
+<li><a href="#org0db49f3">6.5.1. Notes</a></li>
+</ul>
+</li>
+<li><a href="#orgc4571be">6.6. Part 3.6 Metaphysical universality in FO modal logic</a>
+<ul>
+<li><a href="#org28361c5">6.6.1. Notes</a></li>
+</ul>
+</li>
+<li><a href="#org650cca5">6.7. Part 3.7 Intended inhabited model structures for necessitism</a>
+<ul>
+<li><a href="#org92f9267">6.7.1. Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgdedb78f">7. Chapter 4 Prediction and Modality #todo</a></li>
+<li><a href="#org623ddd0">8. Chapter 5 From First-order to Higher-order modal logic #todo</a></li>
+<li><a href="#org2d58307">9. Chapter 6 Intensional comprehension principles and metaphysics #todo</a></li>
+<li><a href="#orgb00775a">10. Chapter 7 Mappings between contingentist and necessitist discourse #todo</a></li>
+<li><a href="#orgdf545b5">11. Chapter 8 Consequences of necessitism  #todo</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge401c9a" class="outline-2">
+<h2 id="orge401c9a"><span class="section-number-2">1</span> Info</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Special tags:
+<ul class="org-ul">
+<li>integers (page numbers)</li>
+<li>nocard (don't make a Anki Flashcard)</li>
+<li>todo (needs work)</li>
+</ul></li>
+
+<li>Things enclosed in  any text  will be clozed on flashcards</li>
+<li>LaTeX triggered by closing within '$'</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb855a93" class="outline-2">
+<h2 id="orgb855a93"><span class="section-number-2">2</span> Questions</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>I searched for "intuitionism" and got no hits, really?</li>
+<li>To what extent do we, in this kind of philosophy, seek to <span class="underline">descriptively</span> adhere to arbitrary English idioms <i>versus</i> <span class="underline">prescriptively</span> correct our forms of speech? I would guess it operates similar to scientific theories which likewise has an unchanging prescriptive core (paradigm shifts notwithstanding) while still being open to describe and adapt to whatever is observed.</li>
+<li>On the number of possible things&#x2026;
+<ul class="org-ul">
+<li>This feels like inherently in the eye of the beholder. Let's say there is phenomena, if we happen to choose to model this as objects with properties (including modal properties) interacting with each other, there are many ways we can slice/dice up the phenomena in order to do that.</li>
+<li>Does Williamson think there is a perfect model of the world that has the correct number of objects in it?</li>
+<li>Is my intuition merely 'linguistic turn'? If all there is is language, then it's natural that the number of objects would be dependent on what language you chose, and perhaps there is an 'ideal' language with the right number (though it seems very likely that there are multiple languages that are very different yet similarly 'ideal')</li>
+</ul></li>
+<li><a href="#org8e1398f">4.3</a> 
+<ul class="org-ul">
+<li>I feel predicative vs attributive  would be better called 'predicative' vs 'modal' (and noting that we use the adjective part of speech in English to do two structurally different kinds of things).</li>
+<li>"The coin that was destroyed is a past coin" "Socratese is dea because he was alive". Here is where necessitism shines - these are very natural things to say that a temporaryist/contingentist cannot. Can things which do not exist have attributes? How can the expression "x does not exist" even be coherent?</li>
+</ul></li>
+<li><a href="#org68c2de2">4.6</a>
+<ul class="org-ul">
+<li>Williamson seems to take a particular reading of 'presently' or 'actually' and show that the dispute is trivial, letting him conclude it is a confused debate. Why not be chartible and find interpretations that lead to nontrivial debate?</li>
+</ul></li>
+<li><a href="#org362326c">5.1</a>
+<ul class="org-ul">
+<li>Why is the necessitation rule discussed on pg 34 \(B \implies \Box B\) &#x2026; surely they mean \(\Box B \implies \Box \Box B\) ?</li>
+</ul></li>
+<li><a href="#org2ca3b9e">5.2</a>
+<ul class="org-ul">
+<li>From wikipedia, BF means that the domain of individuals cannot increase as one goes to accessible worlds (there are no 'merely possible' individuals), whereas CBF means that the domain of individuals cannot decrease as one goes to accessible worlds.</li>
+<li>Why are there formulas with the same variable being existentially and universally quanitified? (E.g. Eq 9 and 10 on page 39) How do I read these?  It seems like 'unhygienic' scoping of variable names.</li>
+<li>"x is nothing implies there exists an x which is nothing." This seems very unusual to state, partially because it is an open formula.</li>
+<li>Pg 40: Williamson thinks the ways Kripke excludes certain logical statements is ad hoc. They seem reasonable to me.</li>
+</ul></li>
+<li><a href="#org8613491">5.4</a>
+<ul class="org-ul">
+<li>I don't entirely follow what it means for 'modality to be consitututed by language' as opposed to described by it. Or maybe as a linguistic deflationist it is just for me in particular that they are the same (that Felix is a cat <span class="underline">means</span> that Felix has a relation to other sorts of sentences we can say about him, whereas someone normal would say it means something metaphysical about Felix). I guess I like Carnap.</li>
+</ul></li>
+<li><a href="#orgeb91c51">6.1</a>
+<ul class="org-ul">
+<li>"To somehow interpret logical modality as a special case of Kripke semantics would nullify the distinctive advantages of the approach." why this is is not clear to me.</li>
+</ul></li>
+<li><a href="#orgc5d7ed1">6.2</a>
+<ul class="org-ul">
+<li>The construction of a canonical model is above my head &#x2026;</li>
+</ul></li>
+<li><p>
+<a href="#org94bad94">6.3</a>
+</p>
+<ul class="org-ul">
+<li>What is having 'no non-logical expression in common' mean (in context of Halldén completeness)?</li>
+</ul>
+<ul class="org-ul">
+<li>I don't understand this sentence, page 95 bottom. (ditto for first paragraph of pg 96) "Sometimes, the connection between the intended interpretation and a mathematical model theory for a formal language is made by one intended model or many mutually isomorphic models. As already seen, we cannot expect that here, because the atomic sentences lack intended interpret- ations. "</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4adef6f" class="outline-2">
+<h2 id="org4adef6f"><span class="section-number-2">3</span> Overall Equations</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org21ed75c" class="outline-3">
+<h3 id="org21ed75c"><span class="section-number-3">3.1</span> K</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>\(\Box(A \rightarrow B) \rightarrow (\Box A \rightarrow \Box B)\)</li>
+<li>named after Kripke</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc9665e7" class="outline-3">
+<h3 id="orgc9665e7"><span class="section-number-3">3.2</span> D</h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li>\(\Box A \rightarrow \Diamond A\)</li>
+<li>"Serial" accessibility relation: \(\forall w.\ (\exists u.\ wRu)\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc5625be" class="outline-3">
+<h3 id="orgc5625be"><span class="section-number-3">3.3</span> M</h3>
+<div class="outline-text-3" id="text-3-3">
+<ul class="org-ul">
+<li>\(\Box A \rightarrow A\)</li>
+<li>"Reflexive" accessibility relation: \(\forall w.\ wRw\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgfee1105" class="outline-3">
+<h3 id="orgfee1105"><span class="section-number-3">3.4</span> Axiom 4</h3>
+<div class="outline-text-3" id="text-3-4">
+<ul class="org-ul">
+<li>\(\Box A \rightarrow \Box \Box A\)</li>
+<li>"Transitive" accessibility relation: \(\forall w, v, u.\ (wRv \land vRu) \rightarrow wRu\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2f2869f" class="outline-3">
+<h3 id="org2f2869f"><span class="section-number-3">3.5</span> B</h3>
+<div class="outline-text-3" id="text-3-5">
+<ul class="org-ul">
+<li>\(A \rightarrow \Box \Diamond A\)</li>
+<li>"Symmetric" accessibility relation: \(\forall w,v.\ wRv \rightarrow vRw\)</li>
+<li>Named after Brouwer</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9935316" class="outline-3">
+<h3 id="org9935316"><span class="section-number-3">3.6</span> Axiom 5</h3>
+<div class="outline-text-3" id="text-3-6">
+<ul class="org-ul">
+<li>\(\Diamond A \rightarrow \Box \Diamond A\)</li>
+<li>"Euclidean" accessibility relation: \(\forall w,v,u.\ (wRv \land wRu) \rightarrow vRu\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc829025" class="outline-3">
+<h3 id="orgc829025"><span class="section-number-3">3.7</span> Axiom CD</h3>
+<div class="outline-text-3" id="text-3-7">
+<ul class="org-ul">
+<li>\(\Diamond A \rightarrow \Box A\)</li>
+<li>"Functional" accessibility relation:  \(\forall w,v,u.\ (wRv \land wRu) \rightarrow v=u\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4dcd168" class="outline-3">
+<h3 id="org4dcd168"><span class="section-number-3">3.8</span> Axiom \(\Box\) M</h3>
+<div class="outline-text-3" id="text-3-8">
+<ul class="org-ul">
+<li>\(\Box(\Box A \rightarrow A)\)</li>
+<li>"Shift reflexive" accessibility relation: \(\forall w,v.\ wRv \rightarrow vRv\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7562499" class="outline-3">
+<h3 id="org7562499"><span class="section-number-3">3.9</span> Axiom C4</h3>
+<div class="outline-text-3" id="text-3-9">
+<ul class="org-ul">
+<li>\(\Box \Box A \rightarrow \Box A\)</li>
+<li>"Dense" accessibility relation: \(\forall w,v,u.\ wRv \rightarrow (\exists u.\ wRu \land uRv)\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgf72b9c6" class="outline-3">
+<h3 id="orgf72b9c6"><span class="section-number-3">3.10</span> Axiom C</h3>
+<div class="outline-text-3" id="text-3-10">
+<ul class="org-ul">
+<li>\(\Diamond \Box A \rightarrow \Box \Diamond A\)</li>
+<li>"Convergent" accessibility relation: \(\forall w,v,x.\ ((wRv \land wRx) \rightarrow \exists u. (vRu \land xRu))\)</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org031636f" class="outline-2">
+<h2 id="org031636f"><span class="section-number-2">4</span> Chapter 1: Contingentism and Necessitism</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgdb87b6f" class="outline-3">
+<h3 id="orgdb87b6f"><span class="section-number-3">4.1</span> <a id="orgc8b5b32"></a> The question</h3>
+<div class="outline-text-3" id="text-4-1">
+</div>
+<div id="outline-container-orgaa92fd6" class="outline-4">
+<h4 id="orgaa92fd6"><span class="section-number-4">4.1.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<ul class="org-ul">
+<li>Necessitism: It is necessary what there is 
+<ul class="org-ul">
+<li>Necessarily: everything is necessarily something</li>
+<li>Necessarily: for every thing it is necessary that something is identical to it.</li>
+<li>Slogan: Ontology is necessary</li>
+</ul></li>
+<li>Contingentism: the negation of necessitism
+<ul class="org-ul">
+<li>It is not the case that (necessarily) everything is necessarily something.</li>
+<li>Slogan: ontology is contingent</li>
+</ul></li>
+<li>Necessitists can say that it is contingent that there are animals
+<ul class="org-ul">
+<li>This implies some particular animal is only contingently an animal;</li>
+<li>It does not imply that an animal is only contingently something.</li>
+</ul></li>
+<li>Contingentists need not deny that some things exist necessarily 
+<ul class="org-ul">
+<li>e.g.: Platonists w/r/t mathematical concepts</li>
+</ul></li>
+<li>Permanentism: 
+<ul class="org-ul">
+<li>Always: everything is always something</li>
+<li>¬(necessitism ⇒ permantism)</li>
+<li>A fatalist denies all contingency, but things change on a necessary schedule.</li>
+</ul></li>
+<li>Temporaryists:
+<ul class="org-ul">
+<li>Negation of permanentism</li>
+<li>temporaryism ⇒ contingentism</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org50593ef" class="outline-3">
+<h3 id="org50593ef"><span class="section-number-3">4.2</span> <a id="org0e38957"></a> Forms of necessitism</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org4593966" class="outline-4">
+<h4 id="org4593966"><span class="section-number-4">4.2.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li>On the surface, necessitism seems obviously false:
+<ul class="org-ul">
+<li>Some coin you have might not have been</li>
+<li>Temporaryist might add it once was not and eventually will not be.</li>
+</ul></li>
+<li>Replies can address the charge of obvious falsehood
+<ul class="org-ul">
+<li>Generic reply: what seemed obvious in the past has often turned out to be false
+<ul class="org-ul">
+<li>This is uninteresting since it can be made to defend any hypothesis. Because we can generate hypotheses faster than we can seriously evaluate them, this would deadlock enquiry.</li>
+</ul></li>
+<li>Less generic reply: Eliminativism
+<ul class="org-ul">
+<li>The 'coin' is code for 'atoms' (there are really only atoms)</li>
+<li>It is not obvious whether atoms necessarily are</li>
+</ul></li>
+<li>Less generic reply: Reductionism
+<ul class="org-ul">
+<li>Similar to eliminativism but allows the 'coin' to exist too, even if it is not the same as its atomic parts. Still, if its atomic parts are necessary (this isn't obvious) then it is necessary.</li>
+</ul></li>
+</ul></li>
+<li>Necessitivism requires the barrier between "concrete" and "non-concrete" to be modally/temporally permeated in both directions
+<ul class="org-ul">
+<li>Given a concrete coin that exists, it is necessarily something. Assuming it's possible there is a the counterfactual scenario where no concrete things such as atoms exist, then necessitivism says  "the property of being concrete is not a necessary property"</li>
+<li>This goes both ways. So something abstract could've been concrete and something concrete could've been abstract.</li>
+<li>Subtle point: concrete and non-abstract (and non-concrete and abstract) are not synonyms. Perhaps something are neither abstract nor concrete.
+<ul class="org-ul">
+<li>Abstract objects like numbers play theoretically defined roles</li>
+<li>The 'non-concrete' coin need not play any similar role to the coin.</li>
+<li>Temporal analogy: when the iceberg melts, it ceases to be concrete, rather than becoming an abstract object.</li>
+</ul></li>
+</ul></li>
+<li>Thus necessitism requires modification to conventional belief that the property of membership of a natural kind is essential to its members
+<ul class="org-ul">
+<li>Statements like "A tiger is essentially a tiger", "Gold is essentially gold" are typically thought to be true.</li>
+<li>Must be modified: "A tiger is essentially if concrete a tiger" since it is possible</li>
+</ul></li>
+<li>Another controversial issue: multiplication of entities
+<ul class="org-ul">
+<li>If there could have been at least n concrete things, then given necessitism, there are at least n possibly concrete things.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdeebd36" class="outline-3">
+<h3 id="orgdeebd36"><span class="section-number-3">4.3</span> <a id="org8e1398f"></a> Possible Fs</h3>
+<div class="outline-text-3" id="text-4-3">
+</div>
+<div id="outline-container-org2cee739" class="outline-4">
+<h4 id="org2cee739"><span class="section-number-4">4.3.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<ul class="org-ul">
+<li>Scenario: Suppose there exists a stick of oak and that it might've been the case that the oak tree never grew. For necessitist, it is still necessary that the stick is, so if the tree never grew, the stick would have been neither concrete nor abstract. What would it have been? A necessitist could say it would have been a possible stick.</li>
+<li>Bad criticism: "possible stick" is a contradiction! "concreteness" is a necessary for being a stick.
+<ul class="org-ul">
+<li>This is 'predicative' reading of "possible stick" because it interprets it as "x is a stick and x is possible"</li>
+<li>This reading is clearly not intended by the necessitist.</li>
+</ul></li>
+<li>'Attributative' reading of the meaning "possible stick": "x could have been a stick."</li>
+<li>In general we have 'predicative' vs 'attributative' ambiguity in the English language. It's not the case that one reading is always correct.
+<ul class="org-ul">
+<li>Predicative interpretation almost default: "South African diamond", "red car", etc.</li>
+<li>"We are all possible murderers" - only makes sense with attributive reading. Same with "alleged diamond" (since things that are not diamonds can be alleged diamonds)</li>
+<li>Attributative reading also makes sense for temporal modifiers ("you are a future president" != "you are president and you will exist in the future).</li>
+<li>The two readings agree when x really is a stick, but not when this is merely possible (i.e. possibly true but not actually).</li>
+</ul></li>
+<li>Permanentists: the coin that was destoyed is a past coin. Socrates is dead because he was alive. 
+<ul class="org-ul">
+<li>Vague objection: where is the past/future coin now. What is the possible stick actually? Relies on a nonobvious assumption that there exist no non-concrete, non-abstract objects such as possible/past objects.</li>
+<li>Another vague objection: an object needs non-modal properties to ground its modal properties, which "possible stick" violates. 
+<ul class="org-ul">
+<li>Motivated by case of "malleability of clay" (modal property) is due to its chemical structure (non-modal property).</li>
+<li>However, distinction between modal/nonmodal properties is not obvious at first glance.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd1d87c2" class="outline-3">
+<h3 id="orgd1d87c2"><span class="section-number-3">4.4</span> <a id="org0197cfd"></a> Unrestricted generality</h3>
+<div class="outline-text-3" id="text-4-4">
+</div>
+<div id="outline-container-orgbf84e8b" class="outline-4">
+<h4 id="orgbf84e8b"><span class="section-number-4">4.4.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-4-1">
+<ul class="org-ul">
+<li>Necessitism: "Everything is necessarily something" - here everything and something quantify over everything, with no tacit context restriction.</li>
+<li>Sometimes universal quantifiers have implicit context restriction in everyday language: "(concrete) things are not necessarily something (concrete)" is a different proposition that necessitsts would agree to.</li>
+<li>Set theoretic objection in general to universal quantification (Russell's paradox) relies on other auxillary assumptions which this book does not address. Assume that universal quanitification is intelligible.</li>
+<li>Unrestricted quantification does not make necessitism trivially true: if the possible coin does not exist, then one is not licensed to say the coin is necessarily something (the possible coin). You can only talk about what is already there.</li>
+<li>Modal realism is treated as false by this book. It makes the key conclusions of the book trivially true, even if it were addressed. There are lots of interesting issues with universal quantification w/r/t modal realism (they cannot say "it is possible for there to be (unrestrictedly) no donkeys" but only "there is a possible world with no donkeys").</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgaf3f25e" class="outline-3">
+<h3 id="orgaf3f25e"><span class="section-number-3">4.5</span> <a id="orgf92297f"></a> Necessitism and Meinongianism</h3>
+<div class="outline-text-3" id="text-4-5">
+</div>
+<div id="outline-container-org2a54a33" class="outline-4">
+<h4 id="org2a54a33"><span class="section-number-4">4.5.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-5-1">
+<ul class="org-ul">
+<li>Suppose 'exists' = 'is (unrestrictedly) something', then necessitism is: "Necesssarily everything necessarily exists." (ditto "Always everything always exists.")</li>
+<li>Confused counterpoint: "events do not exist; they occur"
+<ul class="org-ul">
+<li>Relies on an alternative reading of exist ('exist concretely') which is clearly false in unrestricted quantification (e.g. numbers).</li>
+<li>"Exists" has many confusions and it is best not to use it as a key term when formulating a thesis.</li>
+</ul></li>
+<li>A necessitist who restricts "exist" to concrete things will say "Some things do not exist". Meinong also used existence as a predicate, leading to conflation of the two views.
+<ul class="org-ul">
+<li>However, Meinong characteristization scheme "The F is an F" claims a round square is a round square, a golden mountain is a golden mountain. This is like the attributative reading of 'possible', whereas necessitism has no commitment to that.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org1707aa0" class="outline-3">
+<h3 id="org1707aa0"><span class="section-number-3">4.6</span> <a id="org68c2de2"></a> Actualism and possibilism</h3>
+<div class="outline-text-3" id="text-4-6">
+</div>
+<div id="outline-container-org08e6f6d" class="outline-4">
+<h4 id="org08e6f6d"><span class="section-number-4">4.6.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-6-1">
+<ul class="org-ul">
+<li>Actualism ("everything is actual") vs possbilism ("not everything is actual; everything is possible") is a confused debate. Likewise for 'eternalism' vs 'presentatism'.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org13af199" class="outline-3">
+<h3 id="org13af199"><span class="section-number-3">4.7</span> <a id="org8290f10"></a> Identity and distinctness</h3>
+<div class="outline-text-3" id="text-4-7">
+</div>
+<div id="outline-container-org191bfd1" class="outline-4">
+<h4 id="org191bfd1"><span class="section-number-4">4.7.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-7-1">
+<ul class="org-ul">
+<li>Classicala modal logic: idendicals are necessarily identical and distinct things are necessarily distinct.</li>
+<li>Argument for necessity/permanentness of identity:
+<ul class="org-ul">
+<li>x = y. By indiscernibility of identicals, x is whatevey y is. y is necessarily y, so x is necessarily y.</li>
+<li>In these arguments, x,y are variables who values are simply things, not standing as definite descriptions which could mean different things based on context.</li>
+<li>Argument likewise for distinctness goes similarly.</li>
+</ul></li>
+<li>Sometimes necessitists feel obligated to challenge this to avoid ontological inflation, but these efforts are unsuccessful and awkward.</li>
+<li>Contingentists have to slightly qualify the above because x is necesssarily/always x unqualified conflicts with contingentist thesis.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org6d12288" class="outline-3">
+<h3 id="org6d12288"><span class="section-number-3">4.8</span> <a id="org2ace09b"></a> Dying and never being born</h3>
+<div class="outline-text-3" id="text-4-8">
+</div>
+<div id="outline-container-org2a42c0c" class="outline-4">
+<h4 id="org2a42c0c"><span class="section-number-4">4.8.1</span> Notes:</h4>
+<div class="outline-text-4" id="text-4-8-1">
+<ul class="org-ul">
+<li>The debate hitherto has some impact in how we think about practical emotional/moral issues.</li>
+<li>Epicurus: "Death is nothing - when we exist, death is not present, and when death is present, we do not exist."
+<ul class="org-ul">
+<li>One reading: after death, one cannot bear properties such as being unfortunate. Requires contingentism.</li>
+<li>This also requires an egoistic belief that goodness/badness is only dependent on the kinds of experience one has, excluding possibilities such as "it is good for me that my loved ones flourish".</li>
+</ul></li>
+<li>Worrying about having children because it might be better for your kids if they were never born.
+<ul class="org-ul">
+<li>Contingentism needed to call this as confused thinking (if they were never born, then they do not exist).</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orga87829f" class="outline-2">
+<h2 id="orga87829f"><span class="section-number-2">5</span> Chapter 2: The Barcan Formula and its Converse&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org3bf7c9f" class="outline-3">
+<h3 id="org3bf7c9f"><span class="section-number-3">5.1</span> <a id="org362326c"></a> The Barcan Formula</h3>
+<div class="outline-text-3" id="text-5-1">
+</div>
+<div id="outline-container-org2caaedd" class="outline-4">
+<h4 id="org2caaedd"><span class="section-number-4">5.1.1</span> Definitions</h4>
+<div class="outline-text-4" id="text-5-1-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgbbb57ce"></a><a id="org4e728db"></a><br />
+<ol class="org-ol">
+<li><a id="org87292c6"></a>Term<br />
+<div class="outline-text-6" id="text-5-1-1-1-1">
+<ul class="org-ul">
+<li>Barcan Formula</li>
+</ul>
+</div>
+</li>
+<li><a id="org5bc7b1e"></a>Def<br />
+<div class="outline-text-6" id="text-5-1-1-1-2">
+<ul class="org-ul">
+<li>\(\Diamond A \rightarrow \Diamond(\exists v.\ A))\)</li>
+<li>Note this is a schema rather than a particular formula in the object language. The rule is that any expression A (with free variable v, in the nontrivial case) can be substituted.</li>
+<li>If there possibly exists something which makes a statement true, then there exists something which possibly makes a statement true.</li>
+<li>Equivalently written as <a href="#org7e6bea5">5.1.2.1</a></li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgf313185"></a><a id="orgacd32bf"></a><br />
+<ol class="org-ol">
+<li><a id="org7a580e3"></a>Term<br />
+<div class="outline-text-6" id="text-5-1-1-2-1">
+<ul class="org-ul">
+<li>Modal closure of some formula, B</li>
+</ul>
+</div>
+</li>
+<li><a id="org331f189"></a>Def<br />
+<div class="outline-text-6" id="text-5-1-1-2-2">
+<ul class="org-ul">
+<li>Original is saying the way things are in the actual world is necessary.</li>
+<li>Prefixing B with a finite string (perhaps empty) of universal quanitifers and necessity operators.</li>
+<li>In most systems of QML, modal closure preserves truth.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org65f423d"></a><a id="orgb5646df"></a><br />
+<ol class="org-ol">
+<li><a id="org9c8582b"></a>Term<br />
+<div class="outline-text-6" id="text-5-1-1-3-1">
+<ul class="org-ul">
+<li>Full BF</li>
+</ul>
+</div>
+</li>
+<li><a id="org794a7aa"></a>Def<br />
+<div class="outline-text-6" id="text-5-1-1-3-2">
+<ul class="org-ul">
+<li>All <a href="#orgacd32bf">5.1.1.2</a>s of the instances of BF.</li>
+<li>The distinction is only important if some special characteristic of the actual world makes BF true but not in all possible worlds</li>
+<li>With the assumption that there is no special accessibility characteristic of our world, we can think of them as the same.</li>
+</ul>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-org7451b90" class="outline-4">
+<h4 id="org7451b90"><span class="section-number-4">5.1.2</span> Formulas</h4>
+<div class="outline-text-4" id="text-5-1-2">
+</div>
+<ol class="org-ol">
+<li><a id="org45160db"></a><a id="org7e6bea5"></a><br />
+<div class="outline-text-5" id="text-5-1-2-1">
+<ul class="org-ul">
+<li>\(\forall v.\ \square A \rightarrow \Box (\forall v.\ A)\)</li>
+<li>If everything necessarily satisfies a condition, then necessarily everything satisfies the condition.</li>
+</ul>
+</div>
+</li>
+<li><a id="org4159b0c"></a><a id="org19e15e3"></a><br />
+<div class="outline-text-5" id="text-5-1-2-2">
+<ul class="org-ul">
+<li>\(\Box(\exists v. \Diamond(A) \rightarrow \Diamond(\exists v. A))\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org64d8e2a"></a><a id="orgc6de1a8"></a><br />
+<div class="outline-text-5" id="text-5-1-2-3">
+<ul class="org-ul">
+<li>\(\Diamond (\exists x. @ \neg \exists y. x=y) \rightarrow \exists x. \Diamond (@\neg \exists y. x=y)\)</li>
+<li>@ is rigidifying operator that returns the semantic evaluation to the world of utterance.</li>
+</ul>
+</div>
+</li>
+<li><a id="org40d395d"></a><a id="orgf598522"></a><br />
+<div class="outline-text-5" id="text-5-1-2-4">
+<ul class="org-ul">
+<li>\(\Diamond \exists x. F(x) \rightarrow \exists x. \Diamond F(x)\)</li>
+</ul>
+</div>
+</li>
+<li><a id="orgd865c84"></a><a id="org32a42eb"></a><br />
+<div class="outline-text-5" id="text-5-1-2-5">
+<ul class="org-ul">
+<li>\(\Box(\Diamond \exists x. (x=y) \rightarrow \exists x. \Diamond (x=y))\)</li>
+</ul>
+</div>
+</li>
+
+<li><a id="org154dd46"></a><a id="org669276e"></a><br />
+<div class="outline-text-5" id="text-5-1-2-6">
+<ul class="org-ul">
+<li>\(\Box(\exists v.\ \Diamond A \rightarrow \Diamond(\exists v.\ A))\)</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org8c300e8" class="outline-4">
+<h4 id="org8c300e8"><span class="section-number-4">5.1.3</span> Notes</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<ul class="org-ul">
+<li>Quantified modal logic bears all the troubles of predicate logic, modal logic, as well as new problems resulting from combinations of the operators.</li>
+<li>First appeared formally in 1946 "A Functional Calculus of First Order Based on Strict Implication" which takes unquantified modal logic system S2 and adds existential operator. No semantics was given.
+<ul class="org-ul">
+<li>Contemporary modal logicians take \(\square\) as a primative modal operator, but back then it was "strict implication" which meant \(\square(A \rightarrow B)\)</li>
+</ul></li>
+<li>Even full BF is not sufficient to prove the necessitist claim (though all necessitists accept full BF), but in practice almost all contingentists reject it. 
+<ul class="org-ul">
+<li>Contingentist belives there could have been something that is actually nothing (e.g. there could have been more things than there actually are).</li>
+<li>Let \(F\) be the predicate "is such that it is actually nothing". Plugging in the belief above into the antecedent to BF we get <a href="#orgf598522">5.1.2.4</a> (more explicitly <a href="#orgc6de1a8">5.1.2.3</a>)
+<ul class="org-ul">
+<li>This is clearly false under their reading
+<ul class="org-ul">
+<li>Necessitist response: reject the antecedent; there is no such thing that could have been actually nothing.</li>
+</ul></li>
+<li>Let \(F\) be "is a child of JFK &amp; Marilyn Monroe". The fact that it is possible they had a child does not mean that there exists a human which possibly was their child.
+<ul class="org-ul">
+<li>Necessitist response: accept both antecedent and consequent. There does exist a possible child of JFK and MM.</li>
+</ul></li>
+</ul></li>
+<li>Alternatively, subsitute the open formula \(x=y\) for \(A\) in the <a href="#org4e728db">5.1.1.1</a> schema one gets <a href="#org32a42eb">5.1.2.5</a>.
+<ul class="org-ul">
+<li>Suppose \(y\) is some specific mountain \(K_2\) that exists.</li>
+<li>The sentence BF lets us say is: Necessarily, if there could have been \(K_2\), then there is something that could have been \(K_2\)</li>
+<li>If nothing were \(K_2\), then it's not necessary that there is nothing that could have been \(K_2\), in their minds.</li>
+<li>This can be derived from above, assuming that in the real world there is a \(K_2\): \(\Box (\exists x. \Diamond (x=y))\) This is false for contingentists: it is not necessary for there to be something that could have been \(K_2\).</li>
+<li>So BF must be false.</li>
+<li>Necessitist response: accept that \(\forall y: \Box (\exists x: x=y)\)</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org9d0fa71" class="outline-3">
+<h3 id="org9d0fa71"><span class="section-number-3">5.2</span> <a id="org2ca3b9e"></a> The Converse Barcan Formula</h3>
+<div class="outline-text-3" id="text-5-2">
+</div>
+<div id="outline-container-orgae9e3a4" class="outline-4">
+<h4 id="orgae9e3a4"><span class="section-number-4">5.2.1</span> Definitions</h4>
+<div class="outline-text-4" id="text-5-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="org5a36f41"></a><a id="org31ce28a"></a><br />
+<div class="outline-text-5" id="text-5-2-1-1">
+<ul class="org-ul">
+<li>\(\exists v.\ \Diamond A \rightarrow \Diamond (\exists v.\ A)\)</li>
+<li>Necessarily, if there is something that could've satisfied a condition, then there could've been something that satisfied the condition.</li>
+<li>Alternatively written as <a href="#org9fe7572">5.2.2.1</a></li>
+</ul>
+</div>
+</li>
+<li><a id="orgff0266f"></a><a id="org80880d5"></a><br />
+<div class="outline-text-5" id="text-5-2-1-2">
+<ul class="org-ul">
+<li>A logic in which the schema of 'existential generalization',  \(A \rightarrow \exists v. A\), is <b><b>not</b></b> universally valid</li>
+<li>By duality this is equivalent: \((\forall v.\ A) \implies A\)</li>
+<li>Free modal logic usually uses restricted variants on classical FOL axioms: <a href="#org99f4d9d">5.2.2.9</a> and <a href="#orgf667aa6">5.2.2.10</a> (The requirement that \(t\) exists before substituting is added from conventional FOL)</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org9fffc8f" class="outline-4">
+<h4 id="org9fffc8f"><span class="section-number-4">5.2.2</span> Formulas</h4>
+<div class="outline-text-4" id="text-5-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgc550a52"></a><a id="org9fe7572"></a><br />
+<div class="outline-text-5" id="text-5-2-2-1">
+<ul class="org-ul">
+<li>\(\Box (\forall v.\ A)  \rightarrow \forall v.\ \square A\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org25337a8"></a><a id="org9db5f6c"></a><br />
+<div class="outline-text-5" id="text-5-2-2-2">
+<ul class="org-ul">
+<li>\(\exists x.\ \Diamond (\neg \exists y.\ x=y) \rightarrow \Diamond(\exists x.\ \neg \exists y.\ x=y)\)</li>
+</ul>
+</div>
+</li>
+<li><a id="orgc71675c"></a><a id="orgfe272dc"></a><br />
+<div class="outline-text-5" id="text-5-2-2-3">
+<ul class="org-ul">
+<li>\(\forall x.\ \Box(\exists y.\ x=y)\)</li>
+</ul>
+</div>
+</li>
+<li><a id="orgb7ee273"></a><a id="orge454a8f"></a><br />
+<div class="outline-text-5" id="text-5-2-2-4">
+<ul class="org-ul">
+<li>\(\Box(\neg(\exists y.\ x=y) \rightarrow (\exists x. \neg (\exists y.\ x=y)))\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org1d91773"></a><a id="orgd77e3d0"></a><br />
+<div class="outline-text-5" id="text-5-2-2-5">
+<ul class="org-ul">
+<li>\(\forall z.\ \Box(\neg(\exists y.\ z=y) \rightarrow (\exists x. \neg (\exists y.\ x=y)))\)</li>
+<li>outer scope 'x' changed to 'z' for hygiene</li>
+</ul>
+</div>
+</li>
+<li><a id="org9529a06"></a><a id="org42f7c42"></a><br />
+<div class="outline-text-5" id="text-5-2-2-6">
+<ul class="org-ul">
+<li>\(\Box (\forall z.\ (\neg(\exists y.\ z=y) \rightarrow (\exists x. \neg (\exists y.\ x=y))))\)</li>
+<li><a href="#orgd77e3d0">5.2.2.5</a> with the outer box and quantifier reversed</li>
+</ul>
+</div>
+</li>
+<li><a id="org3807c50"></a><a id="org5595df0"></a><br />
+<div class="outline-text-5" id="text-5-2-2-7">
+<ul class="org-ul">
+<li>:todo:</li>
+</ul>
+</div>
+</li>
+<li><a id="orge01687a"></a><a id="org548d52c"></a><br />
+<div class="outline-text-5" id="text-5-2-2-8">
+<ul class="org-ul">
+<li>\(A\) is derivable in pure logic \(\rightarrow \Box A\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org33c68df"></a><a id="org99f4d9d"></a><br />
+<div class="outline-text-5" id="text-5-2-2-9">
+<ul class="org-ul">
+<li>\(\vdash \forall v. A(v) \rightarrow (E(t) \rightarrow A([t/v])\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org693558e"></a><a id="orgf667aa6"></a><br />
+<div class="outline-text-5" id="text-5-2-2-10">
+<ul class="org-ul">
+<li>If \(\vdash A \rightarrow (E(v) \rightarrow C)\) and \(v\) is not free in \(A\) then \(\vdash A \rightarrow \forall v. C(v)\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org9f70b13"></a><a id="orgb64b15b"></a><br />
+<div class="outline-text-5" id="text-5-2-2-11">
+<ul class="org-ul">
+<li>\(\Box(\forall x.\ \Box(\exists y.\ x=y))\)</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org3e54f72" class="outline-4">
+<h4 id="org3e54f72"><span class="section-number-4">5.2.3</span> Notes</h4>
+<div class="outline-text-4" id="text-5-2-3">
+<ul class="org-ul">
+<li>Contingentists reject <a href="#org31ce28a">CBF</a> by substituting \(\neg (\exists y. x=y)\) (i.e. "x is nothing") for \(A\) into CBF: <a href="#org9db5f6c">5.2.2.2</a>
+<ul class="org-ul">
+<li>The consequent is that there possibly exists something that is nothing, but this is universally agreed upon as false because 'something is nothing' would be inconsistent.</li>
+<li>Contingentists take the antecedent to be clearly true (for ordinary material objects, which could have been nothing) and therefore CBF to be false, but necessitists take this as evidence that the antecedant must be false. The negation of the antecedent is the Necessity of Being <a href="#orgfe272dc">5.2.2.3</a> which is the necessitist claim that everything is necessarily something.
+<ul class="org-ul">
+<li>With "full CBF" one derives the stronger necessitist claim that necessarily everything is necessarily something: <a href="#orgb64b15b">NNE</a></li>
+</ul></li>
+<li>So necessitists and contingentists naturally divide over CBE just like they do over CB.</li>
+</ul></li>
+<li>Barcan had an independent proof of CBF, but there is a natural way of identifying a fallacy for contingentists.
+<ul class="org-ul">
+<li>The invalid axiom is \(\Box(\forall x. A \rightarrow A)\)</li>
+<li>Substituting 'x is nothing' for \(A\) to make things more concrete: the proof involves using that \(\neg(\exists y.\ x=y)\) strictly implies \(\exists x. \neg (\exists y.\ x=y)\) <a href="#orge454a8f">5.2.2.4</a>
+<ul class="org-ul">
+<li>\(x\) is nothing implies there exists an \(x\) which is nothing.</li>
+<li>Open formula can be rewritten as universally generalized. <a href="#orgd77e3d0">5.2.2.5</a> requires CBF, which is circular reasoning.</li>
+</ul></li>
+</ul></li>
+<li>To call this a fallacy means contingentists must reject taking <a href="#orge454a8f">5.2.2.4</a> as a theorem
+<ul class="org-ul">
+<li>This means either rejecting <a href="#org5595df0">5.2.2.7</a> (which follows from <a href="#orge454a8f">5.2.2.4</a>, or rejecting the <a href="#org548d52c">Rule of necessitation</a>, which allows one to infer <a href="#orge454a8f">5.2.2.4</a> from <a href="#org5595df0">5.2.2.7</a>
+<ul class="org-ul">
+<li>Reject <a href="#org5595df0">5.2.2.7</a> (adopt some form of 'free logic')</li>
+<li>Reject <a href="#org548d52c">Rule of necessitation</a></li>
+<li>Williamson thinks the ways Kripke excludes certain logical statements (open formulas, formulas with proper names) is ad hoc. More detail on page 40.</li>
+</ul></li>
+<li>Conclusion: contingentists who reject free logic or reject that all logical truths are necessary truths.
+<ul class="org-ul">
+<li>Tarski (nonmodal) definition of logical truth: a sentence is logically true iff it is true under every reinterpretation of its non-logical atomic constituents.</li>
+<li>This allows contingentists a way to gracefully do this.</li>
+<li>However, the contingentist's language will in a sense still be free.</li>
+</ul></li>
+</ul></li>
+<li>Necessitists can accept Barcan's proof of CBF, but cannot expect it to convince contingentists. Within the free modal logic of the contingentist still will see BF/CBF/NNE as equivalent formulations of necessitism.</li>
+<li>Although BF is independent of CBF in Barcan's original system, with the modal axiom <a href="#org2f2869f">3.5</a> (that which is, is necessarily possible - uncontroversial for metaphysical necessity) that BF and CBF are equivalent.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb54f7e4" class="outline-3">
+<h3 id="orgb54f7e4"><span class="section-number-3">5.3</span> <a id="org842bb92"></a> Ibn-Sina</h3>
+<div class="outline-text-3" id="text-5-3">
+</div>
+<div id="outline-container-orged7fa1b" class="outline-4">
+<h4 id="orged7fa1b"><span class="section-number-4">5.3.1</span> Definitions</h4>
+<div class="outline-text-4" id="text-5-3-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgcf2f998"></a><a id="orgcf5972d"></a><br />
+<div class="outline-text-5" id="text-5-3-1-1">
+<ul class="org-ul">
+<li>\(\Diamond(\exists v.\ A) \leftrightarrow \exists v.\ \Diamond A\)</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org2533998" class="outline-4">
+<h4 id="org2533998"><span class="section-number-4">5.3.2</span> Formulas</h4>
+<div class="outline-text-4" id="text-5-3-2">
+</div>
+<ol class="org-ol">
+<li><a id="org43e669a"></a><a id="org964d632"></a><br />
+<div class="outline-text-5" id="text-5-3-2-1">
+<ul class="org-ul">
+<li>\(\Box(\Diamond(\exists v.\ A) \leftrightarrow \exists v.\ \Diamond A)\)</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org90e956b" class="outline-4">
+<h4 id="org90e956b"><span class="section-number-4">5.3.3</span> Notes</h4>
+<div class="outline-text-4" id="text-5-3-3">
+<ul class="org-ul">
+<li>The combination of BF and CBF, <a href="#org964d632">5.3.2.1</a>, is the necessary equivalence of 'something possibly' and 'possibly something'.</li>
+<li>Ibn-Sina (Avicenna, 980-1037) remarked "<span class="underline"><span class="underline">some people possibly are not writers</span></span> is modally the same as <span class="underline"><span class="underline">possibly some people are not writers,</span></span> and although one implies the other, the meaning of one may be opposite to the other"</li>
+<li>Call the <span class="underline"><span class="underline">unnecessitated</span></span> equivalence the Ibn-Sina principle <a href="#orgcf5972d">5.3.1.1</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgad7604f" class="outline-3">
+<h3 id="orgad7604f"><span class="section-number-3">5.4</span> <a id="org8613491"></a> Carnap</h3>
+<div class="outline-text-3" id="text-5-4">
+</div>
+<div id="outline-container-org3f13aee" class="outline-4">
+<h4 id="org3f13aee"><span class="section-number-4">5.4.1</span> Notes</h4>
+<div class="outline-text-4" id="text-5-4-1">
+<ul class="org-ul">
+<li>Carnap did not interpret \(\Box\) as metaphysical necessity but only as logical necessity (\(\Box A\) iff \(A\) is "L-true").
+<ul class="org-ul">
+<li>L-truth (within some semantical system \(S\)) if the sentence is true in such a way that its truth can be established on the basis of semanticaal reules of the system \(S\) alone, without any reference to (extra-linguistic) facts.</li>
+</ul></li>
+<li>It is difficult to tell whether \(F(x)\) is L-true (because it is an open-formula). But an interpretation of this is needed in order to make sense of fomulas such as \(\forall x. \Box F(x)\) 
+<ul class="org-ul">
+<li>Quine first raised this issue in 1943</li>
+<li>Implied response is that open formulas play no role in semantics, so \(\Box A\) is only evaluated when \(A\) is closed.
+<ul class="org-ul">
+<li>Example: \(\exists x.\ \Box F(x)\) - "Something is necessarily F"</li>
+<li>\(Fa\) is false in some state-description so the statement is false.</li>
+</ul></li>
+<li>His semantics validates <a href="#org4e728db">5.1.1.1</a>, <a href="#org31ce28a">5.2.1.1</a>, <a href="#orgcf5972d">5.3.1.1</a>.</li>
+</ul></li>
+<li>Carnap seems similar to possible worlds semantics, as sentences can hold or not within <span class="underline">state-descriptions</span> (likened to Liebniz possible worlds or Wittgenstein's possible states of affairs).
+<ul class="org-ul">
+<li>Modal operators are treated like quantifiers over state descriptions.</li>
+<li>He did not think to restrict accessibility of state descriptions to each other, so effectively he was working in \(S_5\).</li>
+</ul></li>
+<li>Carnap wanted to treat modal FOL with as much of FOL without invoking any extra notions. This fails to treat modality as a metaphysical dimension of how things are, to be described in the language rather than be constituted by it.
+<ul class="org-ul">
+<li>His state-descriptions are linguistic constructs, not metaphysical postulates.</li>
+<li>His criterion of possibility is purely logical.
+<ul class="org-ul">
+<li>There are states where "Felix is a dog" are true, even if "Felix is a cat" in our world or even the same state-description (which many would consider an impossibility).</li>
+<li>That said, identity sentences are treated specially: 'a=a' is true in all state-descriptions and 'a!=b' is true in all when a,b are distinct constants.</li>
+<li>Implicitly, the burden is on the <span class="underline">language</span> to enforce that different constants refer to <span class="underline">semantically</span> different individuals.</li>
+</ul></li>
+<li>Whether a sentence is L-true depends purely on intra-linguistic matters. The semantic reources to characterize the non-modal language suffice to charaacterize the modal language too.
+<ul class="org-ul">
+<li>This is better than contemporary possible worlds model theories, which define what it is to be true given a model (user-supplied, could be any set of states) rather than what is truth-<sub>simpliciter</sub>_.</li>
+<li>Given the semantics of a non-modal language, Carnap defines the truth <span class="underline">simpliciter</span> of \(\Box A\) and \(\Diamond A\), not just in a given model.</li>
+</ul></li>
+</ul></li>
+<li>Objections
+<ul class="org-ul">
+<li>A substitutional account of quantificiation such as Carnap's has too small of a set of terms; some individuals may be denoted by no term in the class.
+<ul class="org-ul">
+<li>There are uncountably many real numbers.</li>
+<li>If an individual is denoted by no individual constant, but the meanings of Carnap's sentences in the lanaguage are of little interest.</li>
+</ul></li>
+<li>Carnap's later reworkings (in <span class="underline">Meaning and Necessity</span>) are more sophisticated, though still open to the main objection above.</li>
+<li>Lots of detail about this from pg 51-60 #todo</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org4ddaaa7" class="outline-3">
+<h3 id="org4ddaaa7"><span class="section-number-3">5.5</span> <a id="org2e88210"></a> Barcan Marcus again&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></h3>
+<div class="outline-text-3" id="text-5-5">
+<ul class="org-ul">
+<li>In a language with finitely many constants, one can treat \(\exists x.\ A(x)\) as a finite disjunction of substitutions into \(A\) and \(\forall x.\ A(x)\) as a finite conjunction.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5788dbd" class="outline-3">
+<h3 id="org5788dbd"><span class="section-number-3">5.6</span> <a id="org798171a"></a> Prior&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></h3>
+</div>
+<div id="outline-container-orga29c44c" class="outline-3">
+<h3 id="orga29c44c"><span class="section-number-3">5.7</span> <a id="org7575931"></a> Truth-value gaps&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></h3>
+</div>
+<div id="outline-container-org67b1ce1" class="outline-3">
+<h3 id="org67b1ce1"><span class="section-number-3">5.8</span> <a id="orga566662"></a> Logical modalities&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></h3>
+</div>
+</div>
+<div id="outline-container-orgc28bafe" class="outline-2">
+<h2 id="orgc28bafe"><span class="section-number-2">6</span> Chapter 3 Possible worlds model theory&#xa0;&#xa0;&#xa0;<span class="tag"><span class="todo">todo</span></span></h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-orgf7f8f62" class="outline-3">
+<h3 id="orgf7f8f62"><span class="section-number-3">6.1</span> <a id="orgeb91c51"></a> Kripke</h3>
+<div class="outline-text-3" id="text-6-1">
+</div>
+<div id="outline-container-orgdb917f3" class="outline-4">
+<h4 id="orgdb917f3"><span class="section-number-4">6.1.1</span> Notes</h4>
+<div class="outline-text-4" id="text-6-1-1">
+<ul class="org-ul">
+<li>"Semantical Considerations on Modal Logic" (1963)
+<ul class="org-ul">
+<li>Solves problems of Carnap's approach by distinguishing models and worlds.
+<ul class="org-ul">
+<li>Modal operators still quantify over worlds, but each model has its own set of worlds (any nonempty set)</li>
+<li>The model can exclude some logically permissible assignments of truth values ot atomic formulas (Felix is a cat / Felix is a dog never both true, in some models).
+<ul class="org-ul">
+<li>Thus logical <span class="underline">_consistency</span> of \(A\) no longer implies logical <span class="underline">truth</span> of \(\Diamond A\)</li>
+</ul></li>
+</ul></li>
+<li>Binary relation of 'relative possibility' / accessibility allows treatment of modal logics weaker than \(S_5\), so that matters of necessity/contingency can themselves be contingent.</li>
+</ul></li>
+<li>Hintikka criticizes the model theory for putting non-logical restrictions on the class of worlds in a model.
+<ul class="org-ul">
+<li>However, we only need to consider a subclass of Kripke models which are appropriate for logical interpretation.</li>
+<li>We can consider class models \(M\) such that for each model \(N\) of the nonmodal fragment of the language, some world in \(M\) determines the same truth values as \(N\) for all non-odal formulas. All worlds in \(M\) are to be mutually accessible.</li>
+</ul></li>
+<li>Kripke's necessity must be <span class="underline">metaphysical</span> necessity, not <span class="underline">logical</span> necessity, given his treatment of proper names as <span class="underline">rigid designators</span> (denoting the same individual in every world).
+<ul class="org-ul">
+<li>\(a=b \rightarrow \Box(a=b)\) for constants \(a,b\) 'Hesperus=Phosphorus' is a truth, but it is not a truth of <span class="underline">logic</span></li>
+<li>A key advantage of Kripke semantics is the separation of possibility from logic. To somehow interpret logical modality as a special case of Kripke semantics would nullify the distinctive advantages of the approach.</li>
+</ul></li>
+<li>The semantics are dependent on the model and accessibility relation.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgead0b2e" class="outline-3">
+<h3 id="orgead0b2e"><span class="section-number-3">6.2</span> <a id="orgc5d7ed1"></a> Kripke models for normal propositional modal logic</h3>
+<div class="outline-text-3" id="text-6-2">
+</div>
+<div id="outline-container-org96c8b48" class="outline-4">
+<h4 id="org96c8b48"><span class="section-number-4">6.2.1</span> Definitions</h4>
+<div class="outline-text-4" id="text-6-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgee2d538"></a><a id="orga2a8443"></a><br />
+<div class="outline-text-5" id="text-6-2-1-1">
+<ul class="org-ul">
+<li>A triple \((W, R, w_0)\)
+<ul class="org-ul">
+<li>The set of possible worlds, the accessibility relation  \(R \subseteq W \times W\), and the actual world \(w_0 \in W\)</li>
+</ul></li>
+<li>Many things irrelevant to metaphysical modality satisfy this structure - something to be cautious of.</li>
+</ul>
+</div>
+</li>
+<li><a id="org6607511"></a><a id="orge41ea97"></a><br />
+<div class="outline-text-5" id="text-6-2-1-2">
+<ul class="org-ul">
+<li>A quadruple \((W, R, w_0, V)\)</li>
+<li>Need more than model structure to evaluate formals as true or false. Need a function \(V\) to assign each atomic formula in each possible world.</li>
+<li>Recursively define truth of any formula:
+<ul class="org-ul">
+<li>\(M,w \vDash A := V(A,w)\)</li>
+<li>\(M,w \vDash A \land B := V(A,w)\) and \(V(B,w)\)</li>
+<li>\(M,w \vDash A :=\) not $ V(A,w)$</li>
+<li>\(M,w \vDash \Box A :=\) for all \(x \in W\) that \(wRx \rightarrow M,x \vDash A\)</li>
+</ul></li>
+<li>Note that \(M \vDash A := M,w_0 \vDash A\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org405f310"></a><a id="org86551bc"></a><br />
+<div class="outline-text-5" id="text-6-2-1-3">
+<ul class="org-ul">
+<li>Any pair \((W, R)\), basically a Kripke model structure but without a designated 'actual' world.</li>
+<li>We cannot use the standard definition of truth simpliciter of \(A\) without an actual world, but this can be defined as being true in every world of the model (this is an even stronger claim than \(\Box A\))</li>
+</ul>
+</div>
+</li>
+<li><a id="org331fe94"></a><a id="orgfad84b7"></a><br />
+<div class="outline-text-5" id="text-6-2-1-4">
+<ul class="org-ul">
+<li>A formula is <span class="underline">valid</span> on a model structure iff it is true in every model on that frame.</li>
+<li>If we really need to make reference to an actual world, we can call the model 'pointed' or 'centered' - by default we'll assume there is no such world.</li>
+</ul>
+</div>
+</li>
+<li><a id="orgda830ef"></a><a id="orge8cb73d"></a><br />
+<div class="outline-text-5" id="text-6-2-1-5">
+<ul class="org-ul">
+<li>The set of all formulas valid on it.</li>
+<li>The logic of a set of frames is the intersection of their individual logics.</li>
+</ul>
+</div>
+</li>
+<li><a id="orgc034aba"></a><a id="org197b424"></a><br />
+<div class="outline-text-5" id="text-6-2-1-6">
+<ul class="org-ul">
+<li>A logic is Halldén complete iff \(A \lor B\) being a theorem, in conjunction with \(A, B\) not having any non-common logical expressions, then \(A\) is a theorem or \(B\) is a theorem.</li>
+</ul>
+</div>
+</li>
+<li><a id="org928efe4"></a><a id="orga68bddb"></a><br />
+<div class="outline-text-5" id="text-6-2-1-7">
+<ul class="org-ul">
+<li>\(S\) has all substitutions instances of axiom <a href="#org21ed75c">K</a> and all truth-functional tautologies as theorems, and is closed under modus ponens, uniform subtitution, and necessitation.</li>
+</ul>
+</div>
+</li>
+<li><a id="orge3ffb8c"></a><a id="org135b31c"></a><br />
+<div class="outline-text-5" id="text-6-2-1-8">
+<ul class="org-ul">
+<li>A canonical model \(M_s = (W_S,R_S,V_S)\) of a normal propositional modal logic \(S\)</li>
+<li>The theorems of \(S\) are exactly hte formulas true everywhere in \(M_S\)</li>
+<li>Construction: #todo</li>
+<li>A theorem of a normal system \(S\) need not be valid on the canonical frame for \(S\) since it may be false on some non-actual world.</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-orge5d6b7d" class="outline-4">
+<h4 id="orge5d6b7d"><span class="section-number-4">6.2.2</span> Notes</h4>
+<div class="outline-text-4" id="text-6-2-2">
+<ul class="org-ul">
+<li>Consider a language with countably infinite atomic formulas (P, Q, R, &#x2026;), and usual boolean operators, with \(\Box\) as necessity and \(\Diamond \equiv \neg \Box \neg\)</li>
+<li>Modus ponens preserves validatity on a frame. 
+<ul class="org-ul">
+<li>Whenever \(A\rightarrow B\) and \(A\) are valid on a frame, so too is \(B\)</li>
+<li>Also preserves validity on a model structure.</li>
+</ul></li>
+<li>Rule of necessitation preserves validity on a frame
+<ul class="org-ul">
+<li>Whenever a formula \(A\) is valid on a frame, so too is \(\Box A\)</li>
+<li>On a model structure, necessitation does not preserve validity necessarily.</li>
+</ul></li>
+<li>The logic of a model structure is Halldén complete, but the logic of some frames are not Halldén complete.</li>
+<li>The logic of modal structures and frames are preserved under uniform substitution.</li>
+<li>These results are purely mathematical, formalized within a standard FOL for set theory with no modal elements. No modal elements in the metalanguage and no reference to the actual or possible worlds in a metaphysical sense.</li>
+<li>It would be good to find what restricted class of Kripke models is appropriate for metaphysical necessity, but we need a more systematic approach than jotting down constraints whenever they occur to us.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgda03e6e" class="outline-3">
+<h3 id="orgda03e6e"><span class="section-number-3">6.3</span> <a id="org94bad94"></a> Metaphysical universality in propositional modal logic</h3>
+<div class="outline-text-3" id="text-6-3">
+</div>
+<div id="outline-container-orgc9f4fca" class="outline-4">
+<h4 id="orgc9f4fca"><span class="section-number-4">6.3.1</span> Definitions</h4>
+<div class="outline-text-4" id="text-6-3-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgdc5d11f"></a><a id="orga342a28"></a><br />
+<div class="outline-text-5" id="text-6-3-1-1">
+<ul class="org-ul">
+<li>A system \(S\) of propositional modal logic is <span class="underline">sound for metaphysical universality</span></li>
+<li>Every theorem of \(S\) is metaphysically universal.</li>
+</ul>
+</div>
+</li>
+<li><a id="orga97f3e2"></a><a id="orge8015e5"></a><br />
+<div class="outline-text-5" id="text-6-3-1-2">
+<ul class="org-ul">
+<li>A system \(S\) of propositional modal logic is <span class="underline">complete for metaphysical universality</span></li>
+<li>Every metaphysically universal formula is a theorem of \(S\)</li>
+</ul>
+</div>
+</li>
+<li><a id="org0f4b29c"></a><a id="org6a1fb0d"></a><br />
+<div class="outline-text-5" id="text-6-3-1-3">
+<ul class="org-ul">
+<li>A system \(S\) of propositional modal logic is <span class="underline">quasi-normal</span></li>
+<li>\(S\) has all substitutions instances of axiom <a href="#org21ed75c">3.1</a>) and all truth-functional tautologies as theorems, and is closed under modus ponens and uniform subtitution.</li>
+<li>I.e. normal minus the closure under necessitation.</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org71cf04c" class="outline-4">
+<h4 id="org71cf04c"><span class="section-number-4">6.3.2</span> Notes</h4>
+<div class="outline-text-4" id="text-6-3-2">
+<ul class="org-ul">
+<li>Want to articulate the pre-theoretic standard we want theorems of the logic of metaphysical modality to meet.</li>
+<li>By 'logic', we want a theory that consists of all sufficiently-general truths about metaphysical modality.</li>
+<li>A set of sufficiently general truths has the formal characteristics of a formal logic.
+<ul class="org-ul">
+<li>Others might demand other characteristics of a logic from the outset: that it should be necessary/a prioi/analytic, but let's not burden ourselves right now with that.</li>
+</ul></li>
+<li>Not interested in specific propositions like 'It is metaphysically necessary that all tigers are animals', but rather things like \(\Box P \rightarrow \Box \Box P\), which is 'metaphysically universal' if the <span class="underline">universal generalization</span> of the formula, i.e. \(\forall X.(\Box X \rightarrow \Box \Box X)\), is true.</li>
+<li>Metaphysical universality corresponds to Tarski's account of logical truth
+<ul class="org-ul">
+<li>A special case of his account of logical consequence (consequents of the empty set)</li>
+<li>For Tarski, \(\Gamma \vdash A\) if on every interpretation that treats logical constants as intended and non-logical constants like variables and if every formula in \(\Gamma\) is true, then \(A\) is true.</li>
+</ul></li>
+<li>Call the system that is both sound and complete for metaphysical universality \(MU\). What system is \(MU\), in axiomatic or model-theoretic terms?
+<ul class="org-ul">
+<li>We would like the set of metaphysical possibilities, the genuine relation of relative possibility, and the genuine state of the world.</li>
+</ul></li>
+<li>If there is an intended Kripke model structure for \(MU\), then it is a consistent, Halldén-complete, quasi-normal logic (In <a href="#orgc5d7ed1">6.2</a> it was shown that the logic of any model structure is quasi-normal and Halldén-complete.)
+<ul class="org-ul">
+<li>\(MU\) is consistent.
+<ul class="org-ul">
+<li>It doesn't contain every formula (no universal generalization of \(P \land \neg P\))</li>
+</ul></li>
+<li>\(MU\) is closed under modus ponens 
+<ul class="org-ul">
+<li>If \(A \rightarrow B\) and \(A\) are metaphysically universal, then their universal generalizations are true, so the universal generalization of \(B\) is true by standard logic of universal quantification.</li>
+</ul></li>
+<li>\(MU\) is closed under uniform substitution
+<ul class="org-ul">
+<li>If \(B\) is a substitution instance of \(A\), any counterexample to the universal generalization of \(B\) is a counterexample to the universal generalization of \(A\).</li>
+<li>So if \(A\) is metaphysically universal, then so is \(B\).</li>
+</ul></li>
+<li>\(MU\) is Halldén complete.
+<ul class="org-ul">
+<li>Suppose neither \(A\) nor \(B\) is metaphysically universal (and have no non-logical expression in common)</li>
+<li>Then there exist counterexamples to the universal generalizations of \(A\) and \(B\).</li>
+<li>By the disjointness of the non-logical constants, when the counterexamples are combined then a counterexample to \(A \lor B\) is generated.</li>
+</ul></li>
+<li>Less straightforward to argue \(MU\) extends <a href="#org21ed75c">3.1</a>
+<ul class="org-ul">
+<li>We cannot take the standard axioms of \(K\) and show they are obviously metaphysically universal.
+<ul class="org-ul">
+<li>\(A \rightarrow \Box A\) might not be metaphysically universal if there exists a formula which is metaphysically universal but not its universal generalization.</li>
+<li>Alternate strategy: described on bottom of page 98 #todo</li>
+</ul></li>
+<li>This is not proof that \(MU\) has a model structure but it is evidence towards that.</li>
+</ul></li>
+</ul></li>
+<li>Cannot use the canonical model for \(MU\) to define an intended model structure, as canonical models are only guaranteed to exist for <span class="underline">normal</span> logics, whereas \(MU\) is quasi-normal.
+<ul class="org-ul">
+<li>The idea of a canonical model can be extended to any quasi-normal logic \(S\), by considering the normal kernel \(N(S)\) (largest normal subsystem of \(S\)).</li>
+<li>Also this isn't even a good choice for three reasons
+<ul class="org-ul">
+<li>1. the canonical model is not pointed, whereas we clearly have an actual world to distinguish.</li>
+<li>2. #todo  page 100</li>
+<li>3. #todo</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org3077ac3" class="outline-3">
+<h3 id="org3077ac3"><span class="section-number-3">6.4</span> Part 3.4 Kripke models for first-order modal logic</h3>
+<div class="outline-text-3" id="text-6-4">
+</div>
+<div id="outline-container-orge1efd06" class="outline-4">
+<h4 id="orge1efd06"><span class="section-number-4">6.4.1</span> Notes</h4>
+</div>
+</div>
+<div id="outline-container-org7f55154" class="outline-3">
+<h3 id="org7f55154"><span class="section-number-3">6.5</span> Part 3.5 BF and CBF in Kripke's model theory</h3>
+<div class="outline-text-3" id="text-6-5">
+</div>
+<div id="outline-container-org0db49f3" class="outline-4">
+<h4 id="org0db49f3"><span class="section-number-4">6.5.1</span> Notes</h4>
+</div>
+</div>
+<div id="outline-container-orgc4571be" class="outline-3">
+<h3 id="orgc4571be"><span class="section-number-3">6.6</span> Part 3.6 Metaphysical universality in FO modal logic</h3>
+<div class="outline-text-3" id="text-6-6">
+</div>
+<div id="outline-container-org28361c5" class="outline-4">
+<h4 id="org28361c5"><span class="section-number-4">6.6.1</span> Notes</h4>
+</div>
+</div>
+<div id="outline-container-org650cca5" class="outline-3">
+<h3 id="org650cca5"><span class="section-number-3">6.7</span> Part 3.7 Intended inhabited model structures for necessitism</h3>
+<div class="outline-text-3" id="text-6-7">
+</div>
+<div id="outline-container-org92f9267" class="outline-4">
+<h4 id="org92f9267"><span class="section-number-4">6.7.1</span> Notes</h4>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdedb78f" class="outline-2">
+<h2 id="orgdedb78f"><span class="section-number-2">7</span> Chapter 4 Prediction and Modality #todo</h2>
+</div>
+<div id="outline-container-org623ddd0" class="outline-2">
+<h2 id="org623ddd0"><span class="section-number-2">8</span> Chapter 5 From First-order to Higher-order modal logic #todo</h2>
+</div>
+<div id="outline-container-org2d58307" class="outline-2">
+<h2 id="org2d58307"><span class="section-number-2">9</span> Chapter 6 Intensional comprehension principles and metaphysics #todo</h2>
+</div>
+<div id="outline-container-orgb00775a" class="outline-2">
+<h2 id="orgb00775a"><span class="section-number-2">10</span> Chapter 7 Mappings between contingentist and necessitist discourse #todo</h2>
+</div>
+<div id="outline-container-orgdf545b5" class="outline-2">
+<h2 id="orgdf545b5"><span class="section-number-2">11</span> Chapter 8 Consequences of necessitism  #todo</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kris Brown</p>
+<p class="date">Created: 2019-10-22 Tue 20:20</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

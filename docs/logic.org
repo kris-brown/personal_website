@@ -1,0 +1,453 @@
+#+Title: Modal Logic as Metaphysics
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{mathtools}
+#+LATEX_HEADER: \usepackage{amssymb}
+#+LATEX_HEADER: \usepackage{mathrsfs}
+#+OPTIONS: tex:mathjax
+* Info
+- Special tags:
+ - integers (page numbers)
+ - nocard (don't make a Anki Flashcard)
+ - todo (needs work)
+
+- Things enclosed in ## any text ## will be clozed on flashcards
+- LaTeX triggered by closing within '$'
+* Questions
+ - I searched for "intuitionism" and got no hits, really? 
+ - To what extent do we, in this kind of philosophy, seek to _descriptively_ adhere to arbitrary English idioms /versus/ _prescriptively_ correct our forms of speech? I would guess it operates similar to scientific theories which likewise has an unchanging prescriptive core (paradigm shifts notwithstanding) while still being open to describe and adapt to whatever is observed.
+ - On the number of possible things...
+   - This feels like inherently in the eye of the beholder. Let's say there is phenomena, if we happen to choose to model this as objects with properties (including modal properties) interacting with each other, there are many ways we can slice/dice up the phenomena in order to do that. 
+   - Does Williamson think there is a perfect model of the world that has the correct number of objects in it?
+   - Is my intuition merely 'linguistic turn'? If all there is is language, then it's natural that the number of objects would be dependent on what language you chose, and perhaps there is an 'ideal' language with the right number (though it seems very likely that there are multiple languages that are very different yet similarly 'ideal')
+ - [[Part 1.3]] 
+   - I feel predicative vs attributive  would be better called 'predicative' vs 'modal' (and noting that we use the adjective part of speech in English to do two structurally different kinds of things).
+   - "The coin that was destroyed is a past coin" "Socratese is dea because he was alive". Here is where necessitism shines - these are very natural things to say that a temporaryist/contingentist cannot. Can things which do not exist have attributes? How can the expression "x does not exist" even be coherent? 
+ - [[Part 1.6]]
+   - Williamson seems to take a particular reading of 'presently' or 'actually' and show that the dispute is trivial, letting him conclude it is a confused debate. Why not be chartible and find interpretations that lead to nontrivial debate?
+ - [[Part 2.1]]
+   - Why is the necessitation rule discussed on pg 34 $B \implies \Box B$ ... surely they mean $\Box B \implies \Box \Box B$ ?
+ - [[Part 2.2]]
+   - From wikipedia, BF means that the domain of individuals cannot increase as one goes to accessible worlds (there are no 'merely possible' individuals), whereas CBF means that the domain of individuals cannot decrease as one goes to accessible worlds.
+   - Why are there formulas with the same variable being existentially and universally quanitified? (E.g. Eq 9 and 10 on page 39) How do I read these?  It seems like 'unhygienic' scoping of variable names.
+   - "x is nothing implies there exists an x which is nothing." This seems very unusual to state, partially because it is an open formula.
+   -  Pg 40: Williamson thinks the ways Kripke excludes certain logical statements is ad hoc. They seem reasonable to me.
+ - [[Part 2.4]]
+   -  I don't entirely follow what it means for 'modality to be consitututed by language' as opposed to described by it. Or maybe as a linguistic deflationist it is just for me in particular that they are the same (that Felix is a cat _means_ that Felix has a relation to other sorts of sentences we can say about him, whereas someone normal would say it means something metaphysical about Felix). I guess I like Carnap.
+ - [[Part 3.1]]
+   - "To somehow interpret logical modality as a special case of Kripke semantics would nullify the distinctive advantages of the approach." why this is is not clear to me.
+ - [[Part 3.2]]
+   - The construction of a canonical model is above my head ...
+ - [[Part 3.3]]
+   - What is having 'no non-logical expression in common' mean (in context of Halldén completeness)?
+  - I don't understand this sentence, page 95 bottom. (ditto for first paragraph of pg 96) "Sometimes, the connection between the intended interpretation and a mathematical model theory for a formal language is made by one intended model or many mutually isomorphic models. As already seen, we cannot expect that here, because the atomic sentences lack intended interpret- ations. "
+* Overall Equations
+** K
+ -  $\Box(A \rightarrow B) \rightarrow (\Box A \rightarrow \Box B)$
+ - named after Kripke
+** D
+ - $\Box A \rightarrow \Diamond A$
+ - "Serial" accessibility relation: $\forall w.\ (\exists u.\ wRu)$
+** M
+ - $\Box A \rightarrow A$
+ - "Reflexive" accessibility relation: $\forall w.\ wRw$
+** Axiom 4
+ - $\Box A \rightarrow \Box \Box A$
+ - "Transitive" accessibility relation: $\forall w, v, u.\ (wRv \land vRu) \rightarrow wRu$
+** B
+ - $A \rightarrow \Box \Diamond A$
+ - "Symmetric" accessibility relation: $\forall w,v.\ wRv \rightarrow vRw$
+ - Named after Brouwer
+** Axiom 5
+ - $\Diamond A \rightarrow \Box \Diamond A$
+ - "Euclidean" accessibility relation: $\forall w,v,u.\ (wRv \land wRu) \rightarrow vRu$
+** Axiom CD
+ - $\Diamond A \rightarrow \Box A$
+ - "Functional" accessibility relation:  $\forall w,v,u.\ (wRv \land wRu) \rightarrow v=u$
+** Axiom $\Box$ M
+ - $\Box(\Box A \rightarrow A)$
+ - "Shift reflexive" accessibility relation: $\forall w,v.\ wRv \rightarrow vRv$
+** Axiom C4
+ - $\Box \Box A \rightarrow \Box A$
+ - "Dense" accessibility relation: $\forall w,v,u.\ wRv \rightarrow (\exists u.\ wRu \land uRv)$
+** Axiom C
+ - $\Diamond \Box A \rightarrow \Box \Diamond A$
+ - "Convergent" accessibility relation: $\forall w,v,x.\ ((wRv \land wRx) \rightarrow \exists u. (vRu \land xRu))$        
+* Chapter 1: Contingentism and Necessitism
+** <<Part 1.1>> The question
+*** Notes:
+ - Necessitism: It is necessary what there is 
+   - Necessarily: everything is necessarily something 
+   - Necessarily: for every thing it is necessary that something is identical to it.
+   - Slogan: Ontology is necessary
+ - Contingentism: the negation of necessitism
+   - It is not the case that (necessarily) everything is necessarily something.
+   - Slogan: ontology is contingent 
+ - Necessitists can say that it is contingent that there are animals
+   - This implies some particular animal is only contingently an animal;
+   - It does not imply that an animal is only contingently something.
+ - Contingentists need not deny that some things exist necessarily 
+   - e.g.: Platonists w/r/t mathematical concepts
+ - Permanentism: 
+   - Always: everything is always something
+   - ¬(necessitism ⇒ permantism)
+   - A fatalist denies all contingency, but things change on a necessary schedule.
+ - Temporaryists:
+   - Negation of permanentism 
+   - temporaryism ⇒ contingentism
+** <<Part 1.2>> Forms of necessitism
+*** Notes:
+ - On the surface, necessitism seems obviously false:
+   - Some coin you have might not have been 
+   - Temporaryist might add it once was not and eventually will not be.
+ - Replies can address the charge of obvious falsehood
+   - Generic reply: what seemed obvious in the past has often turned out to be false
+     - This is uninteresting since it can be made to defend any hypothesis. Because we can generate hypotheses faster than we can seriously evaluate them, this would deadlock enquiry.
+   - Less generic reply: Eliminativism
+     - The 'coin' is code for 'atoms' (there are really only atoms)
+     - It is not obvious whether atoms necessarily are
+   - Less generic reply: Reductionism
+     - Similar to eliminativism but allows the 'coin' to exist too, even if it is not the same as its atomic parts. Still, if its atomic parts are necessary (this isn't obvious) then it is necessary.
+ - Necessitivism requires the barrier between "concrete" and "non-concrete" to be modally/temporally permeated in both directions
+   - Given a concrete coin that exists, it is necessarily something. Assuming it's possible there is a the counterfactual scenario where no concrete things such as atoms exist, then necessitivism says  "the property of being concrete is not a necessary property"
+   - This goes both ways. So something abstract could've been concrete and something concrete could've been abstract.
+   - Subtle point: concrete and non-abstract (and non-concrete and abstract) are not synonyms. Perhaps something are neither abstract nor concrete.
+     - Abstract objects like numbers play theoretically defined roles
+     - The 'non-concrete' coin need not play any similar role to the coin.
+     - Temporal analogy: when the iceberg melts, it ceases to be concrete, rather than becoming an abstract object.
+ - Thus necessitism requires modification to conventional belief that the property of membership of a natural kind is essential to its members
+   - Statements like "A tiger is essentially a tiger", "Gold is essentially gold" are typically thought to be true.
+   - Must be modified: "A tiger is essentially if concrete a tiger" since it is possible 
+ - Another controversial issue: multiplication of entities
+   - If there could have been at least n concrete things, then given necessitism, there are at least n possibly concrete things.
+** <<Part 1.3>> Possible Fs
+*** Notes:
+ - Scenario: Suppose there exists a stick of oak and that it might've been the case that the oak tree never grew. For necessitist, it is still necessary that the stick is, so if the tree never grew, the stick would have been neither concrete nor abstract. What would it have been? A necessitist could say it would have been a possible stick.
+ - Bad criticism: "possible stick" is a contradiction! "concreteness" is a necessary for being a stick.
+   - This is 'predicative' reading of "possible stick" because it interprets it as "x is a stick and x is possible"
+   - This reading is clearly not intended by the necessitist.
+ - 'Attributative' reading of the meaning "possible stick": "x could have been a stick."
+ - In general we have 'predicative' vs 'attributative' ambiguity in the English language. It's not the case that one reading is always correct.
+   - Predicative interpretation almost default: "South African diamond", "red car", etc.
+   - "We are all possible murderers" - only makes sense with attributive reading. Same with "alleged diamond" (since things that are not diamonds can be alleged diamonds)
+   - Attributative reading also makes sense for temporal modifiers ("you are a future president" != "you are president and you will exist in the future).
+   - The two readings agree when x really is a stick, but not when this is merely possible (i.e. possibly true but not actually).
+ - Permanentists: the coin that was destoyed is a past coin. Socrates is dead because he was alive. 
+   - Vague objection: where is the past/future coin now. What is the possible stick actually? Relies on a nonobvious assumption that there exist no non-concrete, non-abstract objects such as possible/past objects.
+   - Another vague objection: an object needs non-modal properties to ground its modal properties, which "possible stick" violates. 
+     - Motivated by case of "malleability of clay" (modal property) is due to its chemical structure (non-modal property). 
+     - However, distinction between modal/nonmodal properties is not obvious at first glance.
+** <<Part 1.4>> Unrestricted generality
+*** Notes:
+ - Necessitism: "Everything is necessarily something" - here everything and something quantify over everything, with no tacit context restriction.
+ - Sometimes universal quantifiers have implicit context restriction in everyday language: "(concrete) things are not necessarily something (concrete)" is a different proposition that necessitsts would agree to.
+ - Set theoretic objection in general to universal quantification (Russell's paradox) relies on other auxillary assumptions which this book does not address. Assume that universal quanitification is intelligible.
+ - Unrestricted quantification does not make necessitism trivially true: if the possible coin does not exist, then one is not licensed to say the coin is necessarily something (the possible coin). You can only talk about what is already there.
+ - Modal realism is treated as false by this book. It makes the key conclusions of the book trivially true, even if it were addressed. There are lots of interesting issues with universal quantification w/r/t modal realism (they cannot say "it is possible for there to be (unrestrictedly) no donkeys" but only "there is a possible world with no donkeys").
+** <<Part 1.5>> Necessitism and Meinongianism
+*** Notes:
+ - Suppose 'exists' = 'is (unrestrictedly) something', then necessitism is: "Necesssarily everything necessarily exists." (ditto "Always everything always exists.")
+ - Confused counterpoint: "events do not exist; they occur"
+   - Relies on an alternative reading of exist ('exist concretely') which is clearly false in unrestricted quantification (e.g. numbers).
+   - "Exists" has many confusions and it is best not to use it as a key term when formulating a thesis.
+ - A necessitist who restricts "exist" to concrete things will say "Some things do not exist". Meinong also used existence as a predicate, leading to conflation of the two views.
+   - However, Meinong characteristization scheme "The F is an F" claims a round square is a round square, a golden mountain is a golden mountain. This is like the attributative reading of 'possible', whereas necessitism has no commitment to that.
+** <<Part 1.6>> Actualism and possibilism 
+*** Notes:
+ - Actualism ("everything is actual") vs possbilism ("not everything is actual; everything is possible") is a confused debate. Likewise for 'eternalism' vs 'presentatism'.
+** <<Part 1.7>> Identity and distinctness
+*** Notes:
+ - Classicala modal logic: idendicals are necessarily identical and distinct things are necessarily distinct.
+ - Argument for necessity/permanentness of identity:
+   - x = y. By indiscernibility of identicals, x is whatevey y is. y is necessarily y, so x is necessarily y.
+   - In these arguments, x,y are variables who values are simply things, not standing as definite descriptions which could mean different things based on context.
+   - Argument likewise for distinctness goes similarly.
+ - Sometimes necessitists feel obligated to challenge this to avoid ontological inflation, but these efforts are unsuccessful and awkward.
+ - Contingentists have to slightly qualify the above because x is necesssarily/always x unqualified conflicts with contingentist thesis.
+** <<Part 1.8>> Dying and never being born
+*** Notes:
+ - The debate hitherto has some impact in how we think about practical emotional/moral issues.
+ - Epicurus: "Death is nothing - when we exist, death is not present, and when death is present, we do not exist."
+   - One reading: after death, one cannot bear properties such as being unfortunate. Requires contingentism.
+   - This also requires an egoistic belief that goodness/badness is only dependent on the kinds of experience one has, excluding possibilities such as "it is good for me that my loved ones flourish".
+ - Worrying about having children because it might be better for your kids if they were never born.
+   - Contingentism needed to call this as confused thinking (if they were never born, then they do not exist).
+* Chapter 2: The Barcan Formula and its Converse :todo:
+** <<Part 2.1>> The Barcan Formula
+*** Definitions
+**** <<BF>>
+***** Term
+ - Barcan Formula
+***** Def
+ - $\Diamond A \rightarrow \Diamond(\exists v.\ A))$
+ - Note this is a schema rather than a particular formula in the object language. The rule is that any expression A (with free variable v, in the nontrivial case) can be substituted.
+ - If there possibly exists something which makes a statement true, then there exists something which possibly makes a statement true.
+ - Equivalently written as [[BF']]
+**** <<modal closure>>
+***** Term
+ - Modal closure of some formula, B
+***** Def
+ - Original is saying the way things are in the actual world is necessary.
+ - Prefixing B with a finite string (perhaps empty) of universal quanitifers and necessity operators.
+ - In most systems of QML, modal closure preserves truth.
+**** <<Full BF>>
+***** Term
+ - Full BF
+***** Def
+ - All [[modal closure]]s of the instances of BF.
+ - The distinction is only important if some special characteristic of the actual world makes BF true but not in all possible worlds
+ - With the assumption that there is no special accessibility characteristic of our world, we can think of them as the same.
+*** Formulas
+**** <<BF'>>
+ -  $\forall v.\ \square A \rightarrow \Box (\forall v.\ A)$
+ - If everything necessarily satisfies a condition, then necessarily everything satisfies the condition.
+**** <<2.1>>
+ - $\Box(\exists v. \Diamond(A) \rightarrow \Diamond(\exists v. A))$
+**** <<2.2>>
+ - $\Diamond (\exists x. @ \neg \exists y. x=y) \rightarrow \exists x. \Diamond (@\neg \exists y. x=y)$
+ - @ is rigidifying operator that returns the semantic evaluation to the world of utterance.
+**** <<2.3>>
+ - $\Diamond \exists x. F(x) \rightarrow \exists x. \Diamond F(x)$
+**** <<2.4>>
+ - $\Box(\Diamond \exists x. (x=y) \rightarrow \exists x. \Diamond (x=y))$
+
+**** <<2.5>> 
+ - $\Box(\exists v.\ \Diamond A \rightarrow \Diamond(\exists v.\ A))$
+*** Notes
+ - Quantified modal logic bears all the troubles of predicate logic, modal logic, as well as new problems resulting from combinations of the operators.
+ - First appeared formally in 1946 "A Functional Calculus of First Order Based on Strict Implication" which takes unquantified modal logic system S2 and adds existential operator. No semantics was given.
+   - Contemporary modal logicians take $\square$ as a primative modal operator, but back then it was "strict implication" which meant $\square(A \rightarrow B)$
+ - Even full BF is not sufficient to prove the necessitist claim (though all necessitists accept full BF), but in practice almost all contingentists reject it. 
+   - Contingentist belives there could have been something that is actually nothing (e.g. there could have been more things than there actually are).
+   - Let $F$ be the predicate "is such that it is actually nothing". Plugging in the belief above into the antecedent to BF we get [[2.3]] (more explicitly [[2.2]])
+     - This is clearly false under their reading
+       - Necessitist response: reject the antecedent; there is no such thing that could have been actually nothing.
+     - Let $F$ be "is a child of JFK & Marilyn Monroe". The fact that it is possible they had a child does not mean that there exists a human which possibly was their child.
+       - Necessitist response: accept both antecedent and consequent. There does exist a possible child of JFK and MM.
+   - Alternatively, subsitute the open formula $x=y$ for $A$ in the [[BF]] schema one gets [[2.4]].
+     - Suppose $y$ is some specific mountain $K_2$ that exists.
+     - The sentence BF lets us say is: Necessarily, if there could have been $K_2$, then there is something that could have been $K_2$
+     - If nothing were $K_2$, then it's not necessary that there is nothing that could have been $K_2$, in their minds.
+     - This can be derived from above, assuming that in the real world there is a $K_2$: $\Box (\exists x. \Diamond (x=y))$ This is false for contingentists: it is not necessary for there to be something that could have been $K_2$.
+     - So BF must be false.
+     - Necessitist response: accept that $\forall y: \Box (\exists x: x=y)$
+** <<Part 2.2>> The Converse Barcan Formula
+*** Definitions
+**** <<CBF>>
+ - $\exists v.\ \Diamond A \rightarrow \Diamond (\exists v.\ A)$
+ - Necessarily, if there is something that could've satisfied a condition, then there could've been something that satisfied the condition.
+ - Alternatively written as [[CBF']]
+**** <<free logic>>
+ - A logic in which the schema of 'existential generalization',  $A \rightarrow \exists v. A$, is **not** universally valid
+ - By duality this is equivalent: $(\forall v.\ A) \implies A$
+ - Free modal logic usually uses restricted variants on classical FOL axioms: [[FUI]] and [[FUG]] (The requirement that $t$ exists before substituting is added from conventional FOL)
+*** Formulas
+**** <<CBF'>>
+ -  $\Box (\forall v.\ A)  \rightarrow \forall v.\ \square A$
+**** <<2.6>>
+ - $\exists x.\ \Diamond (\neg \exists y.\ x=y) \rightarrow \Diamond(\exists x.\ \neg \exists y.\ x=y)$
+**** <<2.7>>
+ -  $\forall x.\ \Box(\exists y.\ x=y)$
+**** <<2.8>>
+ - $\Box(\neg(\exists y.\ x=y) \rightarrow (\exists x. \neg (\exists y.\ x=y)))$
+**** <<2.9>>
+ - $\forall z.\ \Box(\neg(\exists y.\ z=y) \rightarrow (\exists x. \neg (\exists y.\ x=y)))$
+ - outer scope 'x' changed to 'z' for hygiene
+**** <<2.10>> 
+ - $\Box (\forall z.\ (\neg(\exists y.\ z=y) \rightarrow (\exists x. \neg (\exists y.\ x=y))))$
+ -  [[2.9]] with the outer box and quantifier reversed
+**** <<2.11>>
+ - :todo:
+**** <<Rule of necessitation>>  
+ - $A$ is derivable in pure logic $\rightarrow \Box A$
+**** <<FUI>>
+ - $\vdash \forall v. A(v) \rightarrow (E(t) \rightarrow A([t/v])$
+**** <<FUG>> 
+ - If $\vdash A \rightarrow (E(v) \rightarrow C)$ and $v$ is not free in $A$ then $\vdash A \rightarrow \forall v. C(v)$
+**** <<NNE>>
+ - $\Box(\forall x.\ \Box(\exists y.\ x=y))$
+*** Notes
+ - Contingentists reject [[CBF][CBF]] by substituting $\neg (\exists y. x=y)$ (i.e. "x is nothing") for $A$ into CBF: [[2.6]]
+   - The consequent is that there possibly exists something that is nothing, but this is universally agreed upon as false because 'something is nothing' would be inconsistent.
+   - Contingentists take the antecedent to be clearly true (for ordinary material objects, which could have been nothing) and therefore CBF to be false, but necessitists take this as evidence that the antecedant must be false. The negation of the antecedent is the Necessity of Being [[2.7]] which is the necessitist claim that everything is necessarily something.
+     - With "full CBF" one derives the stronger necessitist claim that necessarily everything is necessarily something: [[NNE][NNE]]
+   - So necessitists and contingentists naturally divide over CBE just like they do over CB.
+ - Barcan had an independent proof of CBF, but there is a natural way of identifying a fallacy for contingentists.
+   - The invalid axiom is $\Box(\forall x. A \rightarrow A)$
+   - Substituting 'x is nothing' for $A$ to make things more concrete: the proof involves using that $\neg(\exists y.\ x=y)$ strictly implies $\exists x. \neg (\exists y.\ x=y)$ [[2.8]]
+     - $x$ is nothing implies there exists an $x$ which is nothing.
+     - Open formula can be rewritten as universally generalized. [[2.9]] requires CBF, which is circular reasoning.
+ - To call this a fallacy means contingentists must reject taking [[2.8]] as a theorem
+   - This means either rejecting [[2.11]] (which follows from [[2.8]], or rejecting the [[Rule of necessitation][Rule of necessitation]], which allows one to infer [[2.8]] from [[2.11]]
+     - Reject [[2.11]] (adopt some form of 'free logic')
+     - Reject [[Rule of necessitation][Rule of necessitation]]
+     - Williamson thinks the ways Kripke excludes certain logical statements (open formulas, formulas with proper names) is ad hoc. More detail on page 40.
+   - Conclusion: contingentists who reject free logic or reject that all logical truths are necessary truths.
+     - Tarski (nonmodal) definition of logical truth: a sentence is logically true iff it is true under every reinterpretation of its non-logical atomic constituents.
+     - This allows contingentists a way to gracefully do this.
+     - However, the contingentist's language will in a sense still be free.
+ - Necessitists can accept Barcan's proof of CBF, but cannot expect it to convince contingentists. Within the free modal logic of the contingentist still will see BF/CBF/NNE as equivalent formulations of necessitism. 
+ - Although BF is independent of CBF in Barcan's original system, with the modal axiom [[B]] (that which is, is necessarily possible - uncontroversial for metaphysical necessity) that BF and CBF are equivalent.
+** <<Part 2.3>> Ibn-Sina
+*** Definitions
+**** <<ISP>> 
+ - $\Diamond(\exists v.\ A) \leftrightarrow \exists v.\ \Diamond A$
+*** Formulas
+**** <<2.16>> 
+ - $\Box(\Diamond(\exists v.\ A) \leftrightarrow \exists v.\ \Diamond A)$
+*** Notes
+ - The combination of BF and CBF, [[2.16]], is the necessary equivalence of 'something possibly' and 'possibly something'.
+ - Ibn-Sina (Avicenna, 980-1037) remarked "__some people possibly are not writers__ is modally the same as __possibly some people are not writers,__ and although one implies the other, the meaning of one may be opposite to the other"
+ - Call the __unnecessitated__ equivalence the Ibn-Sina principle [[ISP]]
+** <<Part 2.4>> Carnap
+*** Notes
+ - Carnap did not interpret $\Box$ as metaphysical necessity but only as logical necessity ($\Box A$ iff $A$ is "L-true").
+   - L-truth (within some semantical system $S$) if the sentence is true in such a way that its truth can be established on the basis of semanticaal reules of the system $S$ alone, without any reference to (extra-linguistic) facts.
+ - It is difficult to tell whether $F(x)$ is L-true (because it is an open-formula). But an interpretation of this is needed in order to make sense of fomulas such as $\forall x. \Box F(x)$ 
+   - Quine first raised this issue in 1943
+   - Implied response is that open formulas play no role in semantics, so $\Box A$ is only evaluated when $A$ is closed.
+     - Example: $\exists x.\ \Box F(x)$ - "Something is necessarily F"
+     - $Fa$ is false in some state-description so the statement is false. 
+   - His semantics validates [[BF]], [[CBF]], [[ISP]].
+ - Carnap seems similar to possible worlds semantics, as sentences can hold or not within _state-descriptions_ (likened to Liebniz possible worlds or Wittgenstein's possible states of affairs).
+   - Modal operators are treated like quantifiers over state descriptions.
+   - He did not think to restrict accessibility of state descriptions to each other, so effectively he was working in $S_5$.
+ - Carnap wanted to treat modal FOL with as much of FOL without invoking any extra notions. This fails to treat modality as a metaphysical dimension of how things are, to be described in the language rather than be constituted by it.
+   - His state-descriptions are linguistic constructs, not metaphysical postulates.
+   - His criterion of possibility is purely logical.
+     - There are states where "Felix is a dog" are true, even if "Felix is a cat" in our world or even the same state-description (which many would consider an impossibility).
+     - That said, identity sentences are treated specially: 'a=a' is true in all state-descriptions and 'a!=b' is true in all when a,b are distinct constants.
+     - Implicitly, the burden is on the _language_ to enforce that different constants refer to _semantically_ different individuals.
+   - Whether a sentence is L-true depends purely on intra-linguistic matters. The semantic reources to characterize the non-modal language suffice to charaacterize the modal language too.
+     - This is better than contemporary possible worlds model theories, which define what it is to be true given a model (user-supplied, could be any set of states) rather than what is truth-_simpliciter_.
+     - Given the semantics of a non-modal language, Carnap defines the truth _simpliciter_ of $\Box A$ and $\Diamond A$, not just in a given model.
+ - Objections
+   - A substitutional account of quantificiation such as Carnap's has too small of a set of terms; some individuals may be denoted by no term in the class.
+     - There are uncountably many real numbers.
+     - If an individual is denoted by no individual constant, but the meanings of Carnap's sentences in the lanaguage are of little interest.
+   - Carnap's later reworkings (in _Meaning and Necessity_) are more sophisticated, though still open to the main objection above.
+   - Lots of detail about this from pg 51-60 #todo
+** <<Part 2.5>> Barcan Marcus again                                    :todo:
+ - In a language with finitely many constants, one can treat $\exists x.\ A(x)$ as a finite disjunction of substitutions into $A$ and $\forall x.\ A(x)$ as a finite conjunction. 
+** <<Part 2.6>> Prior                                                  :todo:
+** <<Part 2.7>> Truth-value gaps                                       :todo:
+** <<Part 2.8>> Logical modalities                                     :todo:
+* Chapter 3 Possible worlds model theory :todo:
+** <<Part 3.1>> Kripke
+*** Notes
+ - "Semantical Considerations on Modal Logic" (1963)
+   - Solves problems of Carnap's approach by distinguishing models and worlds.
+     - Modal operators still quantify over worlds, but each model has its own set of worlds (any nonempty set)
+     - The model can exclude some logically permissible assignments of truth values ot atomic formulas (Felix is a cat / Felix is a dog never both true, in some models).
+       - Thus logical __consistency_ of $A$ no longer implies logical _truth_ of $\Diamond A$
+   - Binary relation of 'relative possibility' / accessibility allows treatment of modal logics weaker than $S_5$, so that matters of necessity/contingency can themselves be contingent.
+ - Hintikka criticizes the model theory for putting non-logical restrictions on the class of worlds in a model.
+   - However, we only need to consider a subclass of Kripke models which are appropriate for logical interpretation.
+   - We can consider class models $M$ such that for each model $N$ of the nonmodal fragment of the language, some world in $M$ determines the same truth values as $N$ for all non-odal formulas. All worlds in $M$ are to be mutually accessible.
+ - Kripke's necessity must be _metaphysical_ necessity, not _logical_ necessity, given his treatment of proper names as _rigid designators_ (denoting the same individual in every world).
+   - $a=b \rightarrow \Box(a=b)$ for constants $a,b$ 'Hesperus=Phosphorus' is a truth, but it is not a truth of _logic_
+   - A key advantage of Kripke semantics is the separation of possibility from logic. To somehow interpret logical modality as a special case of Kripke semantics would nullify the distinctive advantages of the approach.
+ - The semantics are dependent on the model and accessibility relation.
+** <<Part 3.2>> Kripke models for normal propositional modal logic
+*** Definitions
+**** <<Kripke model structure>>
+ - A triple $(W, R, w_0)$
+   - The set of possible worlds, the accessibility relation  $R \subseteq W \times W$, and the actual world $w_0 \in W$
+ - Many things irrelevant to metaphysical modality satisfy this structure - something to be cautious of.
+**** <<model on a kripke model structure>>
+ - A quadruple $(W, R, w_0, V)$
+ - Need more than model structure to evaluate formals as true or false. Need a function $V$ to assign each atomic formula in each possible world.
+ - Recursively define truth of any formula:
+   - $M,w \vDash A := V(A,w)$
+   - $M,w \vDash A \land B := V(A,w)$ and $V(B,w)$
+   - $M,w \vDash A :=$ not $ V(A,w)$
+   - $M,w \vDash \Box A :=$ for all $x \in W$ that $wRx \rightarrow M,x \vDash A$
+ - Note that $M \vDash A := M,w_0 \vDash A$
+**** <<Kripke frame>>
+ - Any pair $(W, R)$, basically a Kripke model structure but without a designated 'actual' world.
+ - We cannot use the standard definition of truth simpliciter of $A$ without an actual world, but this can be defined as being true in every world of the model (this is an even stronger claim than $\Box A$)
+**** <<validity on a Kripke frame>>
+ - A formula is _valid_ on a model structure iff it is true in every model on that frame.
+ - If we really need to make reference to an actual world, we can call the model 'pointed' or 'centered' - by default we'll assume there is no such world.
+**** <<logic of a Kripke frame>>
+ - The set of all formulas valid on it. 
+ - The logic of a set of frames is the intersection of their individual logics. 
+**** <<Hallden-complete>>
+ - A logic is Halldén complete iff $A \lor B$ being a theorem, in conjunction with $A, B$ not having any non-common logical expressions, then $A$ is a theorem or $B$ is a theorem.
+**** <<normal propositional modal logic>>
+ - $S$ has all substitutions instances of axiom [[K][K]] and all truth-functional tautologies as theorems, and is closed under modus ponens, uniform subtitution, and necessitation.
+**** <<canonical model>>
+ - A canonical model $M_s = (W_S,R_S,V_S)$ of a normal propositional modal logic $S$
+ - The theorems of $S$ are exactly hte formulas true everywhere in $M_S$
+ - Construction: #todo 
+ - A theorem of a normal system $S$ need not be valid on the canonical frame for $S$ since it may be false on some non-actual world.
+*** Notes
+ - Consider a language with countably infinite atomic formulas (P, Q, R, ...), and usual boolean operators, with $\Box$ as necessity and $\Diamond \equiv \neg \Box \neg$
+ - Modus ponens preserves validatity on a frame. 
+   - Whenever $A\rightarrow B$ and $A$ are valid on a frame, so too is $B$
+   - Also preserves validity on a model structure.
+ - Rule of necessitation preserves validity on a frame
+   - Whenever a formula $A$ is valid on a frame, so too is $\Box A$
+   - On a model structure, necessitation does not preserve validity necessarily.
+ - The logic of a model structure is Halldén complete, but the logic of some frames are not Halldén complete.
+ - The logic of modal structures and frames are preserved under uniform substitution.
+ - These results are purely mathematical, formalized within a standard FOL for set theory with no modal elements. No modal elements in the metalanguage and no reference to the actual or possible worlds in a metaphysical sense.
+ - It would be good to find what restricted class of Kripke models is appropriate for metaphysical necessity, but we need a more systematic approach than jotting down constraints whenever they occur to us.
+** <<Part 3.3>> Metaphysical universality in propositional modal logic
+*** Definitions
+**** <<sound for metaphysical universality>>
+ - A system $S$ of propositional modal logic is _sound for metaphysical universality_
+ - Every theorem of $S$ is metaphysically universal.
+**** <<complete for metaphysical universality>>
+ - A system $S$ of propositional modal logic is _complete for metaphysical universality_
+ - Every metaphysically universal formula is a theorem of $S$
+**** <<quasi-normal propositional modal logic>>
+ - A system $S$ of propositional modal logic is _quasi-normal_
+ - $S$ has all substitutions instances of axiom [[K]]) and all truth-functional tautologies as theorems, and is closed under modus ponens and uniform subtitution.
+ - I.e. normal minus the closure under necessitation.
+*** Notes
+ - Want to articulate the pre-theoretic standard we want theorems of the logic of metaphysical modality to meet.
+ - By 'logic', we want a theory that consists of all sufficiently-general truths about metaphysical modality.
+ - A set of sufficiently general truths has the formal characteristics of a formal logic.
+   - Others might demand other characteristics of a logic from the outset: that it should be necessary/a prioi/analytic, but let's not burden ourselves right now with that.
+ - Not interested in specific propositions like 'It is metaphysically necessary that all tigers are animals', but rather things like $\Box P \rightarrow \Box \Box P$, which is 'metaphysically universal' if the _universal generalization_ of the formula, i.e. $\forall X.(\Box X \rightarrow \Box \Box X)$, is true.
+ - Metaphysical universality corresponds to Tarski's account of logical truth
+   - A special case of his account of logical consequence (consequents of the empty set)
+   - For Tarski, $\Gamma \vdash A$ if on every interpretation that treats logical constants as intended and non-logical constants like variables and if every formula in $\Gamma$ is true, then $A$ is true.
+ - Call the system that is both sound and complete for metaphysical universality $MU$. What system is $MU$, in axiomatic or model-theoretic terms?
+   - We would like the set of metaphysical possibilities, the genuine relation of relative possibility, and the genuine state of the world.
+ - If there is an intended Kripke model structure for $MU$, then it is a consistent, Halldén-complete, quasi-normal logic (In [[Part 3.2]] it was shown that the logic of any model structure is quasi-normal and Halldén-complete.)
+   - $MU$ is consistent.
+     - It doesn't contain every formula (no universal generalization of $P \land \neg P$)
+   - $MU$ is closed under modus ponens 
+     - If $A \rightarrow B$ and $A$ are metaphysically universal, then their universal generalizations are true, so the universal generalization of $B$ is true by standard logic of universal quantification.
+   - $MU$ is closed under uniform substitution
+     - If $B$ is a substitution instance of $A$, any counterexample to the universal generalization of $B$ is a counterexample to the universal generalization of $A$.
+     - So if $A$ is metaphysically universal, then so is $B$.
+   - $MU$ is Halldén complete.
+     - Suppose neither $A$ nor $B$ is metaphysically universal (and have no non-logical expression in common)
+     - Then there exist counterexamples to the universal generalizations of $A$ and $B$.
+     - By the disjointness of the non-logical constants, when the counterexamples are combined then a counterexample to $A \lor B$ is generated.
+   - Less straightforward to argue $MU$ extends [[K]]
+     - We cannot take the standard axioms of $K$ and show they are obviously metaphysically universal.
+       - $A \rightarrow \Box A$ might not be metaphysically universal if there exists a formula which is metaphysically universal but not its universal generalization.
+       - Alternate strategy: described on bottom of page 98 #todo
+     - This is not proof that $MU$ has a model structure but it is evidence towards that.
+ - Cannot use the canonical model for $MU$ to define an intended model structure, as canonical models are only guaranteed to exist for _normal_ logics, whereas $MU$ is quasi-normal.
+   - The idea of a canonical model can be extended to any quasi-normal logic $S$, by considering the normal kernel $N(S)$ (largest normal subsystem of $S$).
+   - Also this isn't even a good choice for three reasons
+     - 1. the canonical model is not pointed, whereas we clearly have an actual world to distinguish.
+     - 2. #todo  page 100
+     - 3. #todo
+** Part 3.4 Kripke models for first-order modal logic
+*** Notes
+** Part 3.5 BF and CBF in Kripke's model theory
+*** Notes
+** Part 3.6 Metaphysical universality in FO modal logic
+*** Notes
+** Part 3.7 Intended inhabited model structures for necessitism 
+*** Notes
+* Chapter 4 Prediction and Modality #todo
+* Chapter 5 From First-order to Higher-order modal logic #todo
+* Chapter 6 Intensional comprehension principles and metaphysics #todo
+* Chapter 7 Mappings between contingentist and necessitist discourse #todo
+* Chapter 8 Consequences of necessitism  #todo

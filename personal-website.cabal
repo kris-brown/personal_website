@@ -60,6 +60,7 @@ library
     , unordered-containers
     , vector
     , yaml
+    , text-format-simple
   default-language: Haskell2010
 
 executable prep
@@ -97,6 +98,7 @@ executable prep
     , unordered-containers
     , vector
     , yaml
+    , text-format-simple
   default-language: Haskell2010
 
 executable web
